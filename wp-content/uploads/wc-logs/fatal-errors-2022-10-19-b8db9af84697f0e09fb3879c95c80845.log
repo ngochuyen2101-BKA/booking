@@ -1,0 +1,13 @@
+2022-10-19T04:08:54+00:00 CRITICAL Uncaught Error: Call to a member function get_tax_class() on null in /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-content/plugins/woocommerce/includes/class-wc-cart-totals.php:225
+Stack trace:
+#0 /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-content/plugins/woocommerce/includes/class-wc-cart-totals.php(651): WC_Cart_Totals->get_items_from_cart()
+#1 /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-content/plugins/woocommerce/includes/class-wc-cart-totals.php(143): WC_Cart_Totals->calculate_item_totals()
+#2 /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-content/plugins/woocommerce/includes/class-wc-cart-totals.php(134): WC_Cart_Totals->calculate()
+#3 /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-content/plugins/woocommerce/includes/class-wc-cart.php(1398): WC_Cart_Totals->__construct(Object(WC_Cart))
+#4 /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-includes/class-wp-hook.php(305): WC_Cart->calculate_totals()
+#5 /home/diwehost/domains/diwe.com.vn/pub in /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-content/plugins/woocommerce/includes/class-wc-cart-totals.php on line 225
+
+2022-10-19T04:14:18+00:00 CRITICAL Cannot redeclare wdm_empty_cart() (previously declared in /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-content/plugins/woocommerce/includes/class-wc-cart.php:1020) in /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-content/plugins/woocommerce/includes/class-wc-cart.php on line 1020
+
+2022-10-19T04:15:57+00:00 CRITICAL Cannot redeclare wdm_empty_cart() (previously declared in /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-content/plugins/woocommerce/includes/class-wc-cart.php:1020) in /home/diwehost/domains/diwe.com.vn/public_html/bamboo/wp-content/plugins/woocommerce/includes/class-wc-cart.php on line 1020
+

@@ -1,0 +1,26 @@
+{
+    "open sans": {
+        "normal": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/OpenSans-Normal",
+        "bold": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/OpenSans-Bold",
+        "italic": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/OpenSans-Italic",
+        "bold_italic": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/OpenSans-BoldItalic"
+    },
+    "segoe": {
+        "normal": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/Segoe-Normal",
+        "bold": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/Segoe-Bold",
+        "italic": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/Segoe-Italic",
+        "bold_italic": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/Segoe-BoldItalic"
+    },
+    "roboto slab": {
+        "normal": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/RobotoSlab-Normal",
+        "bold": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/RobotoSlab-Bold",
+        "italic": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/RobotoSlab-Italic",
+        "bold_italic": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/RobotoSlab-BoldItalic"
+    },
+    "currencies": {
+        "normal": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/currencies",
+        "bold": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/currencies",
+        "italic": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/currencies",
+        "bold_italic": "\/home\/diwehost\/domains\/diwe.com.vn\/public_html\/bamboo\/wp-content\/uploads\/wpo_wcpdf_b692004cb32192755ba1c56094606e61\/fonts\/currencies"
+    }
+}
