@@ -1,0 +1,186 @@
+/*
+Theme Name: Flatsome Child
+Description: This is a child theme for Flatsome Theme
+Author: UX Themes
+Template: flatsome
+Version: 3.0
+*/
+
+/*************** ADD CUSTOM CSS HERE.   ***************/
+.booking-page{
+    color: #005F55;
+    .progress-booking
+    {
+        background-color: #005F55;
+        color: #fff;
+        .container {
+            display: flex;
+        }
+        p {
+            display: inline-block;
+            padding: 5px 15px;
+            margin-bottom: 0;
+        }
+        p.number-step {
+            background-color: #fff;
+            color: #005F55;
+        }
+    } 
+    .info-booking {
+        padding: 20px 0 15px;
+        .container {
+            display: flex;
+            .info {
+                margin-right: 10px;
+                .date-checkout, .date-checkin {
+                    margin-bottom: 0px;
+                    margin-top: -5px;
+                }
+            }
+            .check-in, .check-out {
+                display: flex;
+            }
+        }
+    }
+    .product-booking {
+        img {
+            width: 100%;
+        }
+        .room-title {
+            font-size: 24px;
+            font-weight: 700 !important;
+        }
+        .btn-select {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 10px;
+            color: #fff;
+            background-color: #005F55;
+        }
+        .sale-price {
+            font-size: 22px;
+            font-weight: 600 !important;
+        }
+    }
+    .booking-content {
+        background-color: #dcdcdc24;
+        padding: 30px 0;
+    }
+    .info-selected {
+        background: #ffffff;
+        padding: 30px;
+        .total {
+            p {
+                display: inline-block;
+                margin-bottom: 0;
+            }
+            .total-price {
+                float: right;
+            }
+        }
+    }
+    .btn-booking {
+        text-align: center;
+        padding: 12px 0;
+        background-color: #b7834db0;
+        font-size: 22px;
+        font-weight: 700 !important;
+        display: block;
+    } 
+    .booking-service {
+        padding: 20px 0;
+        .servive-price {
+            font-weight: 600 !important;
+            font-size: 24px;
+        }
+        .servive-quatity {
+            display: flex;
+            div {
+                padding: 0 5px;
+            }
+        }
+        .description {
+            color: #005f559e;
+        }
+        .added_to_cart {
+            display: none;
+        }
+    }
+    .info-selected {
+        .detail-selected {
+            padding: 15px 0;
+            border-bottom: 1px solid;
+        }
+        .total {
+            margin-top: 20px;
+        }
+        .title, .price {
+            font-weight: 600 !important;
+        }
+    }
+}
+.checkout-page {
+    color: #005F55;
+    .progress-booking
+    {
+        background-color: #005F55;
+        color: #fff;
+        .container {
+            display: flex;
+        }
+        p {
+            display: inline-block;
+            padding: 5px 15px;
+            margin-bottom: 0;
+        }
+        p.number-step {
+            background-color: #fff;
+            color: #005F55;
+        }
+    } 
+    .info-booking {
+        padding: 15px 0;
+        .container {
+            display: flex;
+            .info {
+                margin-right: 10px;
+            }
+        }
+    }
+    .checkout-content {
+        background-color: #dcdcdc24;
+        padding: 30px 0;
+        .hotel-info {
+            margin-top: 30px;
+            .info {
+                display: flex;
+                strong {
+                    font-weight: 600 !important;
+                }
+            }
+        }
+        .infor-customer-input {
+            margin-top: 30px;
+            label {
+                display: flex;
+            }
+        }
+    }
+    .booking-info{
+        .list-selected {
+            .cart-info-label {
+                .title {
+                    font-weight: 700 !important;
+                }
+            }
+            .cart-item-info {
+                .price {
+                    font-weight: 700 !important;
+                }
+            }
+        }
+        .total {
+            display: flex;
+        }
+    }
+}

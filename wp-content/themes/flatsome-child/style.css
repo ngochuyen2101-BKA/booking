@@ -5,12 +5,168 @@ Author: UX Themes
 Template: flatsome
 Version: 3.0
 */
-
 /*************** ADD CUSTOM CSS HERE.   ***************/
-
-
-@media only screen and (max-width: 48em) {
-/*************** ADD MOBILE ONLY CSS HERE  ***************/
-
-
+.booking-page {
+  color: #005F55;
 }
+.booking-page .progress-booking {
+  background-color: #005F55;
+  color: #fff;
+}
+.booking-page .progress-booking .container {
+  display: flex;
+}
+.booking-page .progress-booking p {
+  display: inline-block;
+  padding: 5px 15px;
+  margin-bottom: 0;
+}
+.booking-page .progress-booking p.number-step {
+  background-color: #fff;
+  color: #005F55;
+}
+.booking-page .info-booking {
+  padding: 20px 0 15px;
+}
+.booking-page .info-booking .container {
+  display: flex;
+}
+.booking-page .info-booking .container .info {
+  margin-right: 10px;
+}
+.booking-page .info-booking .container .info .date-checkout, .booking-page .info-booking .container .info .date-checkin {
+  margin-bottom: 0px;
+  margin-top: -5px;
+}
+.booking-page .info-booking .container .check-in, .booking-page .info-booking .container .check-out {
+  display: flex;
+}
+.booking-page .product-booking img {
+  width: 100%;
+}
+.booking-page .product-booking .room-title {
+  font-size: 24px;
+  font-weight: 700 !important;
+}
+.booking-page .product-booking .btn-select {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  color: #fff;
+  background-color: #005F55;
+}
+.booking-page .product-booking .sale-price {
+  font-size: 22px;
+  font-weight: 600 !important;
+}
+.booking-page .booking-content {
+  background-color: rgba(220, 220, 220, 0.1411764706);
+  padding: 30px 0;
+}
+.booking-page .info-selected {
+  background: #ffffff;
+  padding: 30px;
+}
+.booking-page .info-selected .total p {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.booking-page .info-selected .total .total-price {
+  float: right;
+}
+.booking-page .btn-booking {
+  text-align: center;
+  padding: 12px 0;
+  background-color: rgba(183, 131, 77, 0.6901960784);
+  font-size: 22px;
+  font-weight: 700 !important;
+  display: block;
+}
+.booking-page .booking-service {
+  padding: 20px 0;
+}
+.booking-page .booking-service .servive-price {
+  font-weight: 600 !important;
+  font-size: 24px;
+}
+.booking-page .booking-service .servive-quatity {
+  display: flex;
+}
+.booking-page .booking-service .servive-quatity div {
+  padding: 0 5px;
+}
+.booking-page .booking-service .description {
+  color: rgba(0, 95, 85, 0.6196078431);
+}
+.booking-page .booking-service .added_to_cart {
+  display: none;
+}
+.booking-page .info-selected .detail-selected {
+  padding: 15px 0;
+  border-bottom: 1px solid;
+}
+.booking-page .info-selected .total {
+  margin-top: 20px;
+}
+.booking-page .info-selected .title, .booking-page .info-selected .price {
+  font-weight: 600 !important;
+}
+
+.checkout-page {
+  color: #005F55;
+}
+.checkout-page .progress-booking {
+  background-color: #005F55;
+  color: #fff;
+}
+.checkout-page .progress-booking .container {
+  display: flex;
+}
+.checkout-page .progress-booking p {
+  display: inline-block;
+  padding: 5px 15px;
+  margin-bottom: 0;
+}
+.checkout-page .progress-booking p.number-step {
+  background-color: #fff;
+  color: #005F55;
+}
+.checkout-page .info-booking {
+  padding: 15px 0;
+}
+.checkout-page .info-booking .container {
+  display: flex;
+}
+.checkout-page .info-booking .container .info {
+  margin-right: 10px;
+}
+.checkout-page .checkout-content {
+  background-color: rgba(220, 220, 220, 0.1411764706);
+  padding: 30px 0;
+}
+.checkout-page .checkout-content .hotel-info {
+  margin-top: 30px;
+}
+.checkout-page .checkout-content .hotel-info .info {
+  display: flex;
+}
+.checkout-page .checkout-content .hotel-info .info strong {
+  font-weight: 600 !important;
+}
+.checkout-page .checkout-content .infor-customer-input {
+  margin-top: 30px;
+}
+.checkout-page .checkout-content .infor-customer-input label {
+  display: flex;
+}
+.checkout-page .booking-info .list-selected .cart-info-label .title {
+  font-weight: 700 !important;
+}
+.checkout-page .booking-info .list-selected .cart-item-info .price {
+  font-weight: 700 !important;
+}
+.checkout-page .booking-info .total {
+  display: flex;
+}
+
+/*# sourceMappingURL=style.css.map */

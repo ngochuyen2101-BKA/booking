@@ -18,7 +18,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<div class="row">
+<!-- <div class="row">
 
 	<?php if ( $order ) :
 
@@ -100,4 +100,12 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php endif; ?>
 
+</div> -->
+<div class="woocommerce-order">
+	<div class="woocommerce-thank-you-page">
+		<div class="title-thank-you">Payment successful!</div>
+		<div class="number-order">Order no: <?php echo $order->get_id(); ?></div>
+		<div class="content-thank-you">Your payment information has been sent to your email.</div>
+		<a class="button-cm buttonrg" href="<?php echo get_home_url(); ?>"> Go to Dashboard</a>
+	</div>
 </div>
