@@ -139,6 +139,13 @@ Version: 3.0
   padding: 15px 0;
   border-bottom: 1px solid;
 }
+.booking-page .info-selected .detail-selected .gr-edit {
+  display: flex;
+  align-items: center;
+}
+.booking-page .info-selected .detail-selected .gr-edit a {
+  margin-left: 20px;
+}
 .booking-page .info-selected .total {
   margin-top: 20px;
 }

@@ -50,6 +50,82 @@ function saveCustomData() {
 	) );
 	
 	WC()->cart->add_to_cart( (int)$product_id , 1, 0, array(), $custom_data );
+
+	foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+		$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+		$_product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+		if($product_id == $_product_id) {
+			echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+				'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
+				esc_url(wc_get_cart_remove_url($cart_item_key)),
+				esc_html__('Remove this item', 'woocommerce'),
+				esc_attr($_product_id),
+				esc_attr($cart_item_key),
+				esc_attr($_product->get_sku())
+			), $cart_item_key);
+		}
+	}
+}
+
+add_action('wp_ajax_get_data_room', 'getDataRoom');
+add_action('wp_ajax_nopriv_get_data_room', 'getDataRoom');
+
+function getDataRoom() {
+	$adult = $_POST['adult'];
+    $child = $_POST['child'];
+	
+	$args = array(
+		'post_type'      => 'product',
+		'posts_per_page' => -1,
+		'product_cat'    => 'hang-phong',
+		'post_status'    => 'publish'
+	);
+
+	$loop = new WP_Query( $args );
+	$html = '';
+	while ( $loop->have_posts() ) : $loop->the_post();
+		global $product;
+		$room_status = get_field('tinh_trang', $product->id)['value'];
+		if($room_status == 'hetphong') continue;
+
+		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
+		$area = $product->get_attribute( 'area' );
+		$number_adult = $product->get_attribute( 'adults' );
+		$number_child = $product->get_attribute( 'childs' );
+		$date = $product->get_attribute( 'number-of-date' );
+		$regular_price = $product->get_regular_price();
+		$sale_price = $product->get_sale_price();
+
+		if( ((int)$number_adult >= (int)$adult) && ((int)$number_child >= (int)$child) ) {
+
+			$html .= '<form class="cart" action="" method="post" enctype="multipart/form-data" data-product_id="'.$product->id.'">';
+			$html .= 	'<div class="product-booking">';
+			$html .= 		'<img src="'.$image[0].'" data-id="'.$product->id.'">';
+			$html .= 		'<input type="hidden" name="add-to-cart" value="'.$product->id.'">';
+			$html .= 		'<input type="hidden" name="product_id" value="'.$product->id.'">';
+			$html .= 		'<input type="hidden" name="quantity" value="'.$product->id.'">';
+			$html .= 		'<div class="room-title">'.$product->get_title().'</div>';
+            $html .= 		'<div class="row">';                
+            $html .= 			'<div class="col-md-4">';                    
+            $html .= 				'<div class="room-area">'.$area.'</div>';
+			$html .= 				'<div class="room-change">Không hủy và thay đổi</div>';
+            $html .= 			'</div>';                            
+            $html .= 			'<div class="col-md-4">';                        
+            $html .= 				'<div class="room-user">'.$number_adult.' người lớn - '.$number_child.' trẻ em</div>';                        
+            $html .= 				'<div class="room-deposit">Đặt cọc và đảm bảo</div>';
+			$html .= 			'</div>';                            
+            $html .= 			'<div class="col-md-4">';
+			$html .= 				'<div class="regular-price">'.$regular_price.' VNĐ</div>';
+			$html .= 				'<div class="sale-price">'.$sale_price.' VNĐ</div>';
+			$html .= 				'<button type="submit" class="single_add_to_cart_button button alt btn-select select-room" data-product_id="'.$product->id.'">Lựa chọn</button>';
+            $html .= 			'</div>';
+			$html .= 		'</div>';
+			$html .= 	'</div>';
+			$html .= '</div>';         
+		}
+
+	endwhile;
+	echo $html;
 }
 
 add_action( 'woocommerce_checkout_create_order_line_item', 'save_cart_item_custom_meta_as_order_item_meta', 10, 4 );

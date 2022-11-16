@@ -144,6 +144,13 @@ Version: 3.0
         .detail-selected {
             padding: 15px 0;
             border-bottom: 1px solid;
+            .gr-edit {
+                display: flex;
+                align-items: center;
+                a {
+                    margin-left: 20px;
+                }
+            }
         }
         .total {
             margin-top: 20px;

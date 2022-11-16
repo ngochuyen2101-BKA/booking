@@ -23,10 +23,10 @@ get_header();
     <div class="info-booking">
         <div class="container">
             <div class="check-in info">
-                <i class="fas fa-calendar-alt"></i> Nhận phòng: <span><input type="date" class="date-checkin"></span>
+                <i class="fas fa-calendar-alt"></i> Nhận phòng: <span><input type="date" class="date-checkin" value="<?php echo date('Y-m-d'); ?>"></span>
             </div>
             <div class="check-out info">
-                <i class="fas fa-calendar-alt"></i> Trả phòng: <span><input type="date" class="date-checkout"></span>
+                <i class="fas fa-calendar-alt"></i> Trả phòng: <span><input type="date" class="date-checkout" value="<?php echo date("Y-m-d", strtotime("+1 day")); ?>"></span>
             </div>
             <div class="number-of-date info">
                 <i class="fas fa-hotel"></i> <span class="room-number">1</span> phòng
@@ -58,6 +58,7 @@ get_header();
                         <h2 class="title">Chọn phòng cho chuyến đi của bạn</h2>
                         <p class="description">Quý khách sẽ được đặt phòng ở mức giá tốt nhất do không phải qua đơn vị trung gian:
                         Quý khách đang ghé thăm trang web của khu nghỉ dưỡngs</p>
+                        <div class="list-room">
                         <?php  
                         $args = array(
                             'post_type'      => 'product',
@@ -95,7 +96,7 @@ get_header();
                                         <div class="room-change">Không hủy và thay đổi</div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="room-user"><?php echo $adult; ?> người lớn - <?php ?> trẻ em</div>
+                                        <div class="room-user"><?php echo $adult; ?> người lớn - <?php echo $child; ?> trẻ em</div>
                                         <div class="room-deposit">Đặt cọc và đảm bảo</div>
                                     </div>
                                     <div class="col-md-4">
@@ -109,6 +110,7 @@ get_header();
                         <?php
                         endwhile;
                         ?>
+                        </div>
                     </div>
                     <div class="choose-service" style="display:none;">
                         <h2 class="title">Lựa chọn dịch vụ tại Bamboo</h2>
@@ -180,17 +182,19 @@ get_header();
                                         <div class="label">Trẻ em</div>
                                     </div>
                                     <div class="col-md-6 cart-item-info">
-                                        <div class="price"><?php echo $_product->get_sale_price(); ?></div>
-                                        <?php
-                                        echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
-                                            '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
-                                            esc_url(wc_get_cart_remove_url($cart_item_key)),
-                                            esc_html__('Remove this item', 'woocommerce'),
-                                            esc_attr($_product_id),
-                                            esc_attr($cart_item_key),
-                                            esc_attr($_product->get_sku())
-                                        ), $cart_item_key);
-                                        ?>
+                                        <div class="gr-edit">
+                                            <div class="price"><?php echo $_product->get_sale_price(); ?></div>
+                                            <?php
+                                            echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+                                                '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
+                                                esc_url(wc_get_cart_remove_url($cart_item_key)),
+                                                esc_html__('Remove this item', 'woocommerce'),
+                                                esc_attr($_product_id),
+                                                esc_attr($cart_item_key),
+                                                esc_attr($_product->get_sku())
+                                            ), $cart_item_key);
+                                            ?>
+                                        </div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_adult']; ?></div>
@@ -207,7 +211,19 @@ get_header();
                                         <div class="title"><?php echo $_product->get_title(); ?></div>
                                     </div>
                                     <div class="col-md-6 cart-item-info">
-                                        <div class="price"><?php echo $_product->get_regular_price(); ?></div>
+                                        <div class="gr-edit">
+                                            <div class="price"><?php echo $_product->get_regular_price(); ?></div>
+                                            <?php
+                                            echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+                                                '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
+                                                esc_url(wc_get_cart_remove_url($cart_item_key)),
+                                                esc_html__('Remove this item', 'woocommerce'),
+                                                esc_attr($_product_id),
+                                                esc_attr($cart_item_key),
+                                                esc_attr($_product->get_sku())
+                                            ), $cart_item_key);
+                                            ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
