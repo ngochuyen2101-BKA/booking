@@ -41,6 +41,40 @@ Version: 3.0
 .booking-page .info-booking .container .check-in, .booking-page .info-booking .container .check-out {
   display: flex;
 }
+.booking-page .info-booking .container .add-room {
+  position: relative;
+}
+.booking-page .info-booking .container .add-room p {
+  text-align: center;
+  margin-bottom: 0;
+  padding: 5px 30px;
+  background-color: #005F55;
+  color: #fff;
+}
+.booking-page .info-booking .container .add-room .popup-add.active {
+  display: block;
+}
+.booking-page .info-booking .container .add-room .popup-add {
+  display: none;
+  position: absolute;
+  min-width: 250px;
+  z-index: 2;
+  background-color: #fff;
+  padding: 20px;
+}
+.booking-page .info-booking .container .add-room .popup-add .adults, .booking-page .info-booking .container .add-room .popup-add .childs {
+  display: flex;
+  justify-content: space-between;
+}
+.booking-page .info-booking .container .add-room .popup-add input {
+  max-width: 50px;
+}
+.booking-page .info-booking .container .add-room .popup-add .add-btn {
+  text-align: center;
+  background: #005F55;
+  color: #fff;
+  padding: 10px 0;
+}
 .booking-page .product-booking img {
   width: 100%;
 }
@@ -167,6 +201,21 @@ Version: 3.0
 }
 .checkout-page .booking-info .total {
   display: flex;
+}
+
+.woocommerce-thank-you-page {
+  text-align: center;
+  margin: auto;
+  width: 60%;
+}
+.woocommerce-thank-you-page .export-bill {
+  background-color: rgb(0, 95, 85);
+  color: #fff;
+  padding: 10px 0;
+  width: 40%;
+  margin: auto;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 /*# sourceMappingURL=style.css.map */

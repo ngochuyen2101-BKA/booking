@@ -34,6 +34,20 @@ get_header();
             <div class="number-of-customer info">
                 <i class="fas fa-user"></i> <span class="number-adults">1</span> người lớn - <span class="number-childs">1</span> trẻ em
             </div>
+            <div class="add-room">
+                <p class="btn-show">Thêm phòng</p>
+                <div class="popup-add">
+                    <div class="adults">
+                        <div class="label">Người lớn</div>
+                        <input type="number" id="numberAdult">
+                    </div>
+                    <div class="childs">
+                        <div class="label">Trẻ em</div>
+                        <input type="number" id="numberChild">
+                    </div>
+                    <div class="add-btn">Áp dụng</div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="booking-content">
@@ -56,6 +70,8 @@ get_header();
 
                         while ( $loop->have_posts() ) : $loop->the_post();
                             global $product;
+                            $room_status = get_field('tinh_trang', $product->id)['value'];
+                            if($room_status == 'hetphong') continue;
                             $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
                             $area = $product->get_attribute( 'area' );
                             $adult = $product->get_attribute( 'adults' );
@@ -151,6 +167,7 @@ get_header();
                             foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                                 $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
                                 $category_name = get_the_terms ( $_product->id, 'product_cat' )[0]->slug;
+                                $_product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
                                 if($category_name == 'hang-phong') {
                         ?>
                             <div class="detail-selected">
@@ -164,6 +181,16 @@ get_header();
                                     </div>
                                     <div class="col-md-6 cart-item-info">
                                         <div class="price"><?php echo $_product->get_sale_price(); ?></div>
+                                        <?php
+                                        echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+                                            '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
+                                            esc_url(wc_get_cart_remove_url($cart_item_key)),
+                                            esc_html__('Remove this item', 'woocommerce'),
+                                            esc_attr($_product_id),
+                                            esc_attr($cart_item_key),
+                                            esc_attr($_product->get_sku())
+                                        ), $cart_item_key);
+                                        ?>
                                         <div class="info"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_adult']; ?></div>

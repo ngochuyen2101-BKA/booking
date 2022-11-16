@@ -45,6 +45,7 @@
                 html +=      '</div>'
                 html += '</div>'  
                 $('.list-selected').prepend(html);
+                updateTotalPrice();
             },
 
         });
@@ -67,14 +68,33 @@
         html +=      '</div>'
         html += '</div>'  
         $('.list-selected').append(html);
+        updateTotalPrice();
     });
 
-    $( document ).ready(function() {
+    $(document).on('click','.btn-show', function() {
+        $('#numberAdult').val('');
+        $('#numberChild').val('');
+        if($('.popup-add').hasClass('active')) {
+            $('.popup-add').removeClass('active');
+        } else {
+            $('.popup-add').addClass('active');
+        }
+    });
+
+    $(document).on('click','.add-btn', function() {
+        var number_adult = $('#numberAdult').val();
+        var number_child = $('#numberChild').val();
+    });
+
+    function updateTotalPrice() {
         var prices = $('.list-selected').find('.price');
         var price = 0;
         prices.each(function( index ) {
             price += parseInt($(this).text());
         });
         $('.total-price').html(price + ' Đ');
+    }
+    $( document ).ready(function() {
+        updateTotalPrice();
     });
 })(jQuery);

@@ -51,6 +51,22 @@ function saveCustomData() {
 	
 	WC()->cart->add_to_cart( (int)$product_id , 1, 0, array(), $custom_data );
 }
+
+add_action( 'woocommerce_checkout_create_order_line_item', 'save_cart_item_custom_meta_as_order_item_meta', 10, 4 );
+function save_cart_item_custom_meta_as_order_item_meta( $item, $cart_item_key, $values, $order ) {
+    if ( isset($values['customData']) && isset($values['customData']['custom_adult']) ) {
+        $item->update_meta_data( 'custom_adult', $values['customData']['custom_adult'] );
+    }
+	if ( isset($values['customData']) && isset($values['customData']['custom_child']) ) {
+        $item->update_meta_data( 'custom_child', $values['customData']['custom_child'] );
+    }
+	if ( isset($values['customData']) && isset($values['customData']['custom_date_checkin']) ) {
+        $item->update_meta_data( 'custom_date_checkin', $values['customData']['custom_date_checkin'] );
+    }
+	if ( isset($values['customData']) && isset($values['customData']['custom_date_checkout']) ) {
+        $item->update_meta_data( 'custom_date_checkout', $values['customData']['custom_date_checkout'] );
+    }
+}
 // add_action('woocommerce_add_to_cart', 'refresh_function');
 
 // function refresh_function(){
@@ -65,12 +81,16 @@ function ybc_remove_default_validation( $fields ){
 	unset( $fields['billing']['billing_address_1']['required'] );
 	return $fields;
 }
-add_action( 'woocommerce_thankyou', 'bbloomer_redirectcustom', 10, 1);
-function bbloomer_redirectcustom( $order_id ){
-    $order = wc_get_order( $order_id );
-    $url = '/booking/';
-    if ( ! $order->has_status( 'failed' ) ) {
-        wp_safe_redirect( $url );
-        exit;
-    }
+
+add_action( 'phpmailer_init', 'send_smtp_email' );
+function send_smtp_email( $phpmailer ) {
+  $phpmailer->isSMTP();
+  $phpmailer->Host       = SMTP_HOST;
+  $phpmailer->SMTPAuth   = SMTP_AUTH;
+  $phpmailer->Port       = SMTP_PORT;
+  $phpmailer->Username   = SMTP_USER;
+  $phpmailer->Password   = SMTP_PASS;
+  $phpmailer->SMTPSecure = SMTP_SECURE;
+  $phpmailer->From       = SMTP_FROM;
+  $phpmailer->FromName   = SMTP_NAME;
 }

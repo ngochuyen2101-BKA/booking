@@ -90,7 +90,7 @@ defined( 'ABSPATH' ) || exit;
 
 				<div class="clear"></div>
 			</div>
-		</div>
+		</div>9
 
 		<?php endif; ?>
 
@@ -101,11 +101,60 @@ defined( 'ABSPATH' ) || exit;
 	<?php endif; ?>
 
 </div> -->
-<div class="woocommerce-order">
+
+<?php
+$product_data = [];
+foreach( $order->get_items() as $item_id => $item){
+	$data_item = [];
+    $product_id = $item->get_product_id();
+    $product = $item->get_product();
+
+    $data_item['quantity'] = $item->get_quantity();
+    $data_item['price'] = $item->get_total();
+	$data_item['name'] = $item->get_name();
+
+	$items_meta_data = $item->get_meta_data();
+	if(count($items_meta_data) > 2) {
+		foreach($items_meta_data as $item_meta) {
+			$data = $item_meta->get_data();
+			if($data['key'] == '_reduced_stock') continue;
+			if($data['key'] == 'custom_adult') {
+				$data_item['custom_adult'] = $data['value'];
+			}
+			if($data['key'] == 'custom_child') {
+				$data_item['custom_child'] = $data['value'];
+			}
+			if($data['key'] == 'custom_date_checkin') {
+				$data_item['custom_date_checkin'] = $data['value'];
+			}
+			if($data['key'] == 'custom_date_checkout') {
+				$data_item['custom_date_checkout'] = $data['value'];
+			}
+		}
+	}
+	array_push($product_data,$data_item);
+}
+?>
+
+<div class="woocommerce-order container">
 	<div class="woocommerce-thank-you-page">
-		<div class="title-thank-you">Payment successful!</div>
+		<h2 class="title-thank-you">Bạn đã đặt phòng thành công!</h2>
 		<div class="number-order">Order no: <?php echo $order->get_id(); ?></div>
-		<div class="content-thank-you">Your payment information has been sent to your email.</div>
-		<a class="button-cm buttonrg" href="<?php echo get_home_url(); ?>"> Go to Dashboard</a>
+		<div class="content-thank-you">Cam on ban da dat phong tai Laocai StaelH@an vui long dgi trong 30 phit, chiing t6i sé kiém tra va xdc nhan théng tin d&t phdng va thanh todn cia ban qua sms va emailLuu y: Ban hay uu lai ma dat phdng dé check-in nhan phdng</div>
+		<form method="post" action="/booking/wp-content/generate.php">
+			<?php
+				$email = $order->get_billing_email(); 
+				$i = 1;
+				foreach($product_data as $prod) {
+					foreach($prod as $key => $value) {
+			?>
+				<input type="hidden" name="<?php echo $key.$i ?>" value="<?php echo $value; ?>" />
+			<?php 
+					}
+			$i++; } ?>
+			<input type="hidden" name="number_item" value="<?php echo $i; ?>" />
+			<input type="hidden" name="email" value="<?php echo $email; ?>" />
+			<button class="export-bill" type="submit"> Xuất hóa đơn đặt phòng </button>
+		</form>
 	</div>
 </div>
