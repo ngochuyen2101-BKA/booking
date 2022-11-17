@@ -1,10 +1,16 @@
 <?php
-require(__DIR__ .'/themes/flatsome/assets/fpdf/fpdf.php');
+require(__DIR__ .'/themes/flatsome/assets/tcpdf/tcpdf.php');
+require_once("../wp-load.php");
 define( 'HTML_EMAIL_HEADERS', array('Content-Type: text/html; charset=UTF-8\r\n'));
 
-$pdf = new FPDF();
+$headers = HTML_EMAIL_HEADERS;
+$content = "Hello";
+$email = $_POST['email'];
+wp_mail( $email, 'Booking successfully', $content, $headers );
+
+$pdf = new TCPDF();
 $pdf->AddPage();
-$pdf->SetFont('Arial','B',19);
+$pdf->SetFont('freeserif','B',19);
 
 $number_item = $_POST['number_item'];
 
@@ -46,8 +52,3 @@ for($i = 1; $i < $number_item; $i++) {
 
 }
 $pdf->Output();
-
-$headers = HTML_EMAIL_HEADERS;
-$content = "Hello";
-$email = $_POST['email'];
-wp_mail( $email, 'Booking successfully', $content, $headers );

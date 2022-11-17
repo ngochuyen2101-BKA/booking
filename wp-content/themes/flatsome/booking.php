@@ -144,9 +144,9 @@ get_header();
                                         <div class="servive-name"><?php echo $product->get_title(); ?></div>
                                         <div class="servive-price"><?php echo $regular_price; ?> VNĐ</div>
                                         <div class="servive-quatity">
-                                            <div class="increase">-</div>
-                                            <div class="quatity"><input type="text" name="quantity" /></div>
-                                            <div class="decrease">+</div>
+                                            <div class="increase">+</div>
+                                            <div class="quatity"><input type="text" name="quantity" value="1" id="qty"/></div>
+                                            <div class="decrease">-</div>
                                         </div>
                                         <div class="description"><?php echo $product->get_short_description(); ?></div>
                                     </div>
@@ -180,6 +180,7 @@ get_header();
                                         <div class="label">Trả phòng</div>
                                         <div class="label">Người lớn</div>
                                         <div class="label">Trẻ em</div>
+                                        <div class="label">Số lượng</div>
                                     </div>
                                     <div class="col-md-6 cart-item-info">
                                         <div class="gr-edit">
@@ -199,6 +200,7 @@ get_header();
                                         <div class="info"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_adult']; ?></div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_child']; ?></div>
+                                        <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -209,6 +211,7 @@ get_header();
                                 <div class="row">
                                     <div class="col-md-6 cart-info-label">
                                         <div class="title"><?php echo $_product->get_title(); ?></div>
+                                        <div class="label">Số lượng</div>
                                     </div>
                                     <div class="col-md-6 cart-item-info">
                                         <div class="gr-edit">
@@ -224,6 +227,7 @@ get_header();
                                             ), $cart_item_key);
                                             ?>
                                         </div>
+                                        <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
                                     </div>
                                 </div>
                             </div>

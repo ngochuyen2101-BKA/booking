@@ -163,6 +163,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                                 <div class="label">Trả phòng</div>
                                                 <div class="label">Người lớn</div>
                                                 <div class="label">Trẻ em</div>
+                                                <div class="label">Số lượng</div>
                                             </div>
                                             <div class="col-md-6 cart-item-info">
                                                 <div class="price"><?php echo $_product->get_sale_price(); ?></div>
@@ -170,6 +171,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                                 <div class="info"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
                                                 <div class="info"><?php echo $cart_item['customData']['custom_adult']; ?></div>
                                                 <div class="info"><?php echo $cart_item['customData']['custom_child']; ?></div>
+                                                <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -180,9 +182,11 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                         <div class="row">
                                             <div class="col-md-6 cart-info-label">
                                                 <div class="title"><?php echo $_product->get_title(); ?></div>
+                                                <div class="label">Số lượng</div>
                                             </div>
                                             <div class="col-md-6 cart-item-info">
                                                 <div class="price"><?php echo $_product->get_regular_price(); ?></div>
+                                                <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
                                             </div>
                                         </div>
                                     </div>

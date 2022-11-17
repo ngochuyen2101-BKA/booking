@@ -25,6 +25,12 @@ Version: 3.0
   background-color: #fff;
   color: #005F55;
 }
+.booking-page .progress-booking p.number-step.active {
+  background-color: #d96f15;
+}
+.booking-page .progress-booking .text-step.active {
+  color: #d96f15;
+}
 .booking-page .info-booking {
   padding: 20px 0 15px;
 }
