@@ -145,7 +145,7 @@ get_header();
                                         <div class="servive-price"><?php echo $regular_price; ?> VNĐ</div>
                                         <div class="servive-quatity">
                                             <div class="increase">+</div>
-                                            <div class="quatity"><input type="text" name="quantity" value="1" id="qty"/></div>
+                                            <div class="quatity"><input type="text" name="quantity" value="0" class="qty service-number" data-product_id="<?php echo $product->id; ?>"/></div>
                                             <div class="decrease">-</div>
                                         </div>
                                         <div class="description"><?php echo $product->get_short_description(); ?></div>
@@ -170,9 +170,17 @@ get_header();
                                 $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
                                 $category_name = get_the_terms ( $_product->id, 'product_cat' )[0]->slug;
                                 $_product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+                                $price_sale = $_product->get_sale_price();
+                                $price_real = $_product->get_regular_price();
+                                $qty = $cart_item['quantity'];
+                                if($price_sale) {
+                                    $total = $price_sale*$qty;
+                                } else {
+                                    $total = $price_real*$qty;
+                                }
                                 if($category_name == 'hang-phong') {
                         ?>
-                            <div class="detail-selected">
+                            <div class="detail-selected detail-room">
                                 <div class="row">
                                     <div class="col-md-6 cart-info-label">
                                         <div class="title"><?php echo $_product->get_title(); ?></div>
@@ -184,7 +192,7 @@ get_header();
                                     </div>
                                     <div class="col-md-6 cart-item-info">
                                         <div class="gr-edit">
-                                            <div class="price"><?php echo $_product->get_sale_price(); ?></div>
+                                            <div class="price"><?php echo $total; ?></div>
                                             <?php
                                             echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
                                                 '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
@@ -205,7 +213,23 @@ get_header();
                                 </div>
                             </div>
                         <?php 
+                                } 
+                            }
+                        endif; ?>
+                        <?php if (!WC()->cart->is_empty()) : 
+                            foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+                                $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+                                $category_name = get_the_terms ( $_product->id, 'product_cat' )[0]->slug;
+                                $_product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+                                $price_sale = $_product->get_sale_price();
+                                $price_real = $_product->get_regular_price();
+                                $qty = $cart_item['quantity'];
+                                if($price_sale) {
+                                    $total = $price_sale*$qty;
                                 } else {
+                                    $total = $price_real*$qty;
+                                }
+                                if($category_name == 'dich-vu') {
                         ?>
                             <div class="detail-selected">
                                 <div class="row">
@@ -215,7 +239,7 @@ get_header();
                                     </div>
                                     <div class="col-md-6 cart-item-info">
                                         <div class="gr-edit">
-                                            <div class="price"><?php echo $_product->get_regular_price(); ?></div>
+                                            <div class="price"><?php echo $total; ?></div>
                                             <?php
                                             echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
                                                 '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
@@ -227,7 +251,7 @@ get_header();
                                             ), $cart_item_key);
                                             ?>
                                         </div>
-                                        <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
+                                        <div class="info quantity qty-service" data-product_id="<?php echo $_product_id; ?>"><?php echo $cart_item['quantity']; ?></div>
                                     </div>
                                 </div>
                             </div>

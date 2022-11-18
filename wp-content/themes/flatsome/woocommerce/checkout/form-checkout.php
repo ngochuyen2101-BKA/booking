@@ -155,7 +155,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                         $category_name = get_the_terms ( $_product->id, 'product_cat' )[0]->slug;
                                         if($category_name == 'hang-phong') {
                                 ?>
-                                    <div class="detail-selected">
+                                    <div class="detail-selected room-selected">
                                         <div class="row">
                                             <div class="col-md-6 cart-info-label">
                                                 <div class="title"><?php echo $_product->get_title(); ?></div>
@@ -167,16 +167,23 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                             </div>
                                             <div class="col-md-6 cart-item-info">
                                                 <div class="price"><?php echo $_product->get_sale_price(); ?></div>
-                                                <div class="info"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
-                                                <div class="info"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
-                                                <div class="info"><?php echo $cart_item['customData']['custom_adult']; ?></div>
-                                                <div class="info"><?php echo $cart_item['customData']['custom_child']; ?></div>
-                                                <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
+                                                <div class="info info-checkin"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
+                                                <div class="info info-checkout"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
+                                                <div class="info info-adult "><?php echo $cart_item['customData']['custom_adult']; ?></div>
+                                                <div class="info info-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
+                                                <div class="info quantity info-qty"><?php echo $cart_item['quantity']; ?></div>
                                             </div>
                                         </div>
                                     </div>
                                 <?php 
-                                        } else {
+                                        } 
+                                    }
+                                endif; ?>
+                                <?php if (!WC()->cart->is_empty()) : 
+                                    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+                                        $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+                                        $category_name = get_the_terms ( $_product->id, 'product_cat' )[0]->slug;
+                                        if($category_name == 'dich-vu') {
                                 ?>
                                     <div class="detail-selected">
                                         <div class="row">
@@ -186,7 +193,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                             </div>
                                             <div class="col-md-6 cart-item-info">
                                                 <div class="price"><?php echo $_product->get_regular_price(); ?></div>
-                                                <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
+                                                <div class="info quantity info-qty"><?php echo $cart_item['quantity']; ?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -199,6 +206,10 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                     <p class="label">Tổng</p>
                                     <p class="total-price">0 Đ</p>
                                 </div>
+                            </div>
+                            <div class="check-condition">
+                                <input type="checkbox" id="condition" name="condition">
+                                <label for="condition">I agree with the terms & conditions.</label>
                             </div>
                         </div>
                     </div>

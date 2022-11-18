@@ -106,16 +106,30 @@
         });
     });
 
+    $(document).on('click','.btn-booking', function() {
+        var step = getBBCookie('step');
+        if(step == 2) {
+            setBBCookie('step',1,864000);
+        }
+    });
+
     $(document).on('click','.increase', function() {
-        var qty = $(this).closest('.servive-quatity').find('#qty').val();
+        var qty = $(this).closest('.servive-quatity').find('.qty').val();
         var newQty = parseInt(qty) + 1;
-        $(this).closest('.servive-quatity').find('#qty').val(newQty);
+        $(this).closest('.servive-quatity').find('.qty').val(newQty);
     });
 
     $(document).on('click','.decrease', function() {
-        var qty = $(this).closest('.servive-quatity').find('#qty').val();
+        var qty = $(this).closest('.servive-quatity').find('.qty').val();
         var newQty = parseInt(qty) - 1;
-        $(this).closest('.servive-quatity').find('#qty').val(newQty);
+        $(this).closest('.servive-quatity').find('.qty').val(newQty);
+    });
+    
+    $(document).on('click','.remove_from_cart_button', function() {
+        var qty_room = $('.detail-room').length;
+        if(qty_room < 2) {
+            setBBCookie('step',1,864000);
+        }
     });
 
     function updateTotalPrice() {
@@ -151,6 +165,14 @@
         return result;
     }
 
+    $('#condition').change(function () {
+        if($(this).is(":checked")) {
+            $('#place_order').prop('disabled', false);
+        } else {
+            $('#place_order').prop('disabled', true);
+        }
+     });
+
     $( document ).ready(function() {
         updateTotalPrice();
         var step = getBBCookie('step');
@@ -169,5 +191,48 @@
             $('.step-2').find('.number-step').addClass('active');
             $('.step-2').find('.text-step').addClass('active');
         }
+
+        $('.qty-service').each(function( index ) {
+            var qty = $(this).text();
+            var productidCart = $(this).data('product_id');
+            $('.service-number').each(function() {
+                var productid = $(this).data('product_id');
+                if(productidCart == productid){
+                    $(this).val(qty);
+                }
+            });
+        });
+
+        setTimeout(function() { 
+            $('#place_order').prop('disabled', true);
+        }, 5000);
+
+        var current_url = window.location.href;
+        if(current_url.indexOf("thanh-toan") > -1) {
+            var room_qty = $('.room-selected').length;
+            $('.room-number').html(room_qty);
+
+            var qty_child = 0;
+            $('.info-child').each(function() {
+                var data = parseInt($(this).html());
+                qty_child += data;
+            });
+            $('.number-childs').html(qty_child);
+
+            var qty_adult = 0;
+            $('.info-adult').each(function() {
+                var data = parseInt($(this).html());
+                qty_adult += data;
+            });
+            $('.number-adults').html(qty_adult);
+
+            var checkin = $('.info-checkin:first').html();
+            $('.date-checkin').html(checkin);
+
+            var checkout = $('.info-checkout:first').html();
+            $('.date-checkout').html(checkout);
+
+        }
+        
     });
 })(jQuery);
