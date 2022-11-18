@@ -12,7 +12,7 @@
         var title = $(this).closest('.product-booking').find('.room-title').text();
 
         $.ajax({
-            url: '/booking/wp-admin/admin-ajax.php',
+            url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
                 adult: adults,
@@ -23,64 +23,48 @@
                 action: 'custom_data_product'
             },
             success: function(res) {
-                $('.choose-room').css('display','none');
-                $('.choose-service').css('display','block');
-                var html = '';
-                html += '<div class="detail-selected">'
-                html +=     '<div class="row">'
-                html +=         '<div class="col-md-6 cart-info-label">'
-                html +=             '<div class="title">'+title+'</div>'
-                html +=                 '<div class="label">Nhận phòng</div>'
-                html +=                 '<div class="label">Trả phòng</div>'
-                html +=                 '<div class="label">Người lớn</div>'
-                html +=                 '<div class="label">Trẻ em</div>'
-                html +=             '</div>'
-                html +=             '<div class="col-md-6 cart-item-info">' 
-                html +=                 '<div class="gr-edit">' 
-                html +=                     '<div class="price">'+price+'</div>'
-                html +=                      res
-                html +=                 '</div>' 
-                html +=                 '<div class="info">'+date_checkin+'</div>' 
-                html +=                 '<div class="info">'+date_checkout+'</div>' 
-                html +=                 '<div class="info">'+adults+'</div>' 
-                html +=                 '<div class="info">'+childs+'</div>'   
-                html +=             '</div>'
-                html +=         '</div>' 
-                html +=      '</div>'
-                html += '</div>'  
-                $('.list-selected').prepend(html);
-                updateTotalPrice();
+                // $('.choose-room').css('display','none');
+                // $('.choose-service').css('display','block');
+                // var html = '';
+                // html += '<div class="detail-selected">'
+                // html +=     '<div class="row">'
+                // html +=         '<div class="col-md-6 cart-info-label">'
+                // html +=             '<div class="title">'+title+'</div>'
+                // html +=                 '<div class="label">Nhận phòng</div>'
+                // html +=                 '<div class="label">Trả phòng</div>'
+                // html +=                 '<div class="label">Người lớn</div>'
+                // html +=                 '<div class="label">Trẻ em</div>'
+                // html +=             '</div>'
+                // html +=             '<div class="col-md-6 cart-item-info">' 
+                // html +=                 '<div class="gr-edit">' 
+                // html +=                     '<div class="price">'+price+'</div>'
+                // html +=                      res
+                // html +=                 '</div>' 
+                // html +=                 '<div class="info">'+date_checkin+'</div>' 
+                // html +=                 '<div class="info">'+date_checkout+'</div>' 
+                // html +=                 '<div class="info">'+adults+'</div>' 
+                // html +=                 '<div class="info">'+childs+'</div>'   
+                // html +=             '</div>'
+                // html +=         '</div>' 
+                // html +=      '</div>'
+                // html += '</div>'  
+                // $('.list-selected').prepend(html);
+                // updateTotalPrice();
                 setBBCookie('step',2,864000);
-                $('.step-1').find('.number-step').removeClass('active');
-                $('.step-1').find('.text-step').removeClass('active');
-                $('.step-2').find('.number-step').addClass('active');
-                $('.step-2').find('.text-step').addClass('active');
+                location.reload();
+                // $('.step-1').find('.number-step').removeClass('active');
+                // $('.step-1').find('.text-step').removeClass('active');
+                // $('.step-2').find('.number-step').addClass('active');
+                // $('.step-2').find('.text-step').addClass('active');
             },
 
         });
     });
 
     $(document).on('click','.single_add_to_cart_button.select-service', function() {
-        $('.popup-add').removeClass('active');
-        var price = $(this).closest('.booking-service').find('.servive-price').text();
-        var title = $(this).closest('.booking-service').find('.servive-name').text();
-        var qty = $(this).closest('.booking-service').find('#qty').val();
-        var total = parseInt(price)*qty;
-
-        var html = '';
-        html += '<div class="detail-selected">'
-        html +=     '<div class="row">'
-        html +=         '<div class="col-md-6 cart-info-label">'
-        html +=             '<div class="title">'+title+'</div>'
-        html +=             '</div>'
-        html +=             '<div class="col-md-6 cart-item-info">' 
-        html +=                 '<div class="price">'+total+'</div>' 
-        html +=             '</div>'
-        html +=         '</div>' 
-        html +=      '</div>'
-        html += '</div>'  
-        $('.list-selected').append(html);
-        updateTotalPrice();
+        setTimeout(function() { 
+            location.reload();
+        }, 2000);
     });
 
     $(document).on('click','.btn-show', function() {
@@ -96,8 +80,9 @@
     $(document).on('click','.add-btn', function() {
         var number_adult = $('#numberAdult').val();
         var number_child = $('#numberChild').val();
+        
         $.ajax({
-            url: '/booking/wp-admin/admin-ajax.php',
+            url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
                 adult: number_adult,
@@ -105,6 +90,8 @@
                 action: 'get_data_room'
             },
             success: function(res) {
+                $('.number-adults').html(number_adult);
+                $('.number-childs').html(number_child);
                 $('.popup-add').removeClass('active');
                 $('.choose-room').css('display','block');
                 $('.choose-service').css('display','none');

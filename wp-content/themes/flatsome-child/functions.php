@@ -6,11 +6,16 @@ function add_css(){
 	wp_enqueue_style( 'thang_css' );
 	wp_register_style( 'core-css', get_theme_root_uri().'/flatsome-child/style.css',true,$version1,'all'); 
 	wp_enqueue_style( 'core-css' );
-	wp_register_style( 'bootstrap-css', get_theme_root_uri().'/flatsome/assets/css/bootstrap-grid.min.css',true,$version1,'all'); 
-	wp_enqueue_style( 'bootstrap-css' );
 	wp_enqueue_script('thang_js', get_theme_root_uri().'/flatsome-child/thang.js', array(), $version1, true);
 	wp_enqueue_style( 'font-awesome-free', esc_url_raw( 'https://kit-free.fontawesome.com/releases/latest/css/free.min.css?ver=5.5.4' ), array(), null );
   	wp_enqueue_style( 'noptin_front','/wp-content/plugins/newsletter-optin-box/includes/assets/css/frontend.css',false );
+	$currentURL = $_SERVER['REQUEST_URI'];
+	$bookingPage = strpos($currentURL,'/booking-page') > -1;
+	$checkoutPage = strpos($currentURL,'/thanh-toan') > -1;
+	if($bookingPage || $checkoutPage) {
+		wp_register_style( 'bootstrap-css', get_theme_root_uri().'/flatsome/assets/css/bootstrap-grid.min.css',true,$version1,'all'); 
+		wp_enqueue_style( 'bootstrap-css' );
+	}
  }
  add_action( 'wp_enqueue_scripts', 'add_css',1000 );
 

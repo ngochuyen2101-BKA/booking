@@ -241,7 +241,7 @@ get_header();
                             <p class="total-price">0 Đ</p>
                         </div>
                     </div>
-                    <a class="btn-booking" href="/booking/thanh-toan/">Đặt phòng</a>
+                    <a class="btn-booking" href="/thanh-toan/">Đặt phòng</a>
                 </div>
             </div>
         </div>

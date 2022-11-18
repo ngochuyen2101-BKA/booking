@@ -141,7 +141,7 @@ foreach( $order->get_items() as $item_id => $item){
 		<h2 class="title-thank-you">Bạn đã đặt phòng thành công!</h2>
 		<div class="number-order">Order no: <?php echo $order->get_id(); ?></div>
 		<div class="content-thank-you">Cam on ban da dat phong tai Laocai StaelH@an vui long dgi trong 30 phit, chiing t6i sé kiém tra va xdc nhan théng tin d&t phdng va thanh todn cia ban qua sms va emailLuu y: Ban hay uu lai ma dat phdng dé check-in nhan phdng</div>
-		<form method="post" action="/booking/wp-content/generate.php">
+		<form method="post" action="/wp-content/generate.php">
 			<?php
 				$email = $order->get_billing_email(); 
 				$i = 1;
