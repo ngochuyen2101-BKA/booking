@@ -1,6 +1,6 @@
 
 (function($) {
-	var isloading = false;
+	var isloading = false;    
     $(document).on('click','.single_add_to_cart_button.select-room', function() {
         $('.popup-add').removeClass('active');
         var date_checkin = $('.date-checkin').text();
@@ -141,8 +141,10 @@
             }
         });
         if(off) {
-            $('.loading-wait').css('display','none');
-            isloading = false;
+            setTimeout(function() { 
+                $('.loading-wait').css('display','none');  
+                isloading = false;
+            }, 1000);
             return;
         }
 
@@ -212,6 +214,12 @@
     $(document).on('click','.add-btn', function() {
         var number_adult = $('#numberAdult').val();
         var number_child = $('#numberChild').val();
+        if(number_adult == "") {
+            number_adult = 1;
+        }
+        if(number_child == "") {
+            number_child = 0;
+        }
         if(!isloading) {
             isloading = true;
             $('.loading-wait').css('display','block');
@@ -285,10 +293,13 @@
                 }
     
             });
-            $('.loading-wait').css('display','none');  
-            isloading = false;          
+            setTimeout(function() { 
+                $('.loading-wait').css('display','none');  
+                isloading = false;
+            }, 1000);
+                      
         }
-        var price = $(this).closest('.servive-quatity').find('.servive-price').html();
+        var price = $(this).closest('.booking-service').find('.servive-price').html();
         $(this).closest('.servive-quatity').find('.qty').val(newQty);
         $('.detail-selected').each(function() {
             var cur_id = $(this).data('product_id');
@@ -349,6 +360,21 @@
      });
 
     $( document ).ready(function() {
+
+        var current_url = window.location.href;
+        if(current_url.indexOf("/booking-page") > -1) {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars[hash[0]] = hash[1];
+            }
+            $('.date-checkin').html(vars['arrival']);
+            $('.date-checkout').html(vars['departure']);
+            $('.number-adults').html(vars['adults1']);
+            $('.number-childs').html(vars['children1']);
+        }
         
         var step = getBBCookie('step');
         if(step == 1 || step ==null) {
