@@ -281,5 +281,6 @@ get_header();
         </div>
     </div>
 </div>
+<div class="loading" style="display: none ;">Loading</div>
 <?php
 get_footer();

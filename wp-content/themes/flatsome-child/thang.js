@@ -10,7 +10,7 @@
         var product_id = $(this).data('product_id');
         var price = $(this).closest('.product-booking').find('.sale-price').text();
         var title = $(this).closest('.product-booking').find('.room-title').text();
-
+        $('.loading').css('display','block');
         $.ajax({
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
@@ -77,6 +77,7 @@
                 $('.step-1').find('.text-step').removeClass('active');
                 $('.step-2').find('.number-step').addClass('active');
                 $('.step-2').find('.text-step').addClass('active');
+                $('.loading').css('display','none');
             },
 
         });
@@ -109,6 +110,7 @@
     });
 
     $(document).on('click','.single_add_to_cart_button.select-service', function() {
+        $('.loading').css('display','block');
         $('.popup-add').removeClass('active');
         var price = $(this).closest('.booking-service').find('.servive-price').text();
         var title = $(this).closest('.booking-service').find('.servive-name').text();
@@ -165,6 +167,7 @@
                     }
                     
                     updateTotalPrice();
+                    $('.loading').css('display','none');
                 },
     
             });
@@ -190,7 +193,7 @@
     $(document).on('click','.add-btn', function() {
         var number_adult = $('#numberAdult').val();
         var number_child = $('#numberChild').val();
-        
+        $('.loading').css('display','block');
         $.ajax({
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
@@ -211,6 +214,7 @@
                 $('.step-1').find('.text-step').addClass('active');
                 $('.step-2').find('.number-step').removeClass('active');
                 $('.step-2').find('.text-step').removeClass('active');
+                $('.loading').css('display','none');
             },
 
         });
@@ -244,6 +248,7 @@
         var cur_checkbox = $(this).closest('.booking-service').find('.add-service');
         var product_id = $(this).closest('.cart').data('product_id');
         if(cur_checkbox.is(':checked')) {
+            $('.loading').css('display','block');
             $.ajax({
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
@@ -253,7 +258,8 @@
                     action: 'decrease_service'
                 }
     
-            });            
+            });
+            $('.loading').css('display','none');            
         }
         $(this).closest('.servive-quatity').find('.qty').val(newQty);
         $('.detail-selected').each(function() {
