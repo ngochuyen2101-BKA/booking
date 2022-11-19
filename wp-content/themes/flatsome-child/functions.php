@@ -140,6 +140,48 @@ function getDataRoom() {
 	echo $html;
 }
 
+add_action('wp_ajax_get_data_service', 'getDataService');
+add_action('wp_ajax_nopriv_get_data_service', 'getDataService');
+
+function getDataService() {
+    $product_id = $_POST['product_id'];
+
+	foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+		$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+		$_product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+		if($product_id == $_product_id) {
+			echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+				'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
+				esc_url(wc_get_cart_remove_url($cart_item_key)),
+				esc_html__('Remove this item', 'woocommerce'),
+				esc_attr($_product_id),
+				esc_attr($cart_item_key),
+				esc_attr($_product->get_sku())
+			), $cart_item_key);
+			die();
+		}
+	}
+	echo $product_id;
+}
+
+add_action('wp_ajax_decrease_service', 'decreaseService');
+add_action('wp_ajax_nopriv_decrease_service', 'decreaseService');
+
+function decreaseService() {
+    $product_id = $_POST['product_id'];
+	$qty = $_POST['qty'];
+	$a = WC()->cart->get_cart();
+
+	foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+		$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+		$_product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+		
+		if( $product_id == $_product_id ){
+            WC()->cart->set_quantity( $cart_item_key, $qty ); // Change quantity
+        }
+	}
+}
+
 add_action( 'woocommerce_checkout_create_order_line_item', 'save_cart_item_custom_meta_as_order_item_meta', 10, 4 );
 function save_cart_item_custom_meta_as_order_item_meta( $item, $cart_item_key, $values, $order ) {
     if ( isset($values['customData']) && isset($values['customData']['custom_adult']) ) {
@@ -186,4 +228,10 @@ function woo_show_detail_shop_page() {
 	$so_nguoi_lon = get_field("so_nguoi_lon");
 	$so_tre_em = get_field("so_tre_em");
 	echo "<div class='number-detail'><div class='number-dientich'>Diện tích: ".$dien_tich."</div><div class='so-nguoi'>Tối đa: ".$so_nguoi_lon." Người lớn - ".$so_tre_em." Trẻ em</div></div>";
+}
+add_action( 'woocommerce_after_shop_loop_item_title', 'woo_show_excerpt_shop_page', 5 );
+function woo_show_excerpt_shop_page() {
+	global $product;
+
+	echo "<div class='short-des'>". $product->post->post_excerpt ."</div>";
 }

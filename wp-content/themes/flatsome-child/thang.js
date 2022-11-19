@@ -80,29 +80,95 @@
             },
 
         });
+        $('.room-gr').find('.remove_from_cart_button').first().css('display','none');
+    });
+
+    $(document).on('click','#addService', function() {
+        var qty = $(this).closest('.booking-service').find('.service-number').val();
+        var product_id = $(this).data('product_id');
+        if(parseInt(qty) < 1) {
+            $(this).prop('checked', false);
+            return;
+        }
+        if ($(this).is(':checked')) {
+            var btn_add = $(this).closest('.service-select').find('.single_add_to_cart_button');
+            btn_add.click();
+        } else {
+            $(this).closest('.booking-service').find('.service-number').val(1);
+            $('.remove_from_cart_button').each(function() {
+                var cur_id = $(this).data('product_id');
+                if(cur_id == product_id) {
+                    $(this).click();
+                    $(this).closest('.detail-selected').remove();
+                }
+            });
+            setTimeout(function() { 
+                setBBCookie('step',2,864000);
+            }, 2000);
+        }
     });
 
     $(document).on('click','.single_add_to_cart_button.select-service', function() {
         $('.popup-add').removeClass('active');
         var price = $(this).closest('.booking-service').find('.servive-price').text();
         var title = $(this).closest('.booking-service').find('.servive-name').text();
-        var qty = $(this).closest('.booking-service').find('#qty').val();
+        var qty = $(this).closest('.booking-service').find('.qty').val();
         var total = parseInt(price)*qty;
+        var product_id = $(this).data('product_id');
+        var off = false;
 
-        var html = '';
-        html += '<div class="detail-selected">'
-        html +=     '<div class="row">'
-        html +=         '<div class="col-md-6 cart-info-label">'
-        html +=             '<div class="title">'+title+'</div>'
-        html +=             '</div>'
-        html +=             '<div class="col-md-6 cart-item-info">' 
-        html +=                 '<div class="price">'+total+'</div>' 
-        html +=             '</div>'
-        html +=         '</div>' 
-        html +=      '</div>'
-        html += '</div>'  
-        $('.service-gr').append(html);
-        updateTotalPrice();
+        $('.detail-selected').each(function() {
+            var cur_id = $(this).data('product_id');
+            if(cur_id == product_id) {
+                var new_qty = parseInt($(this).find('.qty-service').html()) + 1;
+                $(this).find('.qty-service').html(new_qty);
+
+                var new_price = parseInt($(this).find('.price').html()) + parseInt(price);
+                $(this).find('.price').html(new_price);
+                off = true;
+                return ;
+            }
+        });
+        if(off) {
+            return;
+        }
+
+        setTimeout(function() { 
+            $.ajax({
+                url: '/wp-admin/admin-ajax.php',
+                method: 'POST',
+                data: {
+                    product_id: product_id,
+                    action: 'get_data_service'
+                },
+                success: function(res) {
+                    if($.isNumeric( res )) {
+
+                    } else {
+                        var html = '';
+                        html += '<div class="detail-selected" data-product_id="'+product_id+'">'
+                        html +=     '<div class="row">'
+                        html +=         '<div class="col-md-6 cart-info-label">'
+                        html +=             '<div class="title">'+title+'</div>'
+                        html +=             '<div class="label">Số lượng</div>'
+                        html +=         '</div>'
+                        html +=         '<div class="col-md-6 cart-item-info">' 
+                        html +=             '<div class="gr-edit">' 
+                        html +=                 '<div class="price">'+total+'</div>'
+                        html +=                  res
+                        html +=             '</div>'
+                        html +=             '<div class="info quantity qty-service" data-product_id="'+product_id+'">'+qty+'</div>'
+                        html +=         '</div>'
+                        html +=     '</div>' 
+                        html += '</div>'  
+                        $('.service-gr').append(html);
+                    }
+                    
+                    updateTotalPrice();
+                },
+    
+            });
+        }, 1000);
     });
 
     $(document).on('click','.btn-show', function() {
@@ -113,6 +179,12 @@
         } else {
             $('.popup-add').addClass('active');
         }
+    });
+
+    $(document).on('click','.remove_from_cart_button', function(e) {
+        e.preventDefault();
+        $(this).closest('.service-gr').remove();
+        updateTotalPrice();
     });
 
     $(document).on('click','.add-btn', function() {
@@ -154,13 +226,49 @@
     $(document).on('click','.increase', function() {
         var qty = $(this).closest('.servive-quatity').find('.qty').val();
         var newQty = parseInt(qty) + 1;
+        
+        var cur_checkbox = $(this).closest('.booking-service').find('.add-service');
+        if(cur_checkbox.is(':checked')) {
+            $(this).closest('.servive-quatity').find('.qty').val(1);
+            var btn_add = $(this).closest('.booking-service').find('.single_add_to_cart_button');
+            btn_add.click();
+            updateTotalPrice();
+        }
         $(this).closest('.servive-quatity').find('.qty').val(newQty);
     });
 
     $(document).on('click','.decrease', function() {
         var qty = $(this).closest('.servive-quatity').find('.qty').val();
+        if(qty == 1) { return ; }
         var newQty = parseInt(qty) - 1;
+        var cur_checkbox = $(this).closest('.booking-service').find('.add-service');
+        var product_id = $(this).closest('.cart').data('product_id');
+        if(cur_checkbox.is(':checked')) {
+            $.ajax({
+                url: '/wp-admin/admin-ajax.php',
+                method: 'POST',
+                data: {
+                    qty: newQty,
+                    product_id: product_id,
+                    action: 'decrease_service'
+                }
+    
+            });            
+        }
         $(this).closest('.servive-quatity').find('.qty').val(newQty);
+        $('.detail-selected').each(function() {
+            var cur_id = $(this).data('product_id');
+            if(cur_id == product_id) {
+                var new_qty = parseInt($(this).find('.qty-service').html()) - 1;
+                $(this).find('.qty-service').html(new_qty);
+
+                var new_price = parseInt($(this).find('.price').html()) - parseInt(price);
+                $(this).find('.price').html(new_price);
+                off = true;
+                return ;
+            }
+        });
+        updateTotalPrice();
     });
     
     $(document).on('click','.remove_from_cart_button', function() {
@@ -171,7 +279,7 @@
     });
 
     function updateTotalPrice() {
-        var prices = $('.room-gr').find('.price');
+        var prices = $('.list-selected').find('.price');
         var price = 0;
         prices.each(function( index ) {
             price += parseInt($(this).text());
@@ -207,7 +315,7 @@
      });
 
     $( document ).ready(function() {
-        updateTotalPrice();
+        
         var step = getBBCookie('step');
         if(step == 1 || step ==null) {
             $('.choose-room').css('display','block');
@@ -232,6 +340,12 @@
                 var productid = $(this).data('product_id');
                 if(productidCart == productid){
                     $(this).val(qty);
+                }
+            });
+            $('.add-service').each(function() {
+                var productid = $(this).data('product_id');
+                if(productidCart == productid){
+                    $(this).prop("checked", true);
                 }
             });
         });

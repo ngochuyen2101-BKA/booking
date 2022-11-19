@@ -204,7 +204,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                 </div>
                                 <div class="total">
                                     <p class="label">Tổng</p>
-                                    <p class="total-price">0 Đ</p>
+                                    <p class="total-price"><?php echo WC()->cart->cart_contents_total; ?></p>
                                 </div>
                             </div>
                             <div class="check-condition">

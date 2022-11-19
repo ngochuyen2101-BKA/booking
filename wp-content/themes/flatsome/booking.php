@@ -39,11 +39,11 @@ get_header();
                 <div class="popup-add">
                     <div class="adults">
                         <div class="label">Người lớn</div>
-                        <input type="number" id="numberAdult">
+                        <input type="number" id="numberAdult" value="1">
                     </div>
                     <div class="childs">
                         <div class="label">Trẻ em</div>
-                        <input type="number" id="numberChild">
+                        <input type="number" id="numberChild" value="1">
                     </div>
                     <div class="add-btn">Áp dụng</div>
                 </div>
@@ -142,16 +142,18 @@ get_header();
                                     </div>
                                     <div class="col-md-7">
                                         <div class="servive-name"><?php echo $product->get_title(); ?></div>
-                                        <div class="servive-price"><?php echo $regular_price; ?> VNĐ</div>
+                                        <div class=""><span class="servive-price"><?php echo $regular_price; ?></span>VNĐ</div>
                                         <div class="servive-quatity">
                                             <div class="increase">+</div>
-                                            <div class="quatity"><input type="text" name="quantity" value="0" class="qty service-number" data-product_id="<?php echo $product->id; ?>"/></div>
+                                            <div class="quatity"><input type="number" name="quantity" value="1" class="qty service-number" data-product_id="<?php echo $product->id; ?>" readonly/></div>
                                             <div class="decrease">-</div>
                                         </div>
                                         <div class="description"><?php echo $product->get_short_description(); ?></div>
                                     </div>
                                     <div class="col-md-3 service-select">
-                                        <button type="submit" class="single_add_to_cart_button button alt select-service">Lựa chọn</button>
+                                        <button type="submit" class="single_add_to_cart_button button alt select-service" style="display:none;" data-product_id="<?php echo $product->id; ?>">Lựa chọn</button>
+                                        <input type="checkbox" id="addService" name="addService" class="add-service" data-product_id="<?php echo $product->id; ?>">
+                                        <label for="addService">Lựa chọn</label>
                                     </div>
                                 </div>
                             </div>
@@ -167,6 +169,7 @@ get_header();
                         <div class="list-selected">
                             <div class="room-gr">
                         <?php if (!WC()->cart->is_empty()) : 
+                            $i = 0;
                             foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                                 $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
                                 $category_name = get_the_terms ( $_product->id, 'product_cat' )[0]->slug;
@@ -195,14 +198,17 @@ get_header();
                                         <div class="gr-edit">
                                             <div class="price"><?php echo $total; ?></div>
                                             <?php
-                                            echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
-                                                '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
-                                                esc_url(wc_get_cart_remove_url($cart_item_key)),
-                                                esc_html__('Remove this item', 'woocommerce'),
-                                                esc_attr($_product_id),
-                                                esc_attr($cart_item_key),
-                                                esc_attr($_product->get_sku())
-                                            ), $cart_item_key);
+                                            if($i > 0) {
+                                                echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+                                                    '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
+                                                    esc_url(wc_get_cart_remove_url($cart_item_key)),
+                                                    esc_html__('Remove this item', 'woocommerce'),
+                                                    esc_attr($_product_id),
+                                                    esc_attr($cart_item_key),
+                                                    esc_attr($_product->get_sku())
+                                                ), $cart_item_key);
+                                            }
+                                            $i++;
                                             ?>
                                         </div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
@@ -234,7 +240,7 @@ get_header();
                                 }
                                 if($category_name == 'dich-vu') {
                         ?>
-                            <div class="detail-selected">
+                            <div class="detail-selected" data-product_id="<?php echo $_product_id; ?>">
                                 <div class="row">
                                     <div class="col-md-6 cart-info-label">
                                         <div class="title"><?php echo $_product->get_title(); ?></div>
@@ -266,7 +272,7 @@ get_header();
                         </div>
                         <div class="total">
                             <p class="label">Tổng</p>
-                            <p class="total-price">0 Đ</p>
+                            <p class="total-price"><?php echo WC()->cart->cart_contents_total; ?></p>
                         </div>
                     </div>
                     <a class="btn-booking" href="/thanh-toan/">Đặt phòng</a>
