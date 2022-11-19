@@ -1,16 +1,20 @@
 
 (function($) {
-	
+	var isloading = false;
     $(document).on('click','.single_add_to_cart_button.select-room', function() {
         $('.popup-add').removeClass('active');
-        var date_checkin = $('.date-checkin').val();
-        var date_checkout = $('.date-checkout').val();
+        var date_checkin = $('.date-checkin').text();
+        var date_checkout = $('.date-checkout').text();
         var adults = $('.number-adults').text();
         var childs = $('.number-childs').text();
         var product_id = $(this).data('product_id');
         var price = $(this).closest('.product-booking').find('.sale-price').text();
         var title = $(this).closest('.product-booking').find('.room-title').text();
-        $('.loading').css('display','block');
+        if(!isloading) {
+            isloading = true;
+            $('.loading-wait').css('display','block');
+        }
+        
         $.ajax({
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
@@ -77,11 +81,13 @@
                 $('.step-1').find('.text-step').removeClass('active');
                 $('.step-2').find('.number-step').addClass('active');
                 $('.step-2').find('.text-step').addClass('active');
-                $('.loading').css('display','none');
+                $('.loading-wait').css('display','none');
+                isloading = false;
+                $('.room-gr').find('.remove_from_cart_button').first().css('display','none');
             },
 
         });
-        $('.room-gr').find('.remove_from_cart_button').first().css('display','none');
+        
     });
 
     $(document).on('click','#addService', function() {
@@ -110,7 +116,10 @@
     });
 
     $(document).on('click','.single_add_to_cart_button.select-service', function() {
-        $('.loading').css('display','block');
+        if(!isloading) {
+            isloading = true;
+            $('.loading-wait').css('display','block');
+        }
         $('.popup-add').removeClass('active');
         var price = $(this).closest('.booking-service').find('.servive-price').text();
         var title = $(this).closest('.booking-service').find('.servive-name').text();
@@ -132,6 +141,8 @@
             }
         });
         if(off) {
+            $('.loading-wait').css('display','none');
+            isloading = false;
             return;
         }
 
@@ -167,7 +178,8 @@
                     }
                     
                     updateTotalPrice();
-                    $('.loading').css('display','none');
+                    $('.loading-wait').css('display','none');
+                    isloading = false;
                 },
     
             });
@@ -175,8 +187,8 @@
     });
 
     $(document).on('click','.btn-show', function() {
-        $('#numberAdult').val('');
-        $('#numberChild').val('');
+        $('#numberAdult').val(1);
+        $('#numberChild').val(1);
         if($('.popup-add').hasClass('active')) {
             $('.popup-add').removeClass('active');
         } else {
@@ -186,14 +198,24 @@
 
     $(document).on('click','.remove_from_cart_button', function(e) {
         e.preventDefault();
-        $(this).closest('.service-gr').remove();
+        var product_id = $(this).closest('.detail-selected').data('product_id');
+        $('.add-service').each(function() {
+            var cur_id = $(this).data('product_id');
+            if(cur_id == product_id) {
+                $(this).prop('checked', false);
+            }
+        });
+        $(this).closest('.detail-selected').remove();
         updateTotalPrice();
     });
 
     $(document).on('click','.add-btn', function() {
         var number_adult = $('#numberAdult').val();
         var number_child = $('#numberChild').val();
-        $('.loading').css('display','block');
+        if(!isloading) {
+            isloading = true;
+            $('.loading-wait').css('display','block');
+        }
         $.ajax({
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
@@ -214,7 +236,8 @@
                 $('.step-1').find('.text-step').addClass('active');
                 $('.step-2').find('.number-step').removeClass('active');
                 $('.step-2').find('.text-step').removeClass('active');
-                $('.loading').css('display','none');
+                $('.loading-wait').css('display','none');
+                isloading = false;
             },
 
         });
@@ -248,7 +271,10 @@
         var cur_checkbox = $(this).closest('.booking-service').find('.add-service');
         var product_id = $(this).closest('.cart').data('product_id');
         if(cur_checkbox.is(':checked')) {
-            $('.loading').css('display','block');
+            if(!isloading) {
+                isloading = true;
+                $('.loading-wait').css('display','block');
+            }
             $.ajax({
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
@@ -259,8 +285,10 @@
                 }
     
             });
-            $('.loading').css('display','none');            
+            $('.loading-wait').css('display','none');  
+            isloading = false;          
         }
+        var price = $(this).closest('.servive-quatity').find('.servive-price').html();
         $(this).closest('.servive-quatity').find('.qty').val(newQty);
         $('.detail-selected').each(function() {
             var cur_id = $(this).data('product_id');

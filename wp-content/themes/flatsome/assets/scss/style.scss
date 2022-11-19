@@ -45,6 +45,7 @@ Version: 3.0
             }
             .check-in, .check-out {
                 display: flex;
+                align-items: baseline;
             }
             .add-room {
                 position: relative;
@@ -246,7 +247,7 @@ Version: 3.0
     }
 }
 /* Absolute Center Spinner */
-.loading {
+.loading-wait {
     position: fixed;
     z-index: 999;
     height: 2em;
@@ -260,7 +261,7 @@ Version: 3.0
   }
   
   /* Transparent Overlay */
-  .loading:before {
+  .loading-wait:before {
     content: '';
     display: block;
     position: fixed;
@@ -274,7 +275,7 @@ Version: 3.0
   }
   
   /* :not(:required) hides these rules from IE9 and below */
-  .loading:not(:required) {
+  .loading-wait:not(:required) {
     /* hide "loading..." text */
     font: 0/0 a;
     color: transparent;
@@ -283,7 +284,7 @@ Version: 3.0
     border: 0;
   }
   
-  .loading:not(:required):after {
+  .loading-wait:not(:required):after {
     content: '';
     display: block;
     font-size: 10px;
