@@ -23,48 +23,86 @@
                 action: 'custom_data_product'
             },
             success: function(res) {
-                // $('.choose-room').css('display','none');
-                // $('.choose-service').css('display','block');
-                // var html = '';
-                // html += '<div class="detail-selected">'
-                // html +=     '<div class="row">'
-                // html +=         '<div class="col-md-6 cart-info-label">'
-                // html +=             '<div class="title">'+title+'</div>'
-                // html +=                 '<div class="label">Nhận phòng</div>'
-                // html +=                 '<div class="label">Trả phòng</div>'
-                // html +=                 '<div class="label">Người lớn</div>'
-                // html +=                 '<div class="label">Trẻ em</div>'
-                // html +=             '</div>'
-                // html +=             '<div class="col-md-6 cart-item-info">' 
-                // html +=                 '<div class="gr-edit">' 
-                // html +=                     '<div class="price">'+price+'</div>'
-                // html +=                      res
-                // html +=                 '</div>' 
-                // html +=                 '<div class="info">'+date_checkin+'</div>' 
-                // html +=                 '<div class="info">'+date_checkout+'</div>' 
-                // html +=                 '<div class="info">'+adults+'</div>' 
-                // html +=                 '<div class="info">'+childs+'</div>'   
-                // html +=             '</div>'
-                // html +=         '</div>' 
-                // html +=      '</div>'
-                // html += '</div>'  
-                // $('.list-selected').prepend(html);
-                // updateTotalPrice();
+                if($.isNumeric( res )) {
+                    $('.detail-room').each(function() {
+                        var id = $(this).data('product_id');
+                        var current_child = $(this).find('.info-custom-child').html();
+                        var current_adult = $(this).find('.info-custom-adult').html();
+
+                        if(id == res && current_adult == adults && current_child == childs) {
+                            var amount_new = parseInt($(this).find('.quantity').html()) + 1;
+                            $(this).find('.quantity').html(amount_new);
+                            var price_new = parseInt(price) * amount_new;
+                            $(this).find('.price').html(price_new);
+                            
+                        }
+                    });
+                } else {
+                    $('.choose-room').css('display','none');
+                    $('.choose-service').css('display','block');
+                    var html = '';
+                    html += '<div class="detail-selected detail-room" data-product_id="'+product_id+'">'
+                    html +=     '<div class="row">'
+                    html +=         '<div class="col-md-6 cart-info-label">'
+                    html +=             '<div class="title">'+title+'</div>'
+                    html +=                 '<div class="label">Nhận phòng</div>'
+                    html +=                 '<div class="label">Trả phòng</div>'
+                    html +=                 '<div class="label">Người lớn</div>'
+                    html +=                 '<div class="label">Trẻ em</div>'
+                    html +=                 '<div class="label">Số lượng</div>'
+                    html +=             '</div>'
+                    html +=             '<div class="col-md-6 cart-item-info">' 
+                    html +=                 '<div class="gr-edit">' 
+                    html +=                     '<div class="price">'+price+'</div>'
+                    html +=                      res
+                    html +=                 '</div>' 
+                    html +=                 '<div class="info">'+date_checkin+'</div>' 
+                    html +=                 '<div class="info">'+date_checkout+'</div>' 
+                    html +=                 '<div class="info info-custom-adult">'+adults+'</div>' 
+                    html +=                 '<div class="info info-custom-child">'+childs+'</div>'
+                    html +=                 '<div class="info quantity">1</div>'   
+                    html +=             '</div>'
+                    html +=         '</div>' 
+                    html +=      '</div>'
+                    html += '</div>'  
+                    $('.room-gr').append(html);
+                }
+                
+                updateTotalPrice();
                 setBBCookie('step',2,864000);
-                location.reload();
-                // $('.step-1').find('.number-step').removeClass('active');
-                // $('.step-1').find('.text-step').removeClass('active');
-                // $('.step-2').find('.number-step').addClass('active');
-                // $('.step-2').find('.text-step').addClass('active');
+                $('.choose-room').css('display','none');
+                $('.choose-service').css('display','block');
+                // location.reload();
+                $('.step-1').find('.number-step').removeClass('active');
+                $('.step-1').find('.text-step').removeClass('active');
+                $('.step-2').find('.number-step').addClass('active');
+                $('.step-2').find('.text-step').addClass('active');
             },
 
         });
     });
 
     $(document).on('click','.single_add_to_cart_button.select-service', function() {
-        setTimeout(function() { 
-            location.reload();
-        }, 2000);
+        $('.popup-add').removeClass('active');
+        var price = $(this).closest('.booking-service').find('.servive-price').text();
+        var title = $(this).closest('.booking-service').find('.servive-name').text();
+        var qty = $(this).closest('.booking-service').find('#qty').val();
+        var total = parseInt(price)*qty;
+
+        var html = '';
+        html += '<div class="detail-selected">'
+        html +=     '<div class="row">'
+        html +=         '<div class="col-md-6 cart-info-label">'
+        html +=             '<div class="title">'+title+'</div>'
+        html +=             '</div>'
+        html +=             '<div class="col-md-6 cart-item-info">' 
+        html +=                 '<div class="price">'+total+'</div>' 
+        html +=             '</div>'
+        html +=         '</div>' 
+        html +=      '</div>'
+        html += '</div>'  
+        $('.service-gr').append(html);
+        updateTotalPrice();
     });
 
     $(document).on('click','.btn-show', function() {
@@ -133,15 +171,10 @@
     });
 
     function updateTotalPrice() {
-        var prices = $('.list-selected').find('.price');
+        var prices = $('.room-gr').find('.price');
         var price = 0;
         prices.each(function( index ) {
-            var qty = $(this).closest('.cart-item-info').find('.quantity').text();
-            if(qty) {
-                price += ( parseInt($(this).text())*parseInt(qty) );
-            } else {
             price += parseInt($(this).text());
-            }
         });
         $('.total-price').html(price + ' Đ');
     }

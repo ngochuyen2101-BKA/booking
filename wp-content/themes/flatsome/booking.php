@@ -165,6 +165,7 @@ get_header();
                     <div class="info-selected">
                         <h2 class="title">Lựa chọn của bạn</h2>
                         <div class="list-selected">
+                            <div class="room-gr">
                         <?php if (!WC()->cart->is_empty()) : 
                             foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                                 $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
@@ -180,7 +181,7 @@ get_header();
                                 }
                                 if($category_name == 'hang-phong') {
                         ?>
-                            <div class="detail-selected detail-room">
+                            <div class="detail-selected detail-room" data-product_id="<?php echo $_product_id; ?>">
                                 <div class="row">
                                     <div class="col-md-6 cart-info-label">
                                         <div class="title"><?php echo $_product->get_title(); ?></div>
@@ -206,8 +207,8 @@ get_header();
                                         </div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
-                                        <div class="info"><?php echo $cart_item['customData']['custom_adult']; ?></div>
-                                        <div class="info"><?php echo $cart_item['customData']['custom_child']; ?></div>
+                                        <div class="info info-custom-adult"><?php echo $cart_item['customData']['custom_adult']; ?></div>
+                                        <div class="info info-custom-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
                                         <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
                                     </div>
                                 </div>
@@ -216,6 +217,8 @@ get_header();
                                 } 
                             }
                         endif; ?>
+                            </div>
+                            <div class="service-gr">
                         <?php if (!WC()->cart->is_empty()) : 
                             foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                                 $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
@@ -259,6 +262,7 @@ get_header();
                                 }
                             }
                         endif; ?>
+                            </div>
                         </div>
                         <div class="total">
                             <p class="label">Tổng</p>

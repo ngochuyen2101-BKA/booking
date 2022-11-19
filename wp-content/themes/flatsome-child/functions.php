@@ -4,6 +4,7 @@ function add_css(){
  	$version1=uniqid();
 	wp_register_style( 'thang_css', get_theme_root_uri().'/flatsome-child/thang.css',true,$version1,'all'); 
 	wp_enqueue_style( 'thang_css' );
+	wp_enqueue_script('thangver2_js', get_theme_root_uri().'/flatsome-child/thangver2.js', array(), $version1, true);
 	wp_register_style( 'core-css', get_theme_root_uri().'/flatsome-child/style.css',true,$version1,'all'); 
 	wp_enqueue_style( 'core-css' );
 	wp_enqueue_script('thang_js', get_theme_root_uri().'/flatsome-child/thang.js', array(), $version1, true);
@@ -24,7 +25,7 @@ function add_css(){
 
 add_filter( 'excerpt_length', 'smile_prefix_excerpt_length' );
 function smile_prefix_excerpt_length() {
-return 100;
+return 150;
 }
 add_action('admin_head', 'custom_css_backend');
 function custom_css_backend() {?>
@@ -54,7 +55,12 @@ function saveCustomData() {
 		'custom_date_checkout' => $date_checkout,
 	) );
 	
-	WC()->cart->add_to_cart( (int)$product_id , 1, 0, array(), $custom_data );
+	$list_key = array_keys(WC()->cart->get_cart());
+	$product_item_key = WC()->cart->add_to_cart( (int)$product_id , 1, 0, array(), $custom_data );
+	if (in_array($product_item_key, $list_key)) {
+		echo $product_id;
+		die();
+	}
 
 	foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
 		$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
@@ -68,6 +74,7 @@ function saveCustomData() {
 				esc_attr($cart_item_key),
 				esc_attr($_product->get_sku())
 			), $cart_item_key);
+			die();
 		}
 	}
 }
@@ -148,11 +155,7 @@ function save_cart_item_custom_meta_as_order_item_meta( $item, $cart_item_key, $
         $item->update_meta_data( 'custom_date_checkout', $values['customData']['custom_date_checkout'] );
     }
 }
-// add_action('woocommerce_add_to_cart', 'refresh_function');
 
-// function refresh_function(){
-// 	header("Refresh:0");
-// }
 add_filter( 'woocommerce_checkout_fields', 'ybc_remove_default_validation' );
 
 function ybc_remove_default_validation( $fields ){
@@ -174,4 +177,13 @@ function send_smtp_email( $phpmailer ) {
   $phpmailer->SMTPSecure = SMTP_SECURE;
   $phpmailer->From       = SMTP_FROM;
   $phpmailer->FromName   = SMTP_NAME;
+}
+
+add_action( 'woocommerce_after_shop_loop_item_title', 'woo_show_detail_shop_page', 5 );
+function woo_show_detail_shop_page() {
+	global $product;
+	$dien_tich = get_field("dien_tich");
+	$so_nguoi_lon = get_field("so_nguoi_lon");
+	$so_tre_em = get_field("so_tre_em");
+	echo "<div class='number-detail'><div class='number-dientich'>Diện tích: ".$dien_tich."</div><div class='so-nguoi'>Tối đa: ".$so_nguoi_lon." Người lớn - ".$so_tre_em." Trẻ em</div></div>";
 }
