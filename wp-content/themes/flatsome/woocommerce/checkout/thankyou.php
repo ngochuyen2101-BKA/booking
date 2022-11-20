@@ -105,34 +105,49 @@ defined( 'ABSPATH' ) || exit;
 <?php
 $product_data = [];
 foreach( $order->get_items() as $item_id => $item){
-	$data_item = [];
-    $product_id = $item->get_product_id();
-    $product = $item->get_product();
-
-    $data_item['quantity'] = $item->get_quantity();
-    $data_item['price'] = $item->get_total();
-	$data_item['name'] = $item->get_name();
-
 	$items_meta_data = $item->get_meta_data();
 	if(count($items_meta_data) > 2) {
+		$data_item = [];
+		$product_id = $item->get_product_id();
+		$product = $item->get_product();
+
+		$data_item['quantity'] = $item->get_quantity();
+		$data_item['price'] = $item->get_total();
+		$data_item['name'] = $item->get_name();
+
 		foreach($items_meta_data as $item_meta) {
 			$data = $item_meta->get_data();
 			if($data['key'] == '_reduced_stock') continue;
-			if($data['key'] == 'custom_adult') {
-				$data_item['custom_adult'] = $data['value'];
+			if($data['key'] == 'Adults') {
+				$data_item['Adults'] = $data['value'];
 			}
-			if($data['key'] == 'custom_child') {
-				$data_item['custom_child'] = $data['value'];
+			if($data['key'] == 'Childs') {
+				$data_item['Childs'] = $data['value'];
 			}
-			if($data['key'] == 'custom_date_checkin') {
-				$data_item['custom_date_checkin'] = $data['value'];
+			if($data['key'] == 'Date check in') {
+				$data_item['Date check in'] = $data['value'];
 			}
-			if($data['key'] == 'custom_date_checkout') {
-				$data_item['custom_date_checkout'] = $data['value'];
+			if($data['key'] == 'Date check out') {
+				$data_item['Date check out'] = $data['value'];
 			}
 		}
+		array_push($product_data,$data_item);
 	}
-	array_push($product_data,$data_item);
+	
+}
+foreach( $order->get_items() as $item_id => $item){
+	$items_meta_data = $item->get_meta_data();
+	if(count($items_meta_data) < 3) {
+		$data_item = [];
+		$product_id = $item->get_product_id();
+		$product = $item->get_product();
+
+		$data_item['quantity'] = $item->get_quantity();
+		$data_item['price'] = $item->get_total();
+		$data_item['name'] = $item->get_name();
+		array_push($product_data,$data_item);
+	}
+	
 }
 ?>
 
@@ -144,6 +159,10 @@ foreach( $order->get_items() as $item_id => $item){
 		<form method="post" action="/wp-content/generate.php">
 			<?php
 				$email = $order->get_billing_email(); 
+				$name = $order->get_billing_first_name();
+				$phone = $order->get_billing_phone();
+				$payment = $order->get_payment_method();
+				$total = $order->get_total();
 				$i = 1;
 				foreach($product_data as $prod) {
 					foreach($prod as $key => $value) {
@@ -154,6 +173,10 @@ foreach( $order->get_items() as $item_id => $item){
 			$i++; } ?>
 			<input type="hidden" name="number_item" value="<?php echo $i; ?>" />
 			<input type="hidden" name="email" value="<?php echo $email; ?>" />
+			<input type="hidden" name="name_customer" value="<?php echo $name; ?>" />
+			<input type="hidden" name="phone" value="<?php echo $phone; ?>" />
+			<input type="hidden" name="payment" value="<?php echo $payment; ?>" />
+			<input type="hidden" name="total" value="<?php echo $total; ?>" />
 			<button class="export-bill" type="submit"> Xuất hóa đơn đặt phòng </button>
 		</form>
 	</div>
