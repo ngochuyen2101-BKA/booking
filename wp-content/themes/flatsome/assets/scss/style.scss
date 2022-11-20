@@ -193,6 +193,10 @@ Version: 3.0
             .info {
                 margin-right: 10px;
             }
+            .check-in, .check-out {
+                display: flex;
+                align-items: baseline;
+            }
         }
     }
     .checkout-content {
@@ -440,10 +444,6 @@ img {vertical-align: middle;}
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
-}
-
-.active, .dot:hover {
-  background-color: #717171;
 }
 
 /* Fading animation */

@@ -73,10 +73,10 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
     <div class="info-booking">
         <div class="container">
             <div class="check-in info">
-                <i class="fas fa-calendar-alt"></i> Nhận phòng: <span class="date-checkin">10/10/2022</span>
+                <i class="fas fa-calendar-alt"></i> Nhận phòng: <span><input type="date" class="date-checkin"></span>
             </div>
             <div class="check-out info">
-                <i class="fas fa-calendar-alt"></i> Trả phòng: <span class="date-checkout">11/10/2022</span>
+                <i class="fas fa-calendar-alt"></i> Trả phòng: <span><input type="date" class="date-checkout"></span>
             </div>
             <div class="number-of-date info">
                 <i class="fas fa-hotel"></i> <span class="room-number">1</span> phòng

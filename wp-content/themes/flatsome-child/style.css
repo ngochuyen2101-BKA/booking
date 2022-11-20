@@ -188,6 +188,10 @@ Version: 3.0
 .checkout-page .info-booking .container .info {
   margin-right: 10px;
 }
+.checkout-page .info-booking .container .check-in, .checkout-page .info-booking .container .check-out {
+  display: flex;
+  align-items: baseline;
+}
 .checkout-page .checkout-content {
   background-color: rgba(220, 220, 220, 0.1411764706);
   padding: 30px 0;
@@ -430,9 +434,6 @@ Version: 3.0
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
-}
-.booking-page .active, .booking-page .dot:hover {
-  background-color: #717171;
 }
 .booking-page .fade {
   animation-name: fade;

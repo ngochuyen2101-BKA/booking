@@ -23,16 +23,16 @@ get_header();
     <div class="info-booking">
         <div class="container">
             <div class="check-in info">
-                <i class="fas fa-calendar-alt"></i> Nhận phòng: <span class="date-checkin">2022-11-19</span>
+                <i class="fas fa-calendar-alt"></i> Nhận phòng: <span><input type="date" class="date-checkin"></span>
             </div>
             <div class="check-out info">
-                <i class="fas fa-calendar-alt"></i> Trả phòng: <span class="date-checkout">2022-11-19</span>
+                <i class="fas fa-calendar-alt"></i> Trả phòng: <span><input type="date" class="date-checkout"></span>
             </div>
             <div class="number-of-date info">
-                <i class="fas fa-hotel"></i> <span class="room-number">1</span> phòng
+                <i class="fas fa-hotel"></i> <span class="room-number" style="display: none;">1</span><span class="room-number-cal">0</span> phòng
             </div>
             <div class="number-of-customer info">
-                <i class="fas fa-user"></i> <span class="number-adults">1</span> người lớn - <span class="number-childs">1</span> trẻ em
+                <i class="fas fa-user"></i> <span class="number-adults" style="display: none;">1</span><span class="number-adults-cal"">1</span> người lớn - <span class="number-childs" style="display: none;">1</span><span class="number-childs-cal"">1</span> trẻ em
             </div>
             <div class="add-room">
                 <p class="btn-show">Thêm phòng</p>

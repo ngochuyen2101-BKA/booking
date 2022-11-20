@@ -249,3 +249,14 @@ function woo_show_excerpt_shop_page() {
 
 	echo "<div class='short-des'>". $product->post->post_excerpt ."</div>";
 }
+
+add_action( 'template_redirect', 'custom_empty_cart' );
+function custom_empty_cart() {
+	$currentURL = $_SERVER['REQUEST_URI'];
+	$bookingPage = strpos($currentURL,'/booking-page') > -1;
+	$checkoutPage = strpos($currentURL,'/thanh-toan') > -1;
+    if ( ! ( $bookingPage || $checkoutPage ) && ! WC()->cart->is_empty() ) {
+        WC()->cart->empty_cart( true );
+		setcookie('step',1,864000, "/");
+	}
+}

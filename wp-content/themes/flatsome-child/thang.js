@@ -3,8 +3,8 @@
 	var isloading = false;    
     $(document).on('click','.select-room', function() {
         $('.popup-add').removeClass('active');
-        var date_checkin = $('.date-checkin').text();
-        var date_checkout = $('.date-checkout').text();
+        var date_checkin = $('.date-checkin').val();
+        var date_checkout = $('.date-checkout').val();
         var adults = $('.number-adults').text();
         var childs = $('.number-childs').text();
         var product_id = $(this).data('product_id');
@@ -85,6 +85,7 @@
                 $('.loading-wait').css('display','none');
                 isloading = false;
                 checkBtnRemove();
+                countRoomAndCustomer();
             },
 
         });
@@ -211,6 +212,7 @@
         $(this).closest('.detail-selected').remove();
         updateTotalPrice();
         checkBtnRemove();
+        countRoomAndCustomer();
     });
 
     $(document).on('click','.add-btn', function() {
@@ -373,6 +375,24 @@
         }
      }
 
+     function countRoomAndCustomer() {
+        var total_room = 0;
+        $('.list-selected .quantity').each(function() {
+            total_room += parseInt($(this).html());
+        });
+        $('.room-number-cal').html(total_room);
+        var total_adult = 0;
+        $('.list-selected .info-custom-adult').each(function() {
+            total_adult += parseInt($(this).html());
+        });
+        $('.number-adults-cal').html(total_adult);
+        var total_child = 0;
+        $('.list-selected .info-custom-child').each(function() {
+            total_child += parseInt($(this).html());
+        });
+        $('.number-childs-cal').html(total_child);
+     }
+
     $( document ).ready(function() {
 
         checkBtnRemove();
@@ -385,10 +405,13 @@
                 hash = hashes[i].split('=');
                 vars[hash[0]] = hash[1];
             }
-            $('.date-checkin').html(vars['arrival']);
-            $('.date-checkout').html(vars['departure']);
+            var total_cus = parseInt(vars['adults1']) + parseInt(vars['children1']);
+            $('.date-checkin').val(vars['arrival']);
+            $('.date-checkout').val(vars['departure']);
             $('.number-adults').html(vars['adults1']);
+            $('.number-adults-cal').html(vars['adults1']);
             $('.number-childs').html(vars['children1']);
+            $('.number-childs-cal').html(vars['children1']);
         }
         
         var step = getBBCookie('step');
@@ -449,10 +472,10 @@
             $('.number-adults').html(qty_adult);
 
             var checkin = $('.info-checkin:first').html();
-            $('.date-checkin').html(checkin);
+            $('.date-checkin').val(checkin);
 
             var checkout = $('.info-checkout:first').html();
-            $('.date-checkout').html(checkout);
+            $('.date-checkout').val(checkout);
 
         }
         
