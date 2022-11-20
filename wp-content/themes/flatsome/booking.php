@@ -80,10 +80,25 @@ get_header();
                             $date = $product->get_attribute( 'number-of-date' );
                             $regular_price = $product->get_regular_price();
                             $sale_price = $product->get_sale_price();
+
+                            $attachment_ids = $product->get_gallery_image_ids();
+                            
                         ?>
                         <div class="cart" data-product_id="<?php echo $product->id; ?>">
                             <div class="product-booking">
-                                <img src="<?php  echo $image[0]; ?>" data-id="<?php echo $product->id; ?>">
+                                <!-- <img src="<?php  echo $image[0]; ?>" data-id="<?php echo $product->id; ?>"> -->
+                                <div class="slideshow-container">
+                                    <?php 
+                                        foreach( $attachment_ids as $attachment_id ) {
+                                        $image_link = wp_get_attachment_url( $attachment_id );
+                                     ?>
+                                    <div class="mySlides fade">
+                                        <img src="<?php echo $image_link; ?>" style="width:100%">
+                                    </div>
+                                    <?php } ?>
+                                    <a class="prev" onclick="plusSlides(-1)">❮</a>
+                                    <a class="next" onclick="plusSlides(1)">❯</a>
+                                </div>
                                 <input type="hidden" name="add-to-cart" value="<?php echo $product->id; ?>" />
                                 <input type="hidden" name="product_id" value="<?php echo $product->id; ?>" />
                                 <input type="hidden" name="quantity" value="1" />
@@ -169,7 +184,7 @@ get_header();
                         <div class="list-selected">
                             <div class="room-gr">
                         <?php if (!WC()->cart->is_empty()) : 
-                            $i = 0;
+                            
                             foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                                 $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
                                 $category_name = get_the_terms ( $_product->id, 'product_cat' )[0]->slug;
@@ -198,7 +213,7 @@ get_header();
                                         <div class="gr-edit">
                                             <div class="price"><?php echo $total; ?></div>
                                             <?php
-                                            if($i > 0) {
+                                            
                                                 echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
                                                     '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
                                                     esc_url(wc_get_cart_remove_url($cart_item_key)),
@@ -207,8 +222,8 @@ get_header();
                                                     esc_attr($cart_item_key),
                                                     esc_attr($_product->get_sku())
                                                 ), $cart_item_key);
-                                            }
-                                            $i++;
+                                            
+                                            
                                             ?>
                                         </div>
                                         <div class="info"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
@@ -282,5 +297,33 @@ get_header();
     </div>
 </div>
 <div class="loading-wait" style="display: none ;">Loading</div>
+<script>
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+</script>
 <?php
 get_footer();

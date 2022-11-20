@@ -84,7 +84,7 @@
                 $('.step-2').find('.text-step').addClass('active');
                 $('.loading-wait').css('display','none');
                 isloading = false;
-                $('.room-gr').find('.remove_from_cart_button').first().css('display','none');
+                checkBtnRemove();
             },
 
         });
@@ -210,6 +210,7 @@
         });
         $(this).closest('.detail-selected').remove();
         updateTotalPrice();
+        checkBtnRemove();
     });
 
     $(document).on('click','.add-btn', function() {
@@ -359,9 +360,18 @@
             $('#place_order').prop('disabled', true);
         }
      });
+     function checkBtnRemove() {
+        var count_room = $('.room-gr').find('.remove_from_cart_button').length;
+        if(count_room == 1) {
+            $('.room-gr').find('.remove_from_cart_button').first().css('display','none');
+        } else {
+            $('.room-gr').find('.remove_from_cart_button').css('display','block');
+        }
+     }
 
     $( document ).ready(function() {
 
+        checkBtnRemove();
         var current_url = window.location.href;
         if(current_url.indexOf("/booking-page") > -1) {
             var vars = [], hash;
