@@ -81,7 +81,7 @@ get_header();
                             $regular_price = $product->get_regular_price();
                             $sale_price = $product->get_sale_price();
                         ?>
-                        <form class="cart" action="" method="post" enctype="multipart/form-data" data-product_id="<?php echo $product->id; ?>">
+                        <div class="cart" data-product_id="<?php echo $product->id; ?>">
                             <div class="product-booking">
                                 <img src="<?php  echo $image[0]; ?>" data-id="<?php echo $product->id; ?>">
                                 <input type="hidden" name="add-to-cart" value="<?php echo $product->id; ?>" />
@@ -102,11 +102,11 @@ get_header();
                                     <div class="col-md-4">
                                         <div class="regular-price"><?php echo $regular_price; ?> VNĐ</div>
                                         <div class="sale-price"><?php echo $sale_price; ?> VNĐ</div>
-                                        <button type="submit" class="single_add_to_cart_button button alt btn-select select-room" data-product_id="<?php echo $product->id; ?>">Lựa chọn</button>
+                                        <button type="submit" class="button alt btn-select select-room" data-product_id="<?php echo $product->id; ?>">Lựa chọn</button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                         <?php
                         endwhile;
                         ?>

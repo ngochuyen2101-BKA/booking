@@ -110,7 +110,7 @@ function getDataRoom() {
 
 		if( ((int)$number_adult >= (int)$adult) && ((int)$number_child >= (int)$child) ) {
 
-			$html .= '<form class="cart" action="" method="post" enctype="multipart/form-data" data-product_id="'.$product->id.'">';
+			$html .= '<div class="cart" data-product_id="'.$product->id.'">';
 			$html .= 	'<div class="product-booking">';
 			$html .= 		'<img src="'.$image[0].'" data-id="'.$product->id.'">';
 			$html .= 		'<input type="hidden" name="add-to-cart" value="'.$product->id.'">';
@@ -129,7 +129,7 @@ function getDataRoom() {
             $html .= 			'<div class="col-md-4">';
 			$html .= 				'<div class="regular-price">'.$regular_price.' VNĐ</div>';
 			$html .= 				'<div class="sale-price">'.$sale_price.' VNĐ</div>';
-			$html .= 				'<button type="submit" class="single_add_to_cart_button button alt btn-select select-room" data-product_id="'.$product->id.'">Lựa chọn</button>';
+			$html .= 				'<button type="submit" class=" button alt btn-select select-room" data-product_id="'.$product->id.'">Lựa chọn</button>';
             $html .= 			'</div>';
 			$html .= 		'</div>';
 			$html .= 	'</div>';
@@ -185,16 +185,16 @@ function decreaseService() {
 add_action( 'woocommerce_checkout_create_order_line_item', 'save_cart_item_custom_meta_as_order_item_meta', 10, 4 );
 function save_cart_item_custom_meta_as_order_item_meta( $item, $cart_item_key, $values, $order ) {
     if ( isset($values['customData']) && isset($values['customData']['custom_adult']) ) {
-        $item->update_meta_data( 'custom_adult', $values['customData']['custom_adult'] );
+        $item->update_meta_data( 'Adults', $values['customData']['custom_adult'] );
     }
 	if ( isset($values['customData']) && isset($values['customData']['custom_child']) ) {
-        $item->update_meta_data( 'custom_child', $values['customData']['custom_child'] );
+        $item->update_meta_data( 'Childs', $values['customData']['custom_child'] );
     }
 	if ( isset($values['customData']) && isset($values['customData']['custom_date_checkin']) ) {
-        $item->update_meta_data( 'custom_date_checkin', $values['customData']['custom_date_checkin'] );
+        $item->update_meta_data( 'Date check in', $values['customData']['custom_date_checkin'] );
     }
 	if ( isset($values['customData']) && isset($values['customData']['custom_date_checkout']) ) {
-        $item->update_meta_data( 'custom_date_checkout', $values['customData']['custom_date_checkout'] );
+        $item->update_meta_data( 'Date check out', $values['customData']['custom_date_checkout'] );
     }
 }
 

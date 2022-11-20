@@ -1,7 +1,7 @@
 
 (function($) {
 	var isloading = false;    
-    $(document).on('click','.single_add_to_cart_button.select-room', function() {
+    $(document).on('click','.select-room', function() {
         $('.popup-add').removeClass('active');
         var date_checkin = $('.date-checkin').text();
         var date_checkout = $('.date-checkout').text();
@@ -27,6 +27,7 @@
                 action: 'custom_data_product'
             },
             success: function(res) {
+                console.log('adults:'+adults+'childs:'+childs+'date_checkin:'+date_checkin+'date_checkout:'+date_checkout)
                 if($.isNumeric( res )) {
                     $('.detail-room').each(function() {
                         var id = $(this).data('product_id');

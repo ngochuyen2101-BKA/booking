@@ -207,6 +207,14 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                     <p class="total-price"><?php echo WC()->cart->cart_contents_total; ?></p>
                                 </div>
                             </div>
+                            <div class="woocommerce-additional-fields__field-wrapper">
+                                <p class="form-row notes" id="order_comments_field" data-priority="">
+                                    <label for="order_comments" class="">Order notes&nbsp; <span class="optional">(optional)</span></label>
+                                    <span class="woocommerce-input-wrapper">
+                                        <textarea name="order_comments" class="input-text " id="order_comments" placeholder="" rows="2" cols="5"></textarea>
+                                    </span>
+                                </p>
+                            </div>
                             <div class="check-condition">
                                 <input type="checkbox" id="condition" name="condition">
                                 <label for="condition">I agree with the terms & conditions.</label>
