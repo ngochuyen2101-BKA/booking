@@ -302,7 +302,7 @@ Version: 3.0
   }
   
   /* Animation */
-  
+  .booking-page {
   @-webkit-keyframes spinner {
     0% {
       -webkit-transform: rotate(0deg);
@@ -460,4 +460,5 @@ img {vertical-align: middle;}
 /* On smaller screens, decrease text size */
 @media only screen and (max-width: 300px) {
   .prev, .next,.text {font-size: 11px}
+}
 }

@@ -95,6 +95,7 @@ function getDataRoom() {
 
 	$loop = new WP_Query( $args );
 	$html = '';
+	$i = 1;
 	while ( $loop->have_posts() ) : $loop->the_post();
 		global $product;
 		$room_status = get_field('tinh_trang', $product->id)['value'];
@@ -107,12 +108,25 @@ function getDataRoom() {
 		$date = $product->get_attribute( 'number-of-date' );
 		$regular_price = $product->get_regular_price();
 		$sale_price = $product->get_sale_price();
+		$attachment_ids = $product->get_gallery_image_ids();
 
 		if( ((int)$number_adult >= (int)$adult) && ((int)$number_child >= (int)$child) ) {
 
 			$html .= '<div class="cart" data-product_id="'.$product->id.'">';
 			$html .= 	'<div class="product-booking">';
-			$html .= 		'<img src="'.$image[0].'" data-id="'.$product->id.'">';
+			// $html .= 		'<img src="'.$image[0].'" data-id="'.$product->id.'">';
+			$html .= 	'<div class="slideshow-container">';
+			foreach( $attachment_ids as $attachment_id ) {
+				$image_link = wp_get_attachment_url( $attachment_id );
+			
+			$html .= 			'<div class="mySlides fade slide-room'.$i.'">';
+			$html .= 			'	<img src="'.$image_link.'" style="width:100%">';
+			$html .= 			'</div>';
+			}
+			$html .= 			'<a class="prev" onclick="plusSlides(-1,'.$i.')">❮</a>';
+			$html .= 			'<a class="next" onclick="plusSlides(1,'.$i.')">❯</a>';
+			$i++;
+			$html .= 		'</div>';
 			$html .= 		'<input type="hidden" name="add-to-cart" value="'.$product->id.'">';
 			$html .= 		'<input type="hidden" name="product_id" value="'.$product->id.'">';
 			$html .= 		'<input type="hidden" name="quantity" value="'.$product->id.'">';

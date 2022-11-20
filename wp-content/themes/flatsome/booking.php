@@ -68,8 +68,9 @@ get_header();
                         );
 
                         $loop = new WP_Query( $args );
-
+                        $i = 1;
                         while ( $loop->have_posts() ) : $loop->the_post();
+                            
                             global $product;
                             $room_status = get_field('tinh_trang', $product->id)['value'];
                             if($room_status == 'hetphong') continue;
@@ -86,18 +87,19 @@ get_header();
                         ?>
                         <div class="cart" data-product_id="<?php echo $product->id; ?>">
                             <div class="product-booking">
-                                <!-- <img src="<?php  echo $image[0]; ?>" data-id="<?php echo $product->id; ?>"> -->
                                 <div class="slideshow-container">
                                     <?php 
                                         foreach( $attachment_ids as $attachment_id ) {
                                         $image_link = wp_get_attachment_url( $attachment_id );
                                      ?>
-                                    <div class="mySlides fade">
+                                    <div class="mySlides fade slide-room<?php echo $i; ?>">
                                         <img src="<?php echo $image_link; ?>" style="width:100%">
                                     </div>
-                                    <?php } ?>
-                                    <a class="prev" onclick="plusSlides(-1)">❮</a>
-                                    <a class="next" onclick="plusSlides(1)">❯</a>
+                                    
+                                    <?php  } ?>
+                                    <a class="prev" onclick="plusSlides(-1,<?php echo $i; ?>)">❮</a>
+                                    <a class="next" onclick="plusSlides(1,<?php echo $i; ?>)">❯</a>
+                                    <?php   $i++;  ?>
                                 </div>
                                 <input type="hidden" name="add-to-cart" value="<?php echo $product->id; ?>" />
                                 <input type="hidden" name="product_id" value="<?php echo $product->id; ?>" />
@@ -299,30 +301,37 @@ get_header();
 <div class="loading-wait" style="display: none ;">Loading</div>
 <script>
 let slideIndex = 1;
-showSlides(slideIndex);
+showSlides(slideIndex,0);
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
+function plusSlides(n, seq) {
+    showSlides(slideIndex += n,seq);
 }
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
+function showSlides(n, seq) {
+    var $ = jQuery;
+    let i; 
+    let slide_num = <?php echo $i ?>;
+    if(seq == 0) {
+        for (j = 1; j < slide_num; j++) {
+            let slides = $(".slide-room"+j);
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides.css('display','none');  
+            }
+            $(".slide-room"+j).first().css('display','block'); 
+        }
+    } else {
+        let slidesDiff = $(".slide-room"+seq);
+        if (n > slidesDiff.length) {slideIndex = 1}    
+        if (n < 1) {slideIndex = slidesDiff.length}
+        for (i = 0; i < slidesDiff.length; i++) {
+            slidesDiff.css('display','none');  
+        }
+        var selector = ".slide-room"+seq+':nth-child('+slideIndex+')';
+        $(selector).css('display','block'); 
+    }
+   
 }
 </script>
 <?php

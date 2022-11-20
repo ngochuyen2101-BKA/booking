@@ -235,6 +235,9 @@
                 action: 'get_data_room'
             },
             success: function(res) {
+                if(res.substr(res.length-1, 1) == '0') {
+                    res = res.substr(0, res.length-1);
+                }
                 $('.number-adults').html(number_adult);
                 $('.number-childs').html(number_child);
                 $('.popup-add').removeClass('active');
@@ -248,6 +251,7 @@
                 $('.step-2').find('.text-step').removeClass('active');
                 $('.loading-wait').css('display','none');
                 isloading = false;
+                showSlides(slideIndex,0);
             },
 
         });
