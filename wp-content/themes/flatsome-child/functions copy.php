@@ -109,9 +109,6 @@ function getDataRoom() {
 		$regular_price = $product->get_regular_price();
 		$sale_price = $product->get_sale_price();
 		$attachment_ids = $product->get_gallery_image_ids();
-		if($regular_price!=""){
-			$has_sale_price = "has-sale-price";
-		}
 
 		if( ((int)$number_adult >= (int)$adult) && ((int)$number_child >= (int)$child) ) {
 
@@ -136,27 +133,24 @@ function getDataRoom() {
 			$html .= 		'<div class="room-title">'.$product->get_title().'</div>';
             $html .= 		'<div class="row">';                
             $html .= 			'<div class="col-md-4">';                    
-            $html .= 				'<div class="room-area"><img src="/wp-content/uploads/2022/11/dien-tich.svg" width="20px" height="20px">'.$area.'</div>';
-			$html .= 				'<div class="room-change"><img src="/wp-content/uploads/2022/11/huy.svg" width="20px" height="20px">Không hủy và thay đổi</div>';
+            $html .= 				'<div class="room-area">'.$area.'</div>';
+			$html .= 				'<div class="room-change">Không hủy và thay đổi</div>';
             $html .= 			'</div>';                            
             $html .= 			'<div class="col-md-4">';                        
-            $html .= 				'<div class="room-user"><img src="/wp-content/uploads/2022/11/nguoi.svg" width="20px" height="20px">'.$number_adult.' người lớn - '.$number_child.' trẻ em</div>';                        
-            $html .= 				'<div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>';
+            $html .= 				'<div class="room-user">'.$number_adult.' người lớn - '.$number_child.' trẻ em</div>';                        
+            $html .= 				'<div class="room-deposit">Đặt cọc và đảm bảo</div>';
 			$html .= 			'</div>';                            
-            $html .= 			'<div class="col-md-4 price-col '.$has_sale_price.'">';
-			$html .= 				'<div class="regular-price">'.number_format($regular_price).' VNĐ</div>';
-			$html .= 				'<div class="sale-price">'.number_format($sale_price).' VNĐ</div>';
+            $html .= 			'<div class="col-md-4">';
+			$html .= 				'<div class="regular-price">'.$regular_price.' VNĐ</div>';
+			$html .= 				'<div class="sale-price">'.$sale_price.' VNĐ</div>';
 			$html .= 				'<button type="submit" class=" button alt btn-select select-room" data-product_id="'.$product->id.'">Lựa chọn</button>';
             $html .= 			'</div>';
 			$html .= 		'</div>';
 			$html .= 	'</div>';
-			$html .= '</div>';
+			$html .= '</div>';         
 		}
 
 	endwhile;
-	$html .='<script>';
-	$html .='jQuery("document").ready(function(){jQuery(".mySlides img").css("height",jQuery(".mySlides img").width() * 9 / 16 + "px");});';
-	$html .='</script>';
 	echo $html;
 }
 
@@ -256,10 +250,13 @@ function woo_show_excerpt_shop_page() {
 	echo "<div class='short-des'>". $product->post->post_excerpt ."</div>";
 }
 
-add_action('wp_ajax_remove_cart', 'custom_empty_cart');
-add_action('wp_ajax_nopriv_remove_cart', 'custom_empty_cart');
+add_action( 'template_redirect', 'custom_empty_cart' );
 function custom_empty_cart() {
-	global $woocommerce;
-	$woocommerce->cart->empty_cart( true );
-	setcookie('step',1,864000, "/");
+	$currentURL = $_SERVER['REQUEST_URI'];
+	$bookingPage = strpos($currentURL,'/booking-page') > -1;
+	$checkoutPage = strpos($currentURL,'/thanh-toan') > -1;
+    if ( ! ( $bookingPage || $checkoutPage ) && ! WC()->cart->is_empty() ) {
+        WC()->cart->empty_cart( true );
+		setcookie('step',1,864000, "/");
+	}
 }

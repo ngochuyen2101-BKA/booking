@@ -61,8 +61,8 @@
                     html +=                     '<div class="price">'+price+'</div>'
                     html +=                      res
                     html +=                 '</div>' 
-                    html +=                 '<div class="info">'+date_checkin+'</div>' 
-                    html +=                 '<div class="info">'+date_checkout+'</div>' 
+                    html +=                 '<div class="info info-date-checkin">'+date_checkin+'</div>' 
+                    html +=                 '<div class="info info-date-checkout">'+date_checkout+'</div>' 
                     html +=                 '<div class="info info-custom-adult">'+adults+'</div>' 
                     html +=                 '<div class="info info-custom-child">'+childs+'</div>'
                     html +=                 '<div class="info quantity">1</div>'   
@@ -335,9 +335,9 @@
         var prices = $('.list-selected').find('.price');
         var price = 0;
         prices.each(function( index ) {
-            price += parseInt($(this).text());
+            price += parseInt($(this).text().replace(/,/g, ''));
         });
-        $('.total-price').html(price + ' Đ');
+        $('.total-price').html(price + ' VNĐ');
     }
 
     function setBBCookie(name, value, expireSeconds = 0) {
@@ -377,7 +377,7 @@
 
      function countRoomAndCustomer() {
         var total_room = 0;
-        $('.list-selected .quantity').each(function() {
+        $('.room-gr .quantity').each(function() {
             total_room += parseInt($(this).html());
         });
         $('.room-number-cal').html(total_room);
@@ -396,6 +396,15 @@
     $( document ).ready(function() {
 
         checkBtnRemove();
+
+        var today = new Date();
+        var month = ('0' + (today.getMonth() + 1)).slice(-2);
+        var day = ('0' + today.getDate()).slice(-2);
+        var year = today.getFullYear();
+        var date = year + '-' + month + '-' + day;
+        $('.date-checkin').attr('min', date);
+        $('.date-checkout').attr('min', date);
+
         var current_url = window.location.href;
         if(current_url.indexOf("/booking-page") > -1) {
             var vars = [], hash;
@@ -477,6 +486,54 @@
             var checkout = $('.info-checkout:first').html();
             $('.date-checkout').val(checkout);
 
+        }
+        if(current_url.indexOf("booking-page") > -1) {
+            var number_adult = $('.number-adults').text();
+            var number_child = $('.number-childs').text();
+            if(number_adult == "") {
+                number_adult = 1;
+            }
+            if(number_child == "") {
+                number_child = 0;
+            }
+            $.ajax({
+                url: '/wp-admin/admin-ajax.php',
+                method: 'POST',
+                data: {
+                    adult: number_adult,
+                    child: number_child,
+                    action: 'get_data_room'
+                },
+                success: function(res) {
+                    if(res.substr(res.length-1, 1) == '0') {
+                        res = res.substr(0, res.length-1);
+                    }
+                    $('.number-adults').html(number_adult);
+                    $('.number-childs').html(number_child);
+                    $('.popup-add').removeClass('active');
+                    $('.choose-room').css('display','block');
+                    $('.choose-service').css('display','none');
+                    $('.list-room').html(res);
+                    setBBCookie('step',1,864000);
+                    $('.step-1').find('.number-step').addClass('active');
+                    $('.step-1').find('.text-step').addClass('active');
+                    $('.step-2').find('.number-step').removeClass('active');
+                    $('.step-2').find('.text-step').removeClass('active');
+                    $('.loading-wait').css('display','none');
+                    isloading = false;
+                    showSlides(slideIndex,0);
+                },
+
+            });
+        }
+        if( !( (current_url.indexOf("thanh-toan") > -1) || (current_url.indexOf("booking-page") > -1) ) ) {
+            $.ajax({
+                url: '/wp-admin/admin-ajax.php',
+                method: 'POST',
+                data: {
+                    action: 'remove_cart'
+                }
+            });
         }
         
     });
