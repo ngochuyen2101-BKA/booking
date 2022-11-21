@@ -187,7 +187,7 @@
                 },
     
             });
-        }, 1000);
+        }, 2000);
     });
 
     $(document).on('click','.btn-show', function() {
