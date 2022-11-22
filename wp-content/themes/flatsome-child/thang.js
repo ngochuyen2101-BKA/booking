@@ -33,7 +33,6 @@
                 action: 'custom_data_product'
             },
             success: function(res) {
-                console.log('adults:'+adults+'childs:'+childs+'date_checkin:'+date_checkin+'date_checkout:'+date_checkout)
                 if($.isNumeric( res )) {
                     $('.detail-room').each(function() {
                         var id = $(this).data('product_id');
@@ -65,8 +64,8 @@
                     html +=             '</div>'
                     html +=             '<div class="col-md-6 cart-item-info">' 
                     html +=                 '<div class="price-gr"><span class="price">'+price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")+'</span> VNĐ</div>'
-                    html +=                 '<div class="info info-date-checkin">'+date_checkin+'</div>' 
-                    html +=                 '<div class="info info-date-checkout">'+date_checkout+'</div>' 
+                    html +=                 '<div class="info info-date-checkin">'+moment(date_checkin).format('DD/MM/YYYY')+'</div>' 
+                    html +=                 '<div class="info info-date-checkout">'+moment(date_checkout).format('DD/MM/YYYY')+'</div>' 
                     html +=                 '<div class="info info-custom-adult">'+adults+'</div>' 
                     html +=                 '<div class="info info-custom-child">'+childs+'</div>'
                     html +=                 '<div class="gr-edit">' 
@@ -351,7 +350,7 @@
         prices.each(function( index ) {
             price += parseInt($(this).text().replace(/,/g, ''));
         });
-        $('.total-price').html(price + ' VNĐ');
+        $('.total-price').html(price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + ' VNĐ');
     }
 
     function setBBCookie(name, value, expireSeconds = 0) {
@@ -398,21 +397,17 @@
         var count = 0;
         var total_adult = 0;
         $('.list-selected .info-custom-adult').each(function() {
-            count = $(this).closest('.detail-room').find('.quantity');
+            count = $(this).closest('.detail-room').find('.quantity').text();
             total_adult += parseInt($(this).html()) * parseInt(count);
         });
         $('.number-adults-cal').html(total_adult);
         var total_child = 0;
         $('.list-selected .info-custom-child').each(function() {
-            count = $(this).closest('.detail-room').find('.quantity');
+            count = $(this).closest('.detail-room').find('.quantity').text();
             total_child += parseInt($(this).html())  * parseInt(count);
         });
         $('.number-childs-cal').html(total_child);
      }
-
-     $( window ).on('hashchange',(function() {
-        alert('haha');
-     });
 
     $( document ).ready(function() {
 

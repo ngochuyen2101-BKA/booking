@@ -16,6 +16,7 @@ function add_css(){
 	if($bookingPage || $checkoutPage) {
 		wp_register_style( 'bootstrap-css', get_theme_root_uri().'/flatsome/assets/css/bootstrap-grid.min.css',true,$version1,'all'); 
 		wp_enqueue_style( 'bootstrap-css' );
+		wp_enqueue_script('moment', get_theme_root_uri().'/flatsome-child/moment.js', array(), $version1, true);
 	}
  }
  add_action( 'wp_enqueue_scripts', 'add_css',1000 );

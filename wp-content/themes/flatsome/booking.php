@@ -228,8 +228,8 @@ echo do_shortcode('[block id="banner"]');
                                     </div>
                                     <div class="col-md-6 cart-item-info">
                                         <div class="price-gr"><span class="price"><?php echo number_format($total); ?></span> VNĐ</div>
-                                        <div class="info info-date-checkin"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
-                                        <div class="info info-date-checkout"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
+                                        <div class="info info-date-checkin"><?php echo date_format(date_create($cart_item['customData']['custom_date_checkin']),"d/m/Y"); ?></div>
+                                        <div class="info info-date-checkout"><?php echo date_format(date_create($cart_item['customData']['custom_date_checkout']),"d/m/Y"); ?></div>
                                         <div class="info info-custom-adult"><?php echo $cart_item['customData']['custom_adult']; ?></div>
                                         <div class="info info-custom-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
                                         <div class="gr-edit">

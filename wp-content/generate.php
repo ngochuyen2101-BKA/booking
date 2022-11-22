@@ -36,7 +36,7 @@ for($i = 1; $i < $number_item; $i++) {
             $html .= '<div class="info">Số lượng trẻ em: '.$_POST['Childs'.$i].'</div>';
         }
         if(isset($_POST['Date_check_in'.$i])) {
-            $html .= '<div class="info">Ngày nhận - trả phòng: '.$_POST['Date_check_in'.$i].' - '.$_POST['Date_check_out'.$i].'</div>';
+            $html .= '<div class="info">Ngày nhận - trả phòng: '.date_format(date_create($_POST['Date_check_in'.$i]),"d/m/Y").' - '.date_format(date_create($_POST['Date_check_out'.$i]),"d/m/Y").'</div>';
         }
     } else {
         $html .= $_POST['name'.$i].' - '.number_format($_POST['price'.$i]);
@@ -119,7 +119,7 @@ for($i = 1; $i < $number_item; $i++) {
             $html .= '<div class="info">Số lượng trẻ em: '.$_POST['Childs'.$i].'</div>';
         }
         if(isset($_POST['Date_check_in'.$i])) {
-            $html .= '<div class="info">Ngày nhận - trả phòng: '.$_POST['Date_check_in'.$i].' - '.$_POST['Date_check_out'.$i].'</div>';
+            $html .= '<div class="info">Ngày nhận - trả phòng: '.date_format(date_create($_POST['Date_check_in'.$i]),"d/m/Y").' - '.date_format(date_create($_POST['Date_check_out'.$i]),"d/m/Y").'</div>';
         }
     } else {
         $html .= $_POST['name'.$i].' - '.number_format($_POST['price'.$i]);

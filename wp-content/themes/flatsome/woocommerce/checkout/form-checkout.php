@@ -164,8 +164,8 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                             </div>
                                             <div class="col-md-6 cart-item-info">
                                                 <div class="price-gr"><span class="price"><?php echo number_format($_product->get_sale_price()); ?></span> VNĐ</div>
-                                                <div class="info info-checkin"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
-                                                <div class="info info-checkout"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
+                                                <div class="info info-checkin"><?php echo date_format(date_create($cart_item['customData']['custom_date_checkin']),"d/m/Y"); ?></div>
+                                                <div class="info info-checkout"><?php echo date_format(date_create($cart_item['customData']['custom_date_checkout']),"d/m/Y"); ?></div>
                                                 <div class="info info-adult "><?php echo $cart_item['customData']['custom_adult']; ?></div>
                                                 <div class="info info-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
                                                 <div class="info quantity info-qty"><?php echo $cart_item['quantity']; ?></div>
@@ -201,7 +201,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                 </div>
                                 <div class="total row">
                                     <div class="col-md-6"><p class="label">Tổng</p></div>
-                                    <div class="col-md-6"><p class="total-price"><?php echo WC()->cart->cart_contents_total; ?></p></div>
+                                    <div class="col-md-6"><p class="total-price"><?php echo number_format(WC()->cart->cart_contents_total); ?></p></div>
                                 </div>
                             </div>
                         </div>
