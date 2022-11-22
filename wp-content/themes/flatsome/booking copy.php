@@ -2,6 +2,7 @@
 /* Template Name: Booking Page */
 
 get_header();
+echo do_shortcode('[block id="banner"]');
 ?>
 <div class="booking-page">
     <div class="progress-booking">
@@ -23,16 +24,20 @@ get_header();
     <div class="info-booking">
         <div class="container">
             <div class="check-in info">
-                <i class="fas fa-calendar-alt"></i> Nhận phòng: <span><input type="date" class="date-checkin"></span>
+                <img src="/wp-content/uploads/2022/11/Lich-icon.png"> Nhận phòng: <span><input type="date" class="date-checkin"><span class="open-button">
+      <button type="button"><i class="fas fa-caret-down"></i></button>
+    </span></span>
             </div>
             <div class="check-out info">
-                <i class="fas fa-calendar-alt"></i> Trả phòng: <span><input type="date" class="date-checkout"></span>
+                <img src="/wp-content/uploads/2022/11/Lich-icon.png"> Trả phòng: <span><input type="date" class="date-checkout"><span class="open-button">
+      <button type="button"><i class="fas fa-caret-down"></i></button>
+    </span></span>
             </div>
             <div class="number-of-date info">
-                <i class="fas fa-hotel"></i> <span class="room-number" style="display: none;">1</span><span class="room-number-cal">0</span> phòng
+                <img src="/wp-content/uploads/2022/11/Artboard130.png"></i> <span class="room-number" style="display: none;">1</span><span class="room-number-cal">0</span> phòng
             </div>
             <div class="number-of-customer info">
-                <i class="fas fa-user"></i> <span class="number-adults" style="display: none;">1</span><span class="number-adults-cal"">1</span> người lớn - <span class="number-childs" style="display: none;">1</span><span class="number-childs-cal"">1</span> trẻ em
+                <img src="/wp-content/uploads/2022/11/Icon-feather-us.png"> <span class="number-adults" style="display: none;">1</span><span class="number-adults-cal"">1</span> người lớn - <span class="number-childs" style="display: none;">1</span><span class="number-childs-cal"">1</span> trẻ em
             </div>
             <div class="add-room">
                 <p class="btn-show">Thêm phòng</p>
@@ -56,8 +61,8 @@ get_header();
                 <div class="col-md-8">
                     <div class="choose-room">
                         <h2 class="title">Chọn phòng cho chuyến đi của bạn</h2>
-                        <p class="description">Quý khách sẽ được đặt phòng ở mức giá tốt nhất do không phải qua đơn vị trung gian:
-                        Quý khách đang ghé thăm trang web của khu nghỉ dưỡngs</p>
+                        <p class="description">Quý khách sẽ được đặt phòng ở mức giá tốt nhất do không phải qua đơn vị trung gian:<br>
+                        Quý khách đang ghé thăm trang web của khu nghỉ dưỡng</p>
                         <div class="list-room">
                         <?php  
                         $args = array(
@@ -76,8 +81,8 @@ get_header();
                             if($room_status == 'hetphong') continue;
                             $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
                             $area = $product->get_attribute( 'area' );
-                            $adult = $product->get_attribute( 'adults' );
-                            $child = $product->get_attribute( 'childs' );
+                            $adult = get_field('so_nguoi_lon', $product->id);
+                            $child = get_field('so_tre_em', $product->id);
                             $date = $product->get_attribute( 'number-of-date' );
                             $regular_price = $product->get_regular_price();
                             $sale_price = $product->get_sale_price();
@@ -109,16 +114,16 @@ get_header();
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="room-area">Diện tích: <?php echo $area; ?></div>
-                                        <div class="room-change">Không hủy và thay đổi</div>
+                                        <div class="room-area"><img src="/wp-content/uploads/2022/11/dien-tich.svg" width="20px" height="20px">Diện tích: <?php echo $area; ?></div>
+                                        <div class="room-change"><img src="/wp-content/uploads/2022/11/huy.svg" width="20px" height="20px">Không hủy và thay đổi</div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="room-user"><?php echo $adult; ?> người lớn - <?php echo $child; ?> trẻ em</div>
-                                        <div class="room-deposit">Đặt cọc và đảm bảo</div>
+                                        <div class="room-user"><img src="/wp-content/uploads/2022/11/nguoi.svg" width="20px" height="20px"><?php echo $adult; ?> người lớn - <?php echo $child; ?> trẻ em</div>
+                                        <div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="regular-price"><?php echo $regular_price; ?> VNĐ</div>
-                                        <div class="sale-price"><?php echo $sale_price; ?> VNĐ</div>
+                                    <div class="col-md-4 price-col <?php echo ($regular_price) ? 'has-sale-price' : ''; ?>">
+                                        <div class="regular-price"><?php echo number_format($regular_price); ?> VNĐ</div>
+                                        <div class="sale-price"><?php echo number_format($sale_price); ?> VNĐ</div>
                                         <button type="submit" class="button alt btn-select select-room" data-product_id="<?php echo $product->id; ?>">Lựa chọn</button>
                                     </div>
                                 </div>
@@ -159,18 +164,20 @@ get_header();
                                     </div>
                                     <div class="col-md-7">
                                         <div class="servive-name"><?php echo $product->get_title(); ?></div>
-                                        <div class=""><span class="servive-price"><?php echo $regular_price; ?></span>VNĐ</div>
-                                        <div class="servive-quatity">
-                                            <div class="increase">+</div>
-                                            <div class="quatity"><input type="number" name="quantity" value="1" class="qty service-number" data-product_id="<?php echo $product->id; ?>" readonly/></div>
-                                            <div class="decrease">-</div>
+                                        <div class="servive-price-quatity-box">
+                                            <div class="servive-price-box"><span class="servive-price"><?php echo $regular_price; ?></span>VNĐ<p class="xct-dv">Chi tiết <i class="fas fa-caret-right"></i></p></div>
+                                            <div class="servive-quatity">
+                                                <div class="decrease">-</div>
+                                                <div class="quatity"><input type="number" name="quantity" value="1" class="qty service-number" data-product_id="<?php echo $product->id; ?>" readonly/></div>
+                                                <div class="increase">+</div>
+                                            </div>
                                         </div>
-                                        <div class="description"><?php echo $product->get_short_description(); ?></div>
+                                        <div class="description description-service"><?php echo $product->get_short_description(); ?></div>
                                     </div>
                                     <div class="col-md-3 service-select">
                                         <button type="submit" class="single_add_to_cart_button button alt select-service" style="display:none;" data-product_id="<?php echo $product->id; ?>">Lựa chọn</button>
-                                        <input type="checkbox" id="addService" name="addService" class="add-service" data-product_id="<?php echo $product->id; ?>">
-                                        <label for="addService">Lựa chọn</label>
+                                        <input type="checkbox" id="addService<?php echo $product->id; ?>" name="addService" class="add-service" data-product_id="<?php echo $product->id; ?>">
+                                        <label for="addService<?php echo $product->id; ?>">Lựa chọn</label>
                                     </div>
                                 </div>
                             </div>
@@ -194,6 +201,11 @@ get_header();
                                 $price_sale = $_product->get_sale_price();
                                 $price_real = $_product->get_regular_price();
                                 $qty = $cart_item['quantity'];
+
+                                // $checkin = strtotime($cart_item['customData']['custom_date_checkin']);
+                                // $checkout = strtotime($cart_item['customData']['custom_date_checkout']);
+                                // $datediff = round(($checkout - $checkin) / (60 * 60 * 24) );
+                                
                                 if($price_sale) {
                                     $total = $price_sale*$qty;
                                 } else {
@@ -213,8 +225,14 @@ get_header();
                                     </div>
                                     <div class="col-md-6 cart-item-info">
                                         <div class="gr-edit">
-                                            <div class="price"><?php echo $total; ?></div>
-                                            <?php
+                                            <div class="price"><?php echo $total; ?> VNĐ</div>
+                                            
+                                        </div>
+                                        <div class="info info-date-checkin"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
+                                        <div class="info info-date-checkout"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
+                                        <div class="info info-custom-adult"><?php echo $cart_item['customData']['custom_adult']; ?></div>
+                                        <div class="info info-custom-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
+                                        <div class="info quantity"><span><?php echo $cart_item['quantity']; ?></span><?php
                                             
                                                 echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
                                                     '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
@@ -224,15 +242,7 @@ get_header();
                                                     esc_attr($cart_item_key),
                                                     esc_attr($_product->get_sku())
                                                 ), $cart_item_key);
-                                            
-                                            
-                                            ?>
-                                        </div>
-                                        <div class="info"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
-                                        <div class="info"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
-                                        <div class="info info-custom-adult"><?php echo $cart_item['customData']['custom_adult']; ?></div>
-                                        <div class="info info-custom-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
-                                        <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
+                                            ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -265,8 +275,11 @@ get_header();
                                     </div>
                                     <div class="col-md-6 cart-item-info">
                                         <div class="gr-edit">
-                                            <div class="price"><?php echo $total; ?></div>
-                                            <?php
+                                            <div class="price"><?php echo $total; ?> VNĐ</div>
+                                            
+                                        </div>
+                                        <div class="info quantity qty-service" data-product_id="<?php echo $_product_id; ?>"><span><?php echo $cart_item['quantity']; ?></span>
+                                        <?php
                                             echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
                                                 '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
                                                 esc_url(wc_get_cart_remove_url($cart_item_key)),
@@ -277,7 +290,6 @@ get_header();
                                             ), $cart_item_key);
                                             ?>
                                         </div>
-                                        <div class="info quantity qty-service" data-product_id="<?php echo $_product_id; ?>"><?php echo $cart_item['quantity']; ?></div>
                                     </div>
                                 </div>
                             </div>

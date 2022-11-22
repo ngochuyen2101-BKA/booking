@@ -1,3 +1,4 @@
+
 (function($) {
 	var isloading = false;    
     $(document).on('click','.select-room', function() {
@@ -44,7 +45,7 @@
                             var amount_new = parseInt($(this).find('.quantity').html()) + 1;
                             $(this).find('.quantity').html(amount_new);
                             var price_new = parseInt(price) * amount_new;
-                            $(this).find('.price').html(price_new.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+                            $(this).find('.price').html(price_new);
                             
                         }
                     });
@@ -52,7 +53,6 @@
                     $('.choose-room').css('display','none');
                     $('.choose-service').css('display','block');
                     var html = '';
-                    var ngoac = "'";
                     html += '<div class="detail-selected detail-room" data-product_id="'+product_id+'">'
                     html +=     '<div class="row">'
                     html +=         '<div class="col-md-6 cart-info-label">'
@@ -64,22 +64,19 @@
                     html +=                 '<div class="label">Số lượng</div>'
                     html +=             '</div>'
                     html +=             '<div class="col-md-6 cart-item-info">' 
-                    html +=                 '<div class="price-gr"><span class="price">'+price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")+'</span> VNĐ</div>'
+                    html +=                 '<div class="gr-edit">' 
+                    html +=                     '<div class="price">'+price+'</div>'
+                    html +=                      res
+                    html +=                 '</div>' 
                     html +=                 '<div class="info info-date-checkin">'+date_checkin+'</div>' 
                     html +=                 '<div class="info info-date-checkout">'+date_checkout+'</div>' 
                     html +=                 '<div class="info info-custom-adult">'+adults+'</div>' 
                     html +=                 '<div class="info info-custom-child">'+childs+'</div>'
-                    html +=                 '<div class="gr-edit">' 
-                    html +=                 '<div class="info quantity">1</div>'
-                    html +=                      res
-                    html +=                 '</div>' 
+                    html +=                 '<div class="info quantity">1</div>'   
                     html +=             '</div>'
                     html +=         '</div>' 
                     html +=      '</div>'
-                    html += '</div>'
-					html += '<script>'
-					html += 'jQuery("document").ready(function(){jQuery(".detail-room[data-product_id='+ngoac+product_id+ngoac+'] .price").css("height",jQuery(".detail-room[data-product_id='+ngoac+product_id+ngoac+'] .title").height()+"px");});'
-					html += '</script>'  
+                    html += '</div>'  
                     $('.room-gr').append(html);
                 }
                 
@@ -147,7 +144,7 @@
                 $(this).find('.qty-service').html(new_qty);
 
                 var new_price = parseInt($(this).find('.price').html()) + parseInt(price);
-                $(this).find('.price').html(new_price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+                $(this).find('.price').html(new_price);
                 off = true;
                 return ;
             }
@@ -173,25 +170,21 @@
 
                     } else {
                         var html = '';
-						var ngoac = "'";
-                        html += '<div class="detail-selected detail-selected-service" data-product_id="'+product_id+'">'
+                        html += '<div class="detail-selected" data-product_id="'+product_id+'">'
                         html +=     '<div class="row">'
                         html +=         '<div class="col-md-6 cart-info-label">'
                         html +=             '<div class="title">'+title+'</div>'
                         html +=             '<div class="label">Số lượng</div>'
                         html +=         '</div>'
                         html +=         '<div class="col-md-6 cart-item-info">' 
-						html +=             '<div class="price-gr"><span class="price">'+total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")+'</span> VNĐ</div>'
                         html +=             '<div class="gr-edit">' 
-                        html +=             '<div class="info quantity qty-service" data-product_id="'+product_id+'">'+qty+'</div>'
+                        html +=                 '<div class="price">'+total+'</div>'
                         html +=                  res
                         html +=             '</div>'
+                        html +=             '<div class="info quantity qty-service" data-product_id="'+product_id+'">'+qty+'</div>'
                         html +=         '</div>'
                         html +=     '</div>' 
-                        html += '</div>'
-						html += '<script>'
-					html += 'jQuery("document").ready(function(){jQuery(".detail-selected-service[data-product_id='+ngoac+product_id+ngoac+'] .price").css("height",jQuery(".detail-selected-service[data-product_id='+ngoac+product_id+ngoac+'] .title").height()+"px");});'
-					html += '</script>'
+                        html += '</div>'  
                         $('.service-gr').append(html);
                     }
                     
@@ -330,7 +323,7 @@
                 $(this).find('.qty-service').html(new_qty);
 
                 var new_price = parseInt($(this).find('.price').html()) - parseInt(price);
-                $(this).find('.price').html(new_price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+                $(this).find('.price').html(new_price);
                 off = true;
                 return ;
             }
@@ -410,9 +403,9 @@
         $('.number-childs-cal').html(total_child);
      }
 
-     $( window ).on('hashchange',(function() {
-        alert('haha');
-     });
+     $(window).on('onbeforeunload ', function(event) {
+        alert("pop");
+       });
 
     $( document ).ready(function() {
 

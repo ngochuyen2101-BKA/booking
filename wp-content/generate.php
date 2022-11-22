@@ -25,7 +25,7 @@ $html .= '<div class="info-customer">';
 for($i = 1; $i < $number_item; $i++) {
     if(isset($_POST['Childs'.$i])) {
         $html .= '<div class="info">Hạng phòng: '.$_POST['name'.$i].'</div>';
-        $html .= '<div class="info">Giá: '.$_POST['price'.$i].'</div>';
+        $html .= '<div class="info">Giá: '.number_format($_POST['price'.$i]).'</div>';
         if($_POST['quantity'.$i]) {
             $html .= '<div class="info">Số lượng phòng: '.$_POST['quantity'.$i].'</div>';
         }
@@ -39,7 +39,7 @@ for($i = 1; $i < $number_item; $i++) {
             $html .= '<div class="info">Ngày nhận - trả phòng: '.$_POST['Date_check_in'.$i].' - '.$_POST['Date_check_out'.$i].'</div>';
         }
     } else {
-        $html .= $_POST['name'.$i].' - '.$_POST['price'.$i];
+        $html .= $_POST['name'.$i].' - '.number_format($_POST['price'.$i]);
     }
     
 }
@@ -74,7 +74,7 @@ $html .= '<div class="info-customer">
 
 $content = $html;
 
-wp_mail( $email, 'Booking successfully', $content, $headers );
+
 
 $pdf = new TCPDF();
 $pdf->AddPage();
@@ -108,7 +108,7 @@ $html .= '<div class="info-customer">';
 for($i = 1; $i < $number_item; $i++) {
     if(isset($_POST['Childs'.$i])) {
         $html .= '<div class="info">Hạng phòng: '.$_POST['name'.$i].'</div>';
-        $html .= '<div class="info">Giá: '.$_POST['price'.$i].'</div>';
+        $html .= '<div class="info">Giá: '.number_format($_POST['price'.$i]).'</div>';
         if($_POST['quantity'.$i]) {
             $html .= '<div class="info">Số lượng phòng: '.$_POST['quantity'.$i].'</div>';
         }
@@ -122,9 +122,9 @@ for($i = 1; $i < $number_item; $i++) {
             $html .= '<div class="info">Ngày nhận - trả phòng: '.$_POST['Date_check_in'.$i].' - '.$_POST['Date_check_out'.$i].'</div>';
         }
     } else {
-        $html .= $_POST['name'.$i].' - '.$_POST['price'.$i];
+        $html .= $_POST['name'.$i].' - '.number_format($_POST['price'.$i]);
     }
-    
+    $html .= '<br>';
 }
 $html .= '</div>';
 
@@ -160,5 +160,9 @@ $html .= <<<EOF
 
 EOF;
 $pdf->writeHTML($html, true, false, true, false, '');
-$pdf->Output();
+$fileName = 'hoa-don-'.$phone.'-'.time().'.pdf';
+ob_clean();
+$pdf->Output($_SERVER['DOCUMENT_ROOT'].'/pdf/'.$fileName, 'FD');
+$attachments = array($_SERVER['DOCUMENT_ROOT'].'/pdf/'.$fileName);
+wp_mail( $email, 'Booking successfully', $content, $headers, $attachments);
 ?>

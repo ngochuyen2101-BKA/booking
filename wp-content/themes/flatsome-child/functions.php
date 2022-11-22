@@ -103,8 +103,8 @@ function getDataRoom() {
 
 		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
 		$area = $product->get_attribute( 'area' );
-		$number_adult = $product->get_attribute( 'adults' );
-		$number_child = $product->get_attribute( 'childs' );
+		$number_adult = get_field('so_nguoi_lon', $product->id);
+		$number_child = get_field('so_tre_em', $product->id);
 		$date = $product->get_attribute( 'number-of-date' );
 		$regular_price = $product->get_regular_price();
 		$sale_price = $product->get_sale_price();
@@ -263,3 +263,8 @@ function custom_empty_cart() {
 	$woocommerce->cart->empty_cart( true );
 	setcookie('step',1,864000, "/");
 }
+// function check_product_before_order () {
+//     global $woocommerce;
+// 	$woocommerce->cart->cart_contents_total = 100;
+// }
+// add_action('woocommerce_checkout_process', 'check_product_before_order');
