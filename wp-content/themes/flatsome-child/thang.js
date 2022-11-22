@@ -77,7 +77,7 @@
                     html +=      '</div>'
                     html += '</div>'
 					html += '<script>'
-					html += 'jQuery("document").ready(function(){jQuery(".detail-room[data-product_id='+ngoac+product_id+ngoac+'] .price").css("height",jQuery(".detail-room[data-product_id='+ngoac+product_id+ngoac+'] .title").height()+"px");});'
+					html += 'jQuery("document").ready(function(){jQuery(".detail-room[data-product_id='+ngoac+product_id+ngoac+'] .price-gr").css("height",jQuery(".detail-room[data-product_id='+ngoac+product_id+ngoac+'] .title").height()+"px");});'
 					html += '</script>'  
                     $('.room-gr').append(html);
                 }
@@ -189,7 +189,7 @@
                         html +=     '</div>' 
                         html += '</div>'
 						html += '<script>'
-					html += 'jQuery("document").ready(function(){jQuery(".detail-selected-service[data-product_id='+ngoac+product_id+ngoac+'] .price").css("height",jQuery(".detail-selected-service[data-product_id='+ngoac+product_id+ngoac+'] .title").height()+"px");});'
+					html += 'jQuery("document").ready(function(){jQuery(".detail-selected-service[data-product_id='+ngoac+product_id+ngoac+'] .price-gr").css("height",jQuery(".detail-selected-service[data-product_id='+ngoac+product_id+ngoac+'] .title").height()+"px");});'
 					html += '</script>'
                         $('.service-gr').append(html);
                     }
@@ -410,6 +410,11 @@
      }
 
     $( document ).ready(function() {
+
+        $(window).on('popstate', function() {
+            location.reload(true);
+            alert('haha');
+         });
 
         checkBtnRemove();
 

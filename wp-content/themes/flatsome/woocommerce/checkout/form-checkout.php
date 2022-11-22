@@ -189,7 +189,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                                 <div class="label">Số lượng</div>
                                             </div>
                                             <div class="col-md-6 cart-item-info">
-                                                <div class="price"><span class="price"><?php echo number_format($_product->get_regular_price()); ?></span>VNĐ</div>
+                                                <div class="price-gr"><span class="price"><?php echo number_format($_product->get_regular_price()); ?></span>VNĐ</div>
                                                 <div class="info quantity info-qty"><?php echo $cart_item['quantity']; ?></div>
                                             </div>
                                         </div>
