@@ -132,7 +132,7 @@
             $('.loading-wait').css('display','block');
         }
         $('.popup-add').removeClass('active');
-        var price = $(this).closest('.booking-service').find('.servive-price').text();
+        var price = $(this).closest('.booking-service').find('.servive-price').text().replace(/,/g, '');
         var title = $(this).closest('.booking-service').find('.servive-name').text();
         var qty = $(this).closest('.booking-service').find('.qty').val();
         var total = parseInt(price)*qty;
@@ -145,7 +145,7 @@
                 var new_qty = parseInt($(this).find('.qty-service').html()) + 1;
                 $(this).find('.qty-service').html(new_qty);
 
-                var new_price = parseInt($(this).find('.price').html()) + parseInt(price);
+                var new_price = parseInt($(this).find('.price').html().replace(/,/g, '')) + parseInt(price);
                 $(this).find('.price').html(new_price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
                 off = true;
                 return ;
@@ -320,7 +320,7 @@
             }, 1000);
                       
         }
-        var price = $(this).closest('.booking-service').find('.servive-price').html();
+        var price = $(this).closest('.booking-service').find('.servive-price').html().replace(/,/g, '');
         $(this).closest('.servive-quatity').find('.qty').val(newQty);
         $('.detail-selected').each(function() {
             var cur_id = $(this).data('product_id');
@@ -328,7 +328,7 @@
                 var new_qty = parseInt($(this).find('.qty-service').html()) - 1;
                 $(this).find('.qty-service').html(new_qty);
 
-                var new_price = parseInt($(this).find('.price').html()) - parseInt(price);
+                var new_price = parseInt($(this).find('.price').html().replace(/,/g, '')) - parseInt(price);
                 $(this).find('.price').html(new_price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
                 off = true;
                 return ;
@@ -410,11 +410,6 @@
      }
 
     $( document ).ready(function() {
-
-        $(window).on('popstate', function() {
-            location.reload(true);
-            alert('haha');
-         });
 
         checkBtnRemove();
 
@@ -502,10 +497,10 @@
             $('.number-adults').html(qty_adult);
 
             var checkin = $('.info-checkin:first').html();
-            $('.date-checkin').val(checkin);
+            $('.date-checkin').val(moment(Date(checkin)).format('YYYY-MM-DD'));
 
             var checkout = $('.info-checkout:first').html();
-            $('.date-checkout').val(checkout);
+            $('.date-checkout').val(moment(Date(checkout)).format('YYYY-MM-DD'));
 
         }
         if(current_url.indexOf("booking-page") > -1) {
@@ -556,6 +551,14 @@
                 }
             });
         }
+        
+        $(window).on('beforeunload', function() {
+            setTimeout(function() {
+                if(!(current_url.indexOf("thanh-toan/order-received") > -1)) {
+                    location.reload();
+                }
+            }, 5000);
+        });
         
     });
 })(jQuery);

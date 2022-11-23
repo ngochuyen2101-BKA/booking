@@ -185,7 +185,7 @@ input[type=number] {
 .home .badge-container{
 	display: none
 }
-.home .dot{
+.home .dot, .type-product .dot{
 	opacity: 1 !important;
 	position: relative;
 	margin: 0 10px;
@@ -194,7 +194,7 @@ input[type=number] {
 	background-color: transparent !important;
 	border-color: transparent !important
 }
-.home .dot:before{
+.home .dot:before, .type-product .dot:before{
 	content:'';
 	position: absolute;
 	width: 15px;
@@ -205,11 +205,11 @@ input[type=number] {
     transform: translate(-50%, -50%);
 	border: 1px solid white
 }
-.home .dot.is-selected{
+.home .dot.is-selected, .type-product .dot.is-selected{
 	background-color: #DB966F !important;
 	border-color: #DB966F !important;
 }
-.home .dot.is-selected:before{
+.home .dot.is-selected:before, .type-product .dot.is-selected:before{
 	border-color: #DB966F;
 }
 .home-sec-1 .flickity-page-dots{
@@ -286,34 +286,34 @@ input[type=number] {
     background-position: center;
 }
 .home-sec-3 .product-small.box-shade .title-wrapper .product-title:before{
-	background-image: url(/wp-content/uploads/2022/11/01.png)
+	background-image: url(/wp-content/uploads/2022/11/01-1.svg)
 }
 .home-sec-3 .flickity-slider > .row:first-child .product-small .title-wrapper .product-title:before{
-	background-image: url(/wp-content/uploads/2022/11/02.png)
+	background-image: url(/wp-content/uploads/2022/11/02-1.svg)
 }
 .home-sec-3 .flickity-slider > .row:nth-child(2) .product-small .title-wrapper .product-title:before{
-	background-image: url(/wp-content/uploads/2022/11/03.png)
+	background-image: url(/wp-content/uploads/2022/11/03-1.svg)
 }
 .home-sec-3 .flickity-slider > .row:nth-child(3) .product-small .title-wrapper .product-title:before{
-	background-image: url(/wp-content/uploads/2022/11/04.png)
+	background-image: url(/wp-content/uploads/2022/11/04-1.svg)
 }
 .home-sec-3 .flickity-slider > .row:nth-child(4) .product-small .title-wrapper .product-title:before{
-	background-image: url(/wp-content/uploads/2022/11/05.png)
+	background-image: url(/wp-content/uploads/2022/11/05-1.svg)
 }
 .home-sec-3 .flickity-slider > .row:nth-child(5) .product-small .title-wrapper .product-title:before{
-	background-image: url(/wp-content/uploads/2022/11/06.png)
+	background-image: url(/wp-content/uploads/2022/11/06-1.svg)
 }
 .home-sec-3 .flickity-slider > .row:nth-child(6) .product-small .title-wrapper .product-title:before{
-	background-image: url(/wp-content/uploads/2022/11/07.png)
+	background-image: url(/wp-content/uploads/2022/11/07-1.svg)
 }
 .home-sec-3 .flickity-slider > .row:nth-child(7) .product-small .title-wrapper .product-title:before{
-	background-image: url(/wp-content/uploads/2022/11/08.png)
+	background-image: url(/wp-content/uploads/2022/11/08-1.svg)
 }
 .home-sec-3 .flickity-slider > .row:nth-child(8) .product-small .title-wrapper .product-title:before{
-	background-image: url(/wp-content/uploads/2022/11/09.png)
+	background-image: url(/wp-content/uploads/2022/11/09-1.svg)
 }
 .home-sec-3 .flickity-slider > .row:nth-child(9) .product-small .title-wrapper .product-title:before{
-	background-image: url(/wp-content/uploads/2022/11/10.png)
+	background-image: url(/wp-content/uploads/2022/11/10-1.svg)
 }
 .home-sec-3 .flickity-slider .product-small .box-text{
 	padding-top: 1.5em
@@ -347,10 +347,12 @@ input[type=number] {
 	color: white;
 	margin-bottom: 40px
 }
-.sub-title p, .home-sec-3 .row-uu-dai .sub-title p{
+.sub-title p, .home-sec-3 .row-uu-dai .sub-title p, .home-sec-5 .banner h3, .row-product-top .product-title, .splq h3{
 	font-family: PlayfairDisplaySemiBold !important;
 	font-size: 40px;
-	color: #c59754;
+	background: -webkit-linear-gradient(0deg, rgba(255,216,136,1) 0%, rgba(197,152,87,1) 33%, rgba(250,223,168,1) 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 	margin-bottom: 20px
 }
 .col-text-hp .button{
@@ -488,7 +490,10 @@ input[type=number] {
 	margin-top: 0;
 	font-family: ManropeRegular !important;
 	font-size: 20px;
-	margin-bottom: 10px
+	margin-bottom: 10px;
+	background: none;
+    -webkit-background-clip: inherit;
+    -webkit-text-fill-color: inherit;
 }
 .home-sec-5 .text-box{
 	display: flex;
@@ -496,11 +501,13 @@ input[type=number] {
 	height: 100%;
 	padding: 1rem 2rem;
 	background-image: url(/wp-content/uploads/2022/11/Bg-dich-vu.png);
-	background-size: 100% 100%;
+	background-size: cover;
+	background-position: right;
 	left:150%;
 }
 .home-sec-5 .text-box .button.secondary:not(.is-outline){
-	background-color: #c59754
+	background-color: #c59754;
+	font-size: 18px
 }
 .home-sec-5 .banner{
 	overflow: hidden
@@ -576,7 +583,7 @@ input[type=number] {
 	margin-bottom: 0 !important
 }
 .row-mang-den .active .col-inner{
-	background-color: #c59754;
+	background: -webkit-linear-gradient(0deg, rgba(255,216,136,1) 0%, rgba(197,152,87,1) 33%, rgba(250,223,168,1) 100%);
 	border-color: #c59754;
 }
 .row-mang-den .col-inner h3{
@@ -1382,9 +1389,16 @@ input[type=number] {
     display: block;
     outline: none;
     text-decoration: none !important;
-    background-color: #d1bfa7;
+    background-color: #f8f5f0;
     color: #203429;
     padding: 55px 35px 25px;
+	background-image: url(/wp-content/uploads/2022/11/hoa-van.svg);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: 90%
+}
+.ds-phong-sec-2 .product-small.box .box-text:hover{
+	background-color: #078281
 }
 .ds-phong-sec-2 .equalize-box.large-columns-1 >.col:nth-child(even) .product-small.box{
 	flex-direction: row-reverse
@@ -1395,16 +1409,27 @@ input[type=number] {
 .ds-phong-sec-2 .number-detail{
 	display: block;
 }
-.ds-phong-sec-2 .number-detail > div:before{
+/* .ds-phong-sec-2 .number-detail > div:before{
 	filter: brightness(0) invert(1);
-}
+} */
 .ds-phong-sec-2 .product-title a{
 	font-size: 32px;
 	text-transform: uppercase;
 	font-family: ManropeBold !important;
+	color: #286863
+}
+.ds-phong-sec-2 .product-small.box .box-text:hover .product-title a{
+	color: #f9cf7d !important
+}
+.ds-phong-sec-2 .product-small.box .box-text:hover .short-des, .ds-phong-sec-2 .product-small.box .box-text:hover .number-dientich, .ds-phong-sec-2 .product-small.box .box-text:hover .so-nguoi{
+	color: white
+}
+.ds-phong-sec-2 .product-small.box .box-text .button{
+	margin-top: 20px
 }
 .ds-phong-sec-2 .number-detail > div{
-	font-size: 15px
+	font-size: 15px;
+	padding-left: 30px
 }
 .short-des{
 	display: none;
@@ -1412,26 +1437,26 @@ input[type=number] {
 .ds-phong-sec-2 .short-des{
 	display: block;
 	padding-top: 20px;
-    margin-top: 40px;
+    margin-top: 30px;
     border-top: 1px solid rgb(32 52 41 / 0.2);
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 8;
+    -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
 	font-size: 15px
 }
 .ds-phong-sec-2 .button.secondary.is-link .flickity-button-icon, .ds-phong-sec-2 .button.secondary.is-link span{
-	color: #333333;
-	fill: #333333;
-	border-color: #333333
+	color: #c59754;
+	fill: #c59754;
+	border-color: #c59754
 }
 .ds-phong-sec-1{
 	padding-bottom: 0!important
 }
 .type-product .flickity-slider>div.carousel-cell:not(.col) {
 	height: 500px;
-	width: 70% !important;
+	width: 60% !important;
 	margin: 0 10px !important
 }
 .type-product .carousel-cell > div{
@@ -1452,7 +1477,7 @@ input[type=number] {
 	object-fit: cover;
 	height: 100%;
 }
-.row-product-top .product-title{
+.row-product-top .product-title, .splq h3{
 	font-size: 40px;
 	font-family: PlayfairDisplaySemiBold !important;
 }
@@ -1533,10 +1558,8 @@ input[type=number] {
 }
 .splq h3{
 	text-transform: none !important;
-    color: #333333;
     font-family: PlayfairDisplaySemiBold !important;
-	font-size: 45px;
-    line-height: 1;
+    line-height: 1.2;
     margin-bottom: 30px;
     text-transform: none !important;
 }
@@ -1559,7 +1582,7 @@ input[type=number] {
 	padding-left: 0
 }
 .splq .product-small.box{	
-    background-color: #d1bfa7;
+    background-color: #f8f5f0;
 	border-radius: 8px
 }
 .splq .product-small.box .box-text {
@@ -1643,7 +1666,8 @@ input.datePickerPlaceHolder:before {
 	width: 18%
 }
 .home-sec-2 .col{
-	padding-top: 30px
+	padding-top: 25px;
+	padding-bottom: 25px
 }
 .home-sec-2 .btn-submit input{
 	margin-right: 0 !important;
@@ -1651,7 +1675,7 @@ input.datePickerPlaceHolder:before {
 	text-transform: none
 }
 .detail-room-price{
-	color: #c59754
+	color: #286863
 }
 .detail-room-price span{
 	display: inline-block;
@@ -1667,27 +1691,30 @@ input.datePickerPlaceHolder:before {
 .btn-booking-detail{
 	line-height: 50px;
     font-size: 15px;
-    padding: 0 40px;
+    padding: 0 30px;
 	display: inline-block;
     border-radius: 35px;
-    background-color: #286863;
+    background-image: -webkit-linear-gradient(0deg, rgba(255,216,136,1) 0%, rgba(197,152,87,1) 33%, rgba(250,223,168,1) 100%);;
     color: #c59754;
     font-family: ManropeBold !important;
     text-transform: uppercase;
     position: relative;
     text-decoration: none !important;
+	min-width: 50%
 }
 .btn-booking-detail img{
 	margin-right: 15px;
-	width: 15%
-}
-.btn-booking-detail:hover span{
-	color: white
-}
-.btn-booking-detail:hover img{
+	width: 15%;
 	filter: brightness(0) invert(1);
 }
-.booking-page .progress-booking p.number-step.active {
+.btn-booking-detail span{
+	color: white
+}
+.btn-booking-detail:hover{
+	background-color: #286863 !important;
+	background-image: none !important;
+}
+.booking-page .progress-booking p.number-step.active, .checkout-page-booking .progress-booking p.number-step.active1 {
 	background-color: #cca26a;	
 	color: white
 }
@@ -1703,27 +1730,27 @@ input.datePickerPlaceHolder:before {
 .booking-page .progress-booking{
 	overflow: hidden
 }
-.booking-page .info-booking .container .check-in, .booking-page .info-booking .container .check-out{
+.booking-page .info-booking .container .check-in, .booking-page .info-booking .container .check-out, .checkout-page-booking .info-booking .container .check-in, .checkout-page-booking .info-booking .container .check-out{
 	align-items: center !important
 }
-.booking-page .info-booking .container .info img{
-	width: 27px;
-	height: 27px;
+.booking-page .info-booking .container .info img, .checkout-page-booking .info-booking .container .info img{
+	width: 23px;
+	height: 23px;
 	margin-right: 10px
 }
-.booking-page .info-booking .container .info{
+.booking-page .info-booking .container .info, .checkout-page-booking .info-booking .container .info{
 	margin-right: 30px !important;
 	color: #333333;
 	display: flex;
 	align-items: center;
 	font-size: 15px
 }
-.booking-page .info-booking .container .info input{
+.booking-page .info-booking .container .info input, .checkout-page-booking .info-booking .container .info input{
 	height: 100%;
 	margin-top: 0 !important;
 	color: #333333
 }
-.choose-room > h2, .choose-service > h2{
+.choose-room > h2, .choose-service > h2, .col-title-success h2, .title-thank-you, .dv-sec-1 .section-title span, .ud-sec-4 .section-title span{
 	font-family: PlayfairDisplaySemiBold !important;
 	font-size: 36px;
 	background: -webkit-linear-gradient(0deg, rgba(255,216,136,1) 0%, rgba(197,152,87,1) 33%, rgba(250,223,168,1) 100%);
@@ -1736,7 +1763,11 @@ input.datePickerPlaceHolder:before {
 	font-family: ManropeBold !important;
 }
 .booking-page .btn-booking:hover{
-	color: #286863
+	background-color: #286863 !important;
+	background-image: none !important
+}
+.dv-sec-1 .section-title span, .ud-sec-4 .section-title span{
+	line-height: 1.2
 }
 .has-sale-price{
 	margin-top: -30px
@@ -1754,12 +1785,15 @@ input.datePickerPlaceHolder:before {
 .product-booking > .row{
 	margin-bottom: 60px
 }
-.booking-page .product-booking .btn-select{
+.booking-page .product-booking .btn-select, .col-bo-sung .btn-dat-phong, .woocommerce-thank-you-page .export-bill, .back-to-homepage{
 	background: -webkit-linear-gradient(0deg, rgba(255,216,136,1) 0%, rgba(197,152,87,1) 33%, rgba(250,223,168,1) 100%) !important;
 	color: white;
+	transition: none !important
 }
-.booking-page .product-booking .btn-select:hover{
-	border-color: #c59754 !important
+.booking-page .product-booking .btn-select:hover, .col-bo-sung .btn-dat-phong:hover, .woocommerce-thank-you-page .export-bill:hover, .back-to-homepage:hover{
+	background-color: #286863 !important;
+	background-image: none !important;
+	color: white !important;	
 }
 .booking-page .product-booking .sale-price{
 	color: #286863;
@@ -1819,7 +1853,7 @@ input.datePickerPlaceHolder:before {
 .xct-dv.active i{
 	transform: rotate(90deg)
 }
-.btn-show{
+.btn-show, .woocommerce-thank-you-page .export-bill{
 	font-family: ManropeRegular !important;
 }
 .servive-name{
@@ -1837,6 +1871,132 @@ input.datePickerPlaceHolder:before {
 	display: flex;
 	align-items: center;
 	margin-bottom: 15px
+}
+.booking-page .info-selected .title, .info-selected .total > p{
+	color: #286863
+}
+.booking-service .service-select{
+	display: flex;
+	justify-content: flex-end;
+}
+.booking-service .service-select input, .booking-service .service-select label{
+	height: max-content;
+	line-height: 1
+}
+.booking-service .service-select input{
+	margin-top: 1px;
+	margin-left: 10px;
+	width: 18px;
+    height: 18px;
+}
+.booking-service .service-select label{
+	font-size: 15px;
+	color: #286863;
+	font-family: ManropeRegular !important;
+	font-weight: 100 !important;
+	margin-bottom: 0;
+	margin-top: 2px
+}
+.popup-add{
+	-webkit-box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+}
+.popup-add .btn-box{
+	display: flex;
+	justify-content: flex-end;
+	align-items: center
+}
+.popup-add .btn-huy, .booking-page .info-selected .detail-selected .gr-edit a{
+	font-size: 16px;
+	font-family: ManropeRegular !important;
+	color: #c59754;
+	margin-right: 15px;
+	cursor: pointer;
+}
+.popup-add .btn-huy:hover{
+	color: #286863
+}
+.booking-page .info-booking .container .add-room .popup-add .add-btn{
+	padding: 5px 10px;
+    width: max-content;
+	font-family: ManropeRegular !important;
+	background: -webkit-linear-gradient(0deg, rgba(255,216,136,1) 0%, rgba(197,152,87,1) 33%, rgba(250,223,168,1) 100%) !important;
+	cursor: pointer;
+}
+.booking-page .info-booking .container .add-room .popup-add .add-btn:hover{
+	background-color: #286863 !important;
+	background-image: none !important;
+}
+.booking-page .info-selected .detail-selected .gr-edit a{
+	font-size: 15px;
+	border: none;
+	margin: 0
+}
+.booking-page .info-selected .detail-selected .gr-edit a:hover{
+	color: red
+}
+.booking-page .info-selected .total p, .checkout-page .booking-info .total p{
+	font-size: 16.5px;
+	font-family: ManropeSemiBold !important;
+}
+.booking-page .info-selected .price, .checkout-page .booking-info .total p, .checkout-page .booking-info .list-selected .cart-info-label .title, .checkout-page .booking-info .list-selected .cart-item-info .price{
+	color: #286863
+}
+.col-bo-sung .btn-dat-phong-box.dissable{
+	cursor: not-allowed
+}
+.col-bo-sung .btn-dat-phong-box.dissable .btn-dat-phong{
+	pointer-events: none
+}
+.col-bo-sung .btn-dat-phong-box{
+	width: max-content;
+	margin: auto
+}
+.col-bo-sung .btn-dat-phong{
+	margin: 20px 0 0 !important
+}
+.col-hinh-thuc-thanh-toan #place_order{
+	display: none
+}
+.col-thong-tin-phong .list-selected .detail-selected{
+	margin-bottom: 30px
+}
+.row-thong-tin-don-hang .col-md-5 h2, .row-thong-tin-khach-hang .col-md-5 h2{
+	color: #286863
+}
+.checkout-page .checkout-content .hotel-info .info{
+	justify-content: space-between;
+}
+.checkout-page .checkout-content .hotel-info .info strong{
+	width: 40%;
+}
+.checkout-page .checkout-content .hotel-info .info p{
+	width: 59%
+}
+.col-thong-tin-khach-hang input, .col-thong-tin-khach-hang textarea{
+	box-shadow: none !important
+}
+.check-condition a{
+	font-weight: bold !important;
+	color: #c59754
+}
+.col-bo-sung p{
+	margin-top: 15px;
+}
+.col-bo-sung p a{
+	color: #c59754
+}
+.woocommerce-thank-you-page{
+	margin-top: 60px !important
+}
+.number-order{
+	font-size: 16.5px;
+	font-family: ManropeSemiBold !important;
+}
+.home-sec-2 {
+	background: -webkit-linear-gradient(0deg, rgba(255,216,136,1) 0%, rgba(197,152,87,1) 33%, rgba(250,223,168,1) 100%);
+}
+.type-product .main-carousel .arrow{
+	fill: white !important
 }
 
 @media(min-width:1100px){
@@ -1883,11 +2043,22 @@ input.datePickerPlaceHolder:before {
 	.row-mang-den > .col{
 		padding: 0 12.5px 30px !important;
 	}
+	.col-thong-tin-khach-hang, .col-hotel-info{
+		padding-right: 30px !important
+	}
+	.col-thong-tin-phong, .col-hinh-thuc-thanh-toan{
+		padding-left: 30px !important
+	}
+	ul.wc_payment_methods{
+		margin-top: 45px
+	}
+	
 }
 @media(min-width: 1400px){
 	.home-sec-5 .flickity-page-dots{
 		left: 22%
 	};
+	
 }
 @media(min-width: 1600px){
 	.home-sec-5 .flickity-page-dots{

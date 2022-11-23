@@ -145,8 +145,14 @@ function getDataRoom() {
             $html .= 				'<div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>';
 			$html .= 			'</div>';                            
             $html .= 			'<div class="col-md-4 price-col '.$has_sale_price.'">';
-			$html .= 				'<div class="regular-price">'.number_format($regular_price).' VNĐ</div>';
-			$html .= 				'<div class="sale-price">'.number_format($sale_price).' VNĐ</div>';
+			$html .= 				'<div class="regular-price">';
+			if ($sale_price) {
+				$html .= number_format($regular_price) . ' VNĐ';
+			} else {
+				$html .= '';
+			}
+			$html .= 				'</div>';
+			$html .= 				'<div class="sale-price">'.number_format($sale_price ? $sale_price : $regular_price).' VNĐ</div>';
 			$html .= 				'<button type="submit" class=" button alt btn-select select-room" data-product_id="'.$product->id.'">Lựa chọn</button>';
             $html .= 			'</div>';
 			$html .= 		'</div>';

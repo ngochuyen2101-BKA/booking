@@ -24,20 +24,20 @@ echo do_shortcode('[block id="banner"]');
     <div class="info-booking">
         <div class="container">
             <div class="check-in info">
-                <img src="/wp-content/uploads/2022/11/calendar.svg"> Nhận phòng: <span><input type="date" class="date-checkin"><span class="open-button">
+                <img src="/wp-content/uploads/2022/11/outline-calendar-check.svg"> Nhận phòng: <span><input type="date" class="date-checkin"><span class="open-button">
       <button type="button"><i class="fas fa-caret-down"></i></button>
     </span></span>
             </div>
             <div class="check-out info">
-                <img src="/wp-content/uploads/2022/11/calendar.svg"> Trả phòng: <span><input type="date" class="date-checkout"><span class="open-button">
+                <img src="/wp-content/uploads/2022/11/outline-calendar-check.svg"> Trả phòng: <span><input type="date" class="date-checkout"><span class="open-button">
       <button type="button"><i class="fas fa-caret-down"></i></button>
     </span></span>
             </div>
             <div class="number-of-date info">
-                <img src="/wp-content/uploads/2022/11/room.svg"></i> <span class="room-number" style="display: none;">1</span><span class="room-number-cal">0</span> phòng
+                <img src="/wp-content/uploads/2022/11/icon-room.svg"></i> <span class="room-number" style="display: none;">1</span><span class="room-number-cal">0</span> phòng
             </div>
             <div class="number-of-customer info">
-                <img src="/wp-content/uploads/2022/11/people.svg"> <span class="number-adults" style="display: none;">1</span><span class="number-adults-cal"">1</span> người lớn - <span class="number-childs" style="display: none;">1</span><span class="number-childs-cal"">1</span> trẻ em
+                <img src="/wp-content/uploads/2022/11/outline-user-2.svg"> <span class="number-adults" style="display: none;">1</span><span class="number-adults-cal"">1</span> người lớn - <span class="number-childs" style="display: none;">0</span><span class="number-childs-cal"">0</span> trẻ em
             </div>
             <div class="add-room">
                 <p class="btn-show">Thêm phòng</p>
@@ -83,7 +83,7 @@ echo do_shortcode('[block id="banner"]');
                             $room_status = get_field('tinh_trang', $product->id)['value'];
                             if($room_status == 'hetphong') continue;
                             $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
-                            $area = $product->get_attribute( 'area' );
+                            $area  = get_field('dien_tich', $product->id);
                             $adult = get_field('so_nguoi_lon', $product->id);
                             $child = get_field('so_tre_em', $product->id);
                             $date = $product->get_attribute( 'number-of-date' );
@@ -125,8 +125,8 @@ echo do_shortcode('[block id="banner"]');
                                         <div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>
                                     </div>
                                     <div class="col-md-4 price-col <?php echo ($regular_price) ? 'has-sale-price' : ''; ?>">
-                                        <div class="regular-price"><?php echo number_format($regular_price); ?> VNĐ</div>
-                                        <div class="sale-price"><?php echo number_format($sale_price); ?> VNĐ</div>
+                                        <div class="regular-price"><?php if($sale_price != ''){ echo number_format($regular_price); ?> VNĐ <?php } ?></div>
+                                        <div class="sale-price"><?php echo number_format($sale_price ? $sale_price : $regular_price); ?> VNĐ</div>
                                         <button type="submit" class="button alt btn-select select-room" data-product_id="<?php echo $product->id; ?>">Lựa chọn</button>
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@ echo do_shortcode('[block id="banner"]');
                                     <div class="col-md-7">
                                         <div class="servive-name"><?php echo $product->get_title(); ?></div>
                                         <div class="servive-price-quatity-box">
-                                            <div class="servive-price-box"><span class="servive-price"><?php echo $regular_price; ?></span>VNĐ<p class="xct-dv">Chi tiết <i class="fas fa-caret-right"></i></p></div>
+                                            <div class="servive-price-box"><span class="servive-price"><?php echo number_format($regular_price); ?></span>VNĐ<p class="xct-dv">Chi tiết <i class="fas fa-caret-right"></i></p></div>
                                             <div class="servive-quatity">
                                                 <div class="decrease">-</div>
                                                 <div class="quatity"><input type="number" name="quantity" value="1" class="qty service-number" data-product_id="<?php echo $product->id; ?>" readonly/></div>

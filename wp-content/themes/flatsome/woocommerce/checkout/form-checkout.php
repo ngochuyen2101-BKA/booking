@@ -82,20 +82,20 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                 <div class="col large-10 col-lg-10">
                     <div class="col-inner d-flex">
                         <div class="check-in info">
-                            <img src="/wp-content/uploads/2022/11/calendar.svg"> Nhận phòng: <span><input type="date" class="date-checkin" readonly><span class="open-button">
+                            <img src="/wp-content/uploads/2022/11/outline-calendar-check.svg"> Nhận phòng: <span><input type="date" class="date-checkin" readonly><span class="open-button">
                   <button type="button"><i class="fas fa-caret-down"></i></button>
                 </span></span>
                         </div>
                         <div class="check-out info">
-                            <img src="/wp-content/uploads/2022/11/calendar.svg"> Trả phòng: <span><input type="date" class="date-checkout" readonly><span class="open-button">
+                            <img src="/wp-content/uploads/2022/11/outline-calendar-check.svg"> Trả phòng: <span><input type="date" class="date-checkout" readonly><span class="open-button">
                   <button type="button"><i class="fas fa-caret-down"></i></button>
                 </span></span>
                         </div>
                         <div class="number-of-date info">
-                            <img src="/wp-content/uploads/2022/11/room.svg"> <span class="room-number">1</span> phòng
+                            <img src="/wp-content/uploads/2022/11/icon-room.svg"> <span class="room-number">1</span> phòng
                         </div>
                         <div class="number-of-customer info">
-                            <img src="/wp-content/uploads/2022/11/people.svg"> <span class="number-adults">1</span> người lớn - <span class="number-childs">1</span> trẻ em
+                            <img src="/wp-content/uploads/2022/11/outline-user-2.svg"> <span class="number-adults">1</span> người lớn - <span class="number-childs">1</span> trẻ em
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                                 <div class="label">Số lượng</div>
                                             </div>
                                             <div class="col-md-6 cart-item-info">
-                                                <div class="price-gr"><span class="price"><?php echo number_format($_product->get_sale_price()); ?></span> VNĐ</div>
+                                                <div class="price-gr"><span class="price"><?php echo $_product->get_sale_price() ? number_format($_product->get_sale_price()) : number_format($_product->get_regular_price()); ?></span> VNĐ</div>
                                                 <div class="info info-checkin"><?php echo date_format(date_create($cart_item['customData']['custom_date_checkin']),"d/m/Y"); ?></div>
                                                 <div class="info info-checkout"><?php echo date_format(date_create($cart_item['customData']['custom_date_checkout']),"d/m/Y"); ?></div>
                                                 <div class="info info-adult "><?php echo $cart_item['customData']['custom_adult']; ?></div>
@@ -201,7 +201,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                 </div>
                                 <div class="total row">
                                     <div class="col-md-6"><p class="label">Tổng</p></div>
-                                    <div class="col-md-6"><p class="total-price"><?php echo number_format(WC()->cart->cart_contents_total); ?></p></div>
+                                    <div class="col-md-6"><p class="total-price"><?php echo number_format(WC()->cart->cart_contents_total); ?> VNĐ</p></div>
                                 </div>
                             </div>
                         </div>
@@ -212,10 +212,14 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                 <h2>Thông tin khách hàng</h2>
     							<label for="fname">Tên<p class="icon-require">*</p></label>
     							<input type="text" class="input-text " name="billing_first_name" id="billing_first_name" value="" autocomplete="given-name">
+    							<div class="error-name error-notice" style="display:none;">Please fill in information</div>
     							<label for="fname">Email<p class="icon-require">*</p></label>
     							<input type="email" class="input-text " name="billing_email" id="billing_email" value="" autocomplete="email username">
+    							<div class="error-email error-notice" style="display:none;">Please fill in information</div>
+    							<div class="error-format error-notice" style="display:none;">Please fill in correct email</div>
     							<label for="fname">Số điện thoai<p class="icon-require">*</p></label>
     							<input type="tel" class="input-text " name="billing_phone" id="billing_phone" value="" autocomplete="tel">
+    							<div class="error-phone error-notice" style="display:none;">Please fill in information</div>
     						</div>
     						<div class="woocommerce-additional-fields__field-wrapper">
                                 <p class="form-row notes" id="order_comments_field" data-priority="">
