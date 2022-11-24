@@ -73,7 +73,7 @@ Version: 3.0
   display: flex;
   justify-content: space-between;
 }
-.booking-page .info-booking .container .add-room .popup-add input {
+.booking-page .info-booking .container .add-room .popup-add select {
   max-width: 50px;
 }
 .booking-page .info-booking .container .add-room .popup-add .add-btn {

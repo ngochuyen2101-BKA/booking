@@ -212,8 +212,6 @@
     });
 
     $(document).on('click','.btn-show', function() {
-        $('#numberAdult').val(1);
-        $('#numberChild').val(1);
         if($('.popup-add').hasClass('active')) {
             $('.popup-add').removeClass('active');
         } else {
@@ -239,6 +237,12 @@
     $(document).on('click','.add-btn', function() {
         var number_adult = $('#numberAdult').val();
         var number_child = $('#numberChild').val();
+        var total_customer = parseInt(number_adult) + parseInt(number_child);
+        if(total_customer > 5) {
+            $('.validate-customer').css('display','block');
+            return ;
+        }
+        
         if(number_adult == "") {
             number_adult = 1;
         }
@@ -351,6 +355,18 @@
         if(qty_room < 2) {
             setBBCookie('step',1,864000);
         }
+    });
+
+    $(document).on('change','#numberAdult', function() {
+        $('.validate-customer').css('display','none');
+        var number_adult = $(this).val();
+        $('#numberChild option').css('display','none');
+        for(var i = 1; i <= 6 - parseInt(number_adult); i++) {
+            $('#numberChild option:nth-child('+i+')').css('display','block');
+        }
+    });
+    $(document).on('change','#numberChild', function() {
+        $('.validate-customer').css('display','none');
     });
 
     function updateTotalPrice() {

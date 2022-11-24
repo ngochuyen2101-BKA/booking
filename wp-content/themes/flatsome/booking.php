@@ -42,13 +42,25 @@ echo do_shortcode('[block id="banner"]');
             <div class="add-room">
                 <p class="btn-show">Thêm phòng</p>
                 <div class="popup-add">
+                    <div class="validate-customer" style="display: none;">Please choose customer under 6.</div>
                     <div class="adults">
                         <div class="label">Người lớn</div>
-                        <input type="number" id="numberAdult" value="1">
+                        <select id="numberAdult">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
                     </div>
                     <div class="childs">
                         <div class="label">Trẻ em</div>
-                        <input type="number" id="numberChild" value="1">
+                        <select id="numberChild">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
                     </div>
                     <div class="btn-box">
                         <div class="btn-huy">Huỷ</div>
