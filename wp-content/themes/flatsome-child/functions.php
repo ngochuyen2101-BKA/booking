@@ -281,11 +281,16 @@ function check_product_before_order () {
         $price_real = $_product->get_regular_price();
 		$qty = $cart_item['quantity'];
 		$count_day = abs(strtotime($checkin)-strtotime($checkout))/86400;
-		if($price_sale) {
-			$price += $price_sale * $qty * $count_day;
+		if(isset($cart_item['customData'])) {
+			if($price_sale) {
+				$price += $price_sale * $qty * $count_day;
+			} else {
+				$price += $price_real * $qty * $count_day;
+			}
 		} else {
-			$price += $price_real * $qty * $count_day;
+			$price += $price_real * $qty;
 		}
+		
 	}
 	$woocommerce->cart->cart_contents_total = $price;
 }
