@@ -125,8 +125,13 @@ echo do_shortcode('[block id="banner"]');
                                         <div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>
                                     </div>
                                     <div class="col-md-4 price-col <?php echo ($regular_price) ? 'has-sale-price' : ''; ?>">
-                                        <div class="regular-price"><?php if($sale_price != ''){ echo number_format($regular_price); ?> VNĐ <?php } ?></div>
-                                        <div class="sale-price"><?php echo number_format($sale_price ? $sale_price : $regular_price); ?> VNĐ</div>
+                                        <div class="regular-price-gr">
+                                            <span class="regular-price-cal" style="display: none;"><?php if($sale_price != ''){ echo $regular_price; ?><?php } ?></span><span class="regular-price"><?php if($sale_price != ''){ echo number_format($regular_price); ?><?php } ?></span>
+                                            <?php if($sale_price != ''){ echo ' VNĐ'; ?><?php } ?>
+                                        </div>
+                                        <div class="sale-price-gr">
+                                            <span class="sale-price-cal" style="display: none;"><?php echo ($sale_price ? $sale_price : $regular_price); ?></span><span class="sale-price"><?php echo number_format($sale_price ? $sale_price : $regular_price); ?></span>VNĐ
+                                        </div>
                                         <button type="submit" class="button alt btn-select select-room" data-product_id="<?php echo $product->id; ?>">Lựa chọn</button>
                                     </div>
                                 </div>

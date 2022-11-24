@@ -112,7 +112,6 @@ foreach( $order->get_items() as $item_id => $item){
 		$product = $item->get_product();
 
 		$data_item['quantity'] = $item->get_quantity();
-		$data_item['price'] = $item->get_total();
 		$data_item['name'] = $item->get_name();
 
 		foreach($items_meta_data as $item_meta) {
@@ -131,6 +130,8 @@ foreach( $order->get_items() as $item_id => $item){
 				$data_item['Date check out'] = $data['value'];
 			}
 		}
+		$count_day = abs(strtotime($checkin)-strtotime($checkout))/86400;
+		$data_item['price'] = (int)($item->get_total()) * $count_day;
 		array_push($product_data,$data_item);
 	}
 	
@@ -162,10 +163,13 @@ foreach( $order->get_items() as $item_id => $item){
 				$name = $order->get_billing_first_name();
 				$phone = $order->get_billing_phone();
 				$payment = $order->get_payment_method();
-				$total = $order->get_total();
+				$total = 0;
 				$i = 1;
 				foreach($product_data as $prod) {
 					foreach($prod as $key => $value) {
+						if($key == 'price') {
+							$total += (int)$value;
+						}
 			?>
 				<input type="hidden" name="<?php echo $key.$i ?>" value="<?php echo $value; ?>" />
 			<?php 

@@ -1,9 +1,17 @@
 (function($) {
 	var isloading = false;    
     $(document).on('click','.select-room', function() {
-        $('.popup-add').removeClass('active');
         var date_checkin = $('.date-checkin').val();
         var date_checkout = $('.date-checkout').val();
+
+        var current_url = window.location.href;
+        var urlParams = new URLSearchParams(window.location.search);
+        
+        if( (current_url.indexOf("booking-page") > -1 && !(urlParams.toString()) && !(date_checkin && date_checkout)) || date_checkin == date_checkout) {
+            return ;
+        }
+
+        $('.popup-add').removeClass('active');
 
         // var format_checkin = new Date(date_checkin);
         // var format_checkout = new Date(date_checkout);
@@ -267,6 +275,7 @@
                 $('.loading-wait').css('display','none');
                 isloading = false;
                 showSlides(slideIndex,0);
+                changePriceRoom();
             },
 
         });
@@ -409,6 +418,95 @@
         $('.number-childs-cal').html(total_child);
      }
 
+     $(document).on('change','.date-checkin, .date-checkout', function() {
+        
+        $.ajax({
+            url: '/wp-admin/admin-ajax.php',
+            method: 'POST',
+            data: {
+                action: 'remove_cart'
+            }
+        });
+        setBBCookie('step',1,864000);
+        $('.choose-room').css('display','block');
+        $('.choose-service').css('display','none');
+        $('.room-gr').empty();
+        $('.service-gr').empty();
+        $('.total-price').html('0 VNĐ')
+        var date_checkin = $('.date-checkin').val();
+        var date_checkout = $('.date-checkout').val();
+
+        if(date_checkin && date_checkout) {
+            changePriceRoom();
+        }
+     });
+
+    function changePriceRoom() {
+        var date_checkin = $('.date-checkin').val();
+        var date_checkout = $('.date-checkout').val();
+        if(!date_checkin || !date_checkout || date_checkout == date_checkin) {
+            return ;
+        }
+        var format_checkin = new Date(date_checkin);
+        var format_checkout = new Date(date_checkout);
+        var difference_in_iime = format_checkout.getTime() - format_checkin.getTime();
+        var total_day = parseInt(difference_in_iime / (1000 * 3600 * 24));
+
+        $('.regular-price').each(function() {
+            var regular_price = parseInt($(this).closest('.regular-price-gr').find('.regular-price-cal').text().replace(/,/g, ''));
+            if(regular_price) {
+                $(this).html((regular_price*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+            }
+        });
+        
+        $('.sale-price').each(function() {
+            var sale_price = parseInt($(this).closest('.sale-price-gr').find('.sale-price-cal').text().replace(/,/g, ''));
+            $(this).html((sale_price*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+        });
+    }
+
+    function changePriceCart() {
+        var date_checkin = $('.date-checkin').val();
+        var date_checkout = $('.date-checkout').val();
+        var format_checkin = new Date(date_checkin);
+        var format_checkout = new Date(date_checkout);
+        var difference_in_iime = format_checkout.getTime() - format_checkin.getTime();
+        var total_day = parseInt(difference_in_iime / (1000 * 3600 * 24));
+        if(total_day == 0) {
+            return ;
+        }
+
+        $('.detail-room .price').each(function() {
+            var regular_price = parseInt($(this).text().replace(/,/g, ''));
+            if(regular_price) {
+                $(this).html((regular_price*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+            }
+        });
+    }
+
+    function changePriceCartCheckout() {
+
+        var date_checkin = $('.info-checkin:first').html().split("/");
+        var format_checkin = new Date(+date_checkin[2], date_checkin[1] - 1, +date_checkin[0]);
+        
+        var date_checkout = $('.info-checkout:first').html().split("/");
+        var format_checkout = new Date(+date_checkout[2], date_checkout[1] - 1, +date_checkout[0]);
+
+        var difference_in_time = format_checkout.getTime() - format_checkin.getTime();
+        var total_day = parseInt(difference_in_time / (1000 * 3600 * 24));
+        
+        if(total_day == 0) {
+            return ;
+        }
+        
+        $('.room-selected .price').each(function() {
+            var regular_price = parseInt($(this).text().replace(/,/g, ''));
+            if(regular_price) {
+                $(this).html((regular_price*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+            }
+        });
+    }
+
     $( document ).ready(function() {
 
         checkBtnRemove();
@@ -496,12 +594,20 @@
             });
             $('.number-adults').html(qty_adult);
 
-            var checkin = $('.info-checkin:first').html();
-            $('.date-checkin').val(moment(Date(checkin)).format('YYYY-MM-DD'));
+            // var checkin = $('.info-checkin:first').html();
+            // $('.date-checkin').val(moment(Date(checkin)).format('YYYY-MM-DD'));
 
-            var checkout = $('.info-checkout:first').html();
-            $('.date-checkout').val(moment(Date(checkout)).format('YYYY-MM-DD'));
+            // var checkout = $('.info-checkout:first').html();
+            // $('.date-checkout').val(moment(Date(checkout)).format('YYYY-MM-DD'));
 
+            var date_checkin = $('.info-checkin:first').html().split("/");
+            var format_checkin = new Date(+date_checkin[2], date_checkin[1] - 1, +date_checkin[0]);
+            $('.date-checkin').val(moment(format_checkin).format('YYYY-MM-DD'));
+            
+            var date_checkout = $('.info-checkout:first').html().split("/");
+            var format_checkout = new Date(+date_checkout[2], date_checkout[1] - 1, +date_checkout[0]);
+            $('.date-checkout').val(moment(format_checkout).format('YYYY-MM-DD'));
+            changePriceCartCheckout();
         }
         if(current_url.indexOf("booking-page") > -1) {
             var number_adult = $('.number-adults').text();
@@ -538,6 +644,7 @@
                     $('.loading-wait').css('display','none');
                     isloading = false;
                     showSlides(slideIndex,0);
+                    changePriceRoom();
                 },
 
             });
@@ -559,6 +666,6 @@
                 }
             }, 5000);
         });
-        
+        changePriceCart();
     });
 })(jQuery);

@@ -145,14 +145,14 @@ function getDataRoom() {
             $html .= 				'<div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>';
 			$html .= 			'</div>';                            
             $html .= 			'<div class="col-md-4 price-col '.$has_sale_price.'">';
-			$html .= 				'<div class="regular-price">';
+			$html .= 				'<div class="regular-price-gr"><span class="regular-price-cal" style="display: none;">'.($sale_price ? $regular_price : '').'</span><span class="regular-price">';
 			if ($sale_price) {
-				$html .= number_format($regular_price) . ' VNĐ';
+				$html .= number_format($regular_price);
 			} else {
 				$html .= '';
 			}
-			$html .= 				'</div>';
-			$html .= 				'<div class="sale-price">'.number_format($sale_price ? $sale_price : $regular_price).' VNĐ</div>';
+			$html .= 				'</span>'.($sale_price ? ' VNĐ' : '').'</div>';
+			$html .= 				'<div class="sale-price-gr"><span class="sale-price-cal" style="display: none;">'.($sale_price ? $sale_price : $regular_price).'</span><span class="sale-price">'.number_format($sale_price ? $sale_price : $regular_price).'</span> VNĐ</div>';
 			$html .= 				'<button type="submit" class=" button alt btn-select select-room" data-product_id="'.$product->id.'">Lựa chọn</button>';
             $html .= 			'</div>';
 			$html .= 		'</div>';
@@ -270,8 +270,56 @@ function custom_empty_cart() {
 	$woocommerce->cart->empty_cart( true );
 	setcookie('step',1,864000, "/");
 }
-// function check_product_before_order () {
-//     global $woocommerce;
-// 	$woocommerce->cart->cart_contents_total = 100;
-// }
-// add_action('woocommerce_checkout_process', 'check_product_before_order');
+function check_product_before_order () {
+    global $woocommerce;
+	$price = 0;
+	foreach ($woocommerce->cart->get_cart() as $cart_item_key => $cart_item) {
+		$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+		$checkin = $cart_item['customData']['custom_date_checkin'];
+		$checkout = $cart_item['customData']['custom_date_checkout'];
+		$price_sale = $_product->get_sale_price();
+        $price_real = $_product->get_regular_price();
+		$qty = $cart_item['quantity'];
+		$count_day = abs(strtotime($checkin)-strtotime($checkout))/86400;
+		if($price_sale) {
+			$price += $price_sale * $qty * $count_day;
+		} else {
+			$price += $price_real * $qty * $count_day;
+		}
+	}
+	$woocommerce->cart->cart_contents_total = $price;
+}
+add_action('woocommerce_calculate_totals', 'check_product_before_order');
+
+add_action('woocommerce_checkout_create_order', 'on_checkout_create_order', 20, 2);
+function on_checkout_create_order( $order, $data ) {
+	
+    foreach( $order->get_items() as $item_id => $line_item ){
+		$subtotal = 0;
+		$total_cart = 0;
+		$checkin = 0;
+		$checkout = 0;
+		$total = $line_item->get_total();
+		$qty = $line_item->get_quantity();
+		$items_meta_data = $line_item->get_meta_data();
+		foreach($items_meta_data as $item_meta) {
+			$data = $item_meta->get_data();
+			if($data['key'] == 'Date check in') {
+				$checkin = $data['value'];
+			}
+			if($data['key'] == 'Date check out') {
+				$checkout = $data['value'];
+			}
+		}
+		if($checkin && $checkout) {
+			$count_day = abs(strtotime($checkin)-strtotime($checkout))/86400;
+			$subtotal = $total*$qty*$count_day;
+        	$total_cart = $total*$qty*$count_day;
+		} else {
+			$subtotal = $total;
+        	$total_cart = $total;
+		}
+		$order->items[$item_id]->set_subtotal($subtotal);
+    	$order->items[$item_id]->set_total($total_cart);
+    }
+}
