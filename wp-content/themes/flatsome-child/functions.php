@@ -275,12 +275,16 @@ function check_product_before_order () {
 	$price = 0;
 	foreach ($woocommerce->cart->get_cart() as $cart_item_key => $cart_item) {
 		$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
-		$checkin = $cart_item['customData']['custom_date_checkin'];
-		$checkout = $cart_item['customData']['custom_date_checkout'];
+		if(isset($cart_item['customData'])) {
+			$checkin = $cart_item['customData']['custom_date_checkin'];
+			$checkout = $cart_item['customData']['custom_date_checkout'];
+			$count_day = abs(strtotime($checkin)-strtotime($checkout))/86400;
+		}
+		
 		$price_sale = $_product->get_sale_price();
         $price_real = $_product->get_regular_price();
 		$qty = $cart_item['quantity'];
-		$count_day = abs(strtotime($checkin)-strtotime($checkout))/86400;
+		
 		if(isset($cart_item['customData'])) {
 			if($price_sale) {
 				$price += $price_sale * $qty * $count_day;

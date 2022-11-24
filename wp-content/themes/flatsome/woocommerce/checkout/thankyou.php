@@ -130,7 +130,7 @@ foreach( $order->get_items() as $item_id => $item){
 				$data_item['Date check out'] = $data['value'];
 			}
 		}
-		$count_day = abs(strtotime($checkin)-strtotime($checkout))/86400;
+		$count_day = abs(strtotime($data_item['Date check in'])-strtotime($data_item['Date check out']))/86400;
 		$data_item['price'] = (int)($item->get_total()) * $count_day;
 		array_push($product_data,$data_item);
 	}
