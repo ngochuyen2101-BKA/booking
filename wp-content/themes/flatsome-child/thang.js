@@ -443,6 +443,7 @@
                 action: 'remove_cart'
             }
         });
+        $('.add-service').prop('checked', false);
         setBBCookie('step',1,864000);
         $('.choose-room').css('display','block');
         $('.choose-service').css('display','none');
