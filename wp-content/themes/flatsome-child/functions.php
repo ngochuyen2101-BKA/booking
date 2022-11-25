@@ -114,7 +114,7 @@ function getDataRoom() {
 			$has_sale_price = "has-sale-price";
 		}
 
-		if( ((int)$number_adult >= (int)$adult) && ((int)$number_child >= (int)$child) ) {
+		if( ( (int)$number_adult + (int)$number_child ) >= ( (int)$adult + (int)$child )  ) {
 
 			$html .= '<div class="cart" data-product_id="'.$product->id.'">';
 			$html .= 	'<div class="product-booking">';
@@ -302,12 +302,12 @@ add_action('woocommerce_calculate_totals', 'check_product_before_order');
 
 add_action('woocommerce_checkout_create_order', 'on_checkout_create_order', 20, 2);
 function on_checkout_create_order( $order, $data ) {
-	
-    foreach( $order->get_items() as $item_id => $line_item ){
+	$sumTotal = 0;
+	foreach( $order->get_items() as $item_id => $line_item ){
 		$subtotal = 0;
-		$total_cart = 0;
 		$checkin = 0;
 		$checkout = 0;
+		$total_cart = 0;
 		$total = $line_item->get_total();
 		$qty = $line_item->get_quantity();
 		$items_meta_data = $line_item->get_meta_data();
@@ -321,14 +321,17 @@ function on_checkout_create_order( $order, $data ) {
 			}
 		}
 		if($checkin && $checkout) {
-			$count_day = abs(strtotime($checkin)-strtotime($checkout))/86400;
-			$subtotal = $total*$qty*$count_day;
-        	$total_cart = $total*$qty*$count_day;
+			$count_day = abs(strtotime($checkin) - strtotime($checkout)) / 86400;
+			$subtotal = $total * $qty * $count_day;
+			$total_cart = $total * $qty * $count_day;
+			$sumTotal += $total * $qty * $count_day;
 		} else {
 			$subtotal = $total;
-        	$total_cart = $total;
+			$total_cart = $total;
+			$sumTotal += $total;
 		}
 		$order->items[$item_id]->set_subtotal($subtotal);
-    	$order->items[$item_id]->set_total($total_cart);
-    }
+		$order->items[$item_id]->set_total($total_cart);
+	}
+	$order->set_total($sumTotal);
 }
