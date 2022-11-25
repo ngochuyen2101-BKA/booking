@@ -182,7 +182,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                         $category_name = get_the_terms ( $_product->id, 'product_cat' )[0]->slug;
                                         if($category_name == 'dich-vu') {
                                 ?>
-                                    <div class="detail-selected">
+                                    <div class="detail-selected service-selected">
                                         <div class="row">
                                             <div class="col-md-6 cart-info-label">
                                                 <div class="title"><?php echo $_product->get_title(); ?></div>

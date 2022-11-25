@@ -97,6 +97,7 @@ function getDataRoom() {
 	$loop = new WP_Query( $args );
 	$html = '';
 	$i = 1;
+	$has_product = false;
 	while ( $loop->have_posts() ) : $loop->the_post();
 		global $product;
 		$room_status = get_field('tinh_trang', $product->id)['value'];
@@ -115,7 +116,7 @@ function getDataRoom() {
 		}
 
 		if( ( (int)$number_adult + (int)$number_child ) >= ( (int)$adult + (int)$child )  ) {
-
+			$has_product = true;
 			$html .= '<div class="cart" data-product_id="'.$product->id.'">';
 			$html .= 	'<div class="product-booking">';
 			// $html .= 		'<img src="'.$image[0].'" data-id="'.$product->id.'">';
@@ -161,10 +162,17 @@ function getDataRoom() {
 		}
 
 	endwhile;
-	$html .='<script>';
-	$html .='jQuery("document").ready(function(){jQuery(".mySlides img").css("height",jQuery(".mySlides img").width() * 9 / 16 + "px");});';
-	$html .='</script>';
-	echo $html;
+	if(!$has_product) {
+		$html .= '<p>Rất tiếc, không có phòng nghỉ phù hợp với tiêu chí tìm kiếm của Quý khách.</p><p>Quý khách vui lòng thay đổi lựa chọn!</p>';
+		echo $html;
+	} else {
+		$title = '<h2 class="title">Chọn phòng cho chuyến đi của bạn</h2>';
+		$desc = '<p class="description">Quý khách sẽ được đặt phòng ở mức giá tốt nhất do không phải qua đơn vị trung gian:<br>Quý khách đang ghé thăm trang web của khu nghỉ dưỡng</p>';
+		$html .='<script>';
+		$html .='jQuery("document").ready(function(){jQuery(".mySlides img").css("height",jQuery(".mySlides img").width() * 9 / 16 + "px");});';
+		$html .='</script>';
+		echo $title.$desc.$html;
+	}
 }
 
 add_action('wp_ajax_get_data_service', 'getDataService');

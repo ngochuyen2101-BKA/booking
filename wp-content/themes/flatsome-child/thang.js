@@ -270,7 +270,7 @@
                 $('.popup-add').removeClass('active');
                 $('.choose-room').css('display','block');
                 $('.choose-service').css('display','none');
-                $('.list-room').html(res);
+                $('.choose-room').html(res);
                 setBBCookie('step',1,864000);
                 $('.step-1').find('.number-step').addClass('active');
                 $('.step-1').find('.text-step').addClass('active');
@@ -511,16 +511,22 @@
 
         var difference_in_time = format_checkout.getTime() - format_checkin.getTime();
         var total_day = parseInt(difference_in_time / (1000 * 3600 * 24));
-        
         if(total_day == 0) {
             return ;
         }
         
         $('.room-selected .price').each(function() {
             var regular_price = parseInt($(this).text().replace(/,/g, ''));
+            var qty = parseInt($(this).closest('.cart-item-info').find('.quantity').text());
+
             if(regular_price) {
-                $(this).html((regular_price*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+                $(this).html((regular_price*total_day*qty).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
             }
+        });
+        $('.service-selected .price').each(function() {
+            var price = parseInt($(this).text().replace(/,/g, ''));
+            var qty_service = parseInt($(this).closest('.cart-item-info').find('.quantity').text());
+            $(this).html((price*qty_service).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
         });
     }
 
@@ -652,7 +658,7 @@
                     $('.popup-add').removeClass('active');
                     $('.choose-room').css('display','block');
                     $('.choose-service').css('display','none');
-                    $('.list-room').html(res);
+                    $('.choose-room').html(res);
                     setBBCookie('step',1,864000);
                     $('.step-1').find('.number-step').addClass('active');
                     $('.step-1').find('.text-step').addClass('active');
