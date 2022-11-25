@@ -106,7 +106,7 @@
             },
 
         });
-        
+        jQuery('html, body').animate({scrollTop: '200px'}, 0);
     });
 
     $(document).on('click','.add-service', function() {

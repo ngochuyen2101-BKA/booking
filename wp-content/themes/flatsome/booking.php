@@ -137,7 +137,7 @@ echo do_shortcode('[block id="banner"]');
                                         <div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>
                                     </div>
                                     <div class="col-md-4 price-col <?php echo ($regular_price) ? 'has-sale-price' : ''; ?>">
-                                        <div class="regular-price-gr">
+                                        <div class="regular-price-gr booking-price-box">
                                             <span class="regular-price-cal" style="display: none;"><?php if($sale_price != ''){ echo $regular_price; ?><?php } ?></span><span class="regular-price"><?php if($sale_price != ''){ echo number_format($regular_price); ?><?php } ?></span>
                                             <?php if($sale_price != ''){ echo ' VNĐ'; ?><?php } ?>
                                         </div>
@@ -209,7 +209,7 @@ echo do_shortcode('[block id="banner"]');
                 </div>
                 <div class="col-md-4">
                     <div class="info-selected">
-                        <h2 class="title">Lựa chọn của bạn</h2>
+                        <h2 class="title">Lựa chọn của bạn <span class="dong-tab">Đóng</span></h2>
                         <div class="list-selected">
                             <div class="room-gr">
                         <?php if (!WC()->cart->is_empty()) : 
@@ -318,7 +318,7 @@ echo do_shortcode('[block id="banner"]');
                             </div>
                         </div>
                         <div class="total">
-                            <p class="label">Tổng</p>
+                            <p class="label">Tổng <i class="fas fa-caret-up show-mobile"></i></p>
                             <p class="total-price"><?php echo WC()->cart->cart_contents_total; ?> VNĐ</p>
                         </div>
                     </div>

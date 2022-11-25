@@ -16,6 +16,7 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+echo do_shortcode('[block id="banner"]');
 ?>
 
 <!-- <div class="row">
@@ -154,9 +155,9 @@ foreach( $order->get_items() as $item_id => $item){
 
 <div class="woocommerce-order container">
 	<div class="woocommerce-thank-you-page">
-		<h2 class="title-thank-you">Bạn đã đặt phòng thành công!</h2>
-		<div class="number-order">Order no: <?php echo $order->get_id(); ?></div>
-		<div class="content-thank-you">Cam on ban da dat phong tai Laocai StaelH@an vui long dgi trong 30 phit, chiing t6i sé kiém tra va xdc nhan théng tin d&t phdng va thanh todn cia ban qua sms va emailLuu y: Ban hay uu lai ma dat phdng dé check-in nhan phdng</div>
+	<h2 class="title-thank-you">Xác nhận và hoàn thành đặt phòng</h2>
+		<div class="number-order">Mã đặt phòng: <?php echo $order->get_id(); ?></div>
+		<div class="content-thank-you">Cảm ơn bạn đã đặt phòng tai Bamboo Sapa Hotel vui lòng đợi trong 30p, chúng tôi sẽ kiểm tra va xác nhận thông tin đặt phòng va thanh toán của bạn qua sms va email. <br><b>Lưu ý:</b> Bạn hãy lưu lại mã đặt phòng để check-in nhận phòng</div>
 		<form method="post" action="/wp-content/generate.php">
 			<?php
 				$email = $order->get_billing_email(); 
@@ -181,7 +182,7 @@ foreach( $order->get_items() as $item_id => $item){
 			<input type="hidden" name="phone" value="<?php echo $phone; ?>" />
 			<input type="hidden" name="payment" value="<?php echo $payment; ?>" />
 			<input type="hidden" name="total" value="<?php echo $total; ?>" />
-			<button class="export-bill" type="submit"> Xuất hóa đơn đặt phòng </button>
+			<button class="export-bill" type="submit"> Xác nhận đặt phòng </button>
 		</form>
 	</div>
 </div>

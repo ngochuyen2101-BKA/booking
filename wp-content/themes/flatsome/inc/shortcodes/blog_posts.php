@@ -232,8 +232,17 @@ while ( $recentPosts->have_posts() ) : $recentPosts->the_post();
 			<div class="col-inner">
 			<a href="<?php the_permalink() ?>" class="plain">
 				<div class="box <?php echo $classes_box; ?> box-blog-post has-hover">
-          <?php if(has_post_thumbnail()) { ?>
-  					<div class="box-image" <?php echo get_shortcode_inline_css($css_args_img); ?>>
+          <?php if(has_post_thumbnail()) { 
+          $post_type = get_field("post_type");
+          $avatar_uu_dai_mobile = get_field("avatar_uu_dai_mobile");
+          ?>
+  					<div class="box-image <?php echo ($post_type == "Ưu đãi") ? "uu-dai-img-box" : ""; ?>" <?php echo get_shortcode_inline_css($css_args_img); 
+  					if($post_type == "Ưu đãi"){
+  					    if($avatar_uu_dai_mobile != ""){
+  					        echo "data-ava-img='".$avatar_uu_dai_mobile['url']."'";
+  					        echo "data-ava-alt='".$avatar_uu_dai_mobile['alt']."'";
+  					    }
+  					} ?>>
   						<div class="<?php echo $classes_image; ?>" <?php echo get_shortcode_inline_css($css_image_height); ?>>
   							<?php the_post_thumbnail($image_size); ?>
   							<?php if($image_overlay){ ?><div class="overlay" style="background-color: <?php echo $image_overlay;?>"></div><?php } ?>

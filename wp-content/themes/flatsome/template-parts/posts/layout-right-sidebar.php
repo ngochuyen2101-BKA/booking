@@ -25,6 +25,12 @@
 		<?php get_sidebar(); ?>
 		<?php flatsome_sticky_column_close( 'blog_sticky_sidebar' ); ?>
 	</div>
+	<?php
+		if(is_single()){
+			echo "<div class='large-12 col'>";
+			echo do_shortcode('[block id="bai-viet-lien-quan"]');
+			echo "</div>";
+		}?>
 </div>
 
 <?php

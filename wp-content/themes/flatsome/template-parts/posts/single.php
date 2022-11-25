@@ -22,9 +22,6 @@
 		<?php get_template_part( 'template-parts/posts/content', 'single' ); ?>
 	</div>
 </article>
-<div class="post-info">
-	<div class="fb-like" data-href="" data-width="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-</div>
 <?php endwhile; ?>
 
 <?php else : ?>
