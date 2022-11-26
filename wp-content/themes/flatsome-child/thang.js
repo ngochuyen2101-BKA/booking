@@ -368,6 +368,36 @@
     $(document).on('change','#numberChild', function() {
         $('.validate-customer').css('display','none');
     });
+    $(document).on('click','.btn-booking-detail', function(e) {
+        e.preventDefault();
+        var current_url = window.location.href;
+        if(current_url.indexOf("/list-room") > -1) {
+            var checkin = $('.checkin').val();
+            var checkout = $('.checkout').val();
+            var adults = $('.select-adults').val();
+            var childs = $('.select-child').val();
+            var product_id = $(this).data('product_id');
+        }
+        $.ajax({
+            url: '/wp-admin/admin-ajax.php',
+            method: 'POST',
+            data: {
+                adult: adults,
+                child: childs,
+                date_checkin:checkin,
+                date_checkout:checkout,
+                product_id: product_id,
+                action: 'custom_data_product'
+            },
+            success: function(res) { 
+                console.log(res);
+            }
+        }); 
+        setBBCookie('step',2,864000);
+        setTimeout(function() {
+            window.location.href = 'https://bamboosapa.diwe.com.vn/booking-page/?arrival='+checkin+'&departure='+checkout+'&adults1='+adults+'&children1='+childs+'&fromdetail=true';
+        }, 3000);
+    });
 
     function updateTotalPrice() {
         var prices = $('.list-selected').find('.price');
@@ -444,6 +474,9 @@
             }
         });
         $('.add-service').prop('checked', false);
+        $('.service-number').each(function() {
+            $(this).val(1);
+        })
         setBBCookie('step',1,864000);
         $('.choose-room').css('display','block');
         $('.choose-service').css('display','none');
@@ -656,10 +689,21 @@
                     $('.number-adults').html(number_adult);
                     $('.number-childs').html(number_child);
                     $('.popup-add').removeClass('active');
-                    $('.choose-room').css('display','block');
-                    $('.choose-service').css('display','none');
+                    
                     $('.choose-room').html(res);
-                    setBBCookie('step',1,864000);
+                    
+                    var vars = [], hash;
+                    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                    for(var i = 0; i < hashes.length; i++)
+                    {
+                        hash = hashes[i].split('=');
+                        vars[hash[0]] = hash[1];
+                    }
+                    if(!vars['fromdetail']) {
+                        $('.choose-room').css('display','block');
+                        $('.choose-service').css('display','none');
+                        setBBCookie('step',1,864000);
+                    }
                     $('.step-1').find('.number-step').addClass('active');
                     $('.step-1').find('.text-step').addClass('active');
                     $('.step-2').find('.number-step').removeClass('active');
@@ -690,5 +734,6 @@
             }, 5000);
         });
         changePriceCart();
+        updateTotalPrice();
     });
 })(jQuery);
