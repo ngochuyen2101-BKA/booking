@@ -137,6 +137,7 @@ echo do_shortcode('[block id="banner"]');
                                         <div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>
                                     </div>
                                     <div class="col-md-4 price-col <?php echo ($regular_price) ? 'has-sale-price' : ''; ?>">
+                                        <div class="date-gr"><span>1</span> đêm</div>
                                         <div class="regular-price-gr booking-price-box">
                                             <span class="regular-price-cal" style="display: none;"><?php if($sale_price != ''){ echo $regular_price; ?><?php } ?></span><span class="regular-price"><?php if($sale_price != ''){ echo number_format($regular_price); ?><?php } ?></span>
                                             <?php if($sale_price != ''){ echo ' VNĐ'; ?><?php } ?>
@@ -251,6 +252,7 @@ echo do_shortcode('[block id="banner"]');
                                         <div class="info info-custom-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
                                         <div class="gr-edit">
                                             <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
+                                            <span>phòng, </span><span class="quatity-date"></span><span>đêm</span>
                                             <?php
                                                 echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
                                                     '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank">Bỏ</a>',

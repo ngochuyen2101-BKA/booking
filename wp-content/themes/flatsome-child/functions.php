@@ -146,7 +146,8 @@ function getDataRoom() {
             $html .= 				'<div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>';
 			$html .= 			'</div>';                            
             $html .= 			'<div class="col-md-4 price-col '.$has_sale_price.'">';
-			$html .= 				'<div class="regular-price-gr"><span class="regular-price-cal" style="display: none;">'.($sale_price ? $regular_price : '').'</span><span class="regular-price">';
+			$html .= 				'<div class="date-gr"><span>1</span> đêm</div>';
+			$html .= 				'<div class="regular-price-gr booking-price-box"><span class="regular-price-cal" style="display: none;">'.($sale_price ? $regular_price : '').'</span><span class="regular-price">';
 			if ($sale_price) {
 				$html .= number_format($regular_price);
 			} else {

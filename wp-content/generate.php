@@ -25,7 +25,7 @@ $html .= '<div class="info-customer">';
 for($i = 1; $i < $number_item; $i++) {
     if(isset($_POST['Childs'.$i])) {
         $html .= '<div class="info">Hạng phòng: '.$_POST['name'.$i].'</div>';
-        $html .= '<div class="info">Giá: '.number_format($_POST['price'.$i]).'</div>';
+        $html .= '<div class="info">Giá: '.number_format($_POST['price'.$i]).' VNĐ</div>';
         if($_POST['quantity'.$i]) {
             $html .= '<div class="info">Số lượng phòng: '.$_POST['quantity'.$i].'</div>';
         }
@@ -39,7 +39,7 @@ for($i = 1; $i < $number_item; $i++) {
             $html .= '<div class="info">Ngày nhận - trả phòng: '.date_format(date_create($_POST['Date_check_in'.$i]),"d/m/Y").' - '.date_format(date_create($_POST['Date_check_out'.$i]),"d/m/Y").'</div>';
         }
     } else {
-        $html .= $_POST['name'.$i].' - '.number_format($_POST['price'.$i]);
+        $html .= $_POST['name'.$i].' - '.number_format($_POST['price'.$i]).'VNĐ';
     }
     
 }
@@ -108,7 +108,7 @@ $html .= '<div class="info-customer">';
 for($i = 1; $i < $number_item; $i++) {
     if(isset($_POST['Childs'.$i])) {
         $html .= '<div class="info">Hạng phòng: '.$_POST['name'.$i].'</div>';
-        $html .= '<div class="info">Giá: '.number_format($_POST['price'.$i]).'</div>';
+        $html .= '<div class="info">Giá: '.number_format($_POST['price'.$i]).'VNĐ</div>';
         if($_POST['quantity'.$i]) {
             $html .= '<div class="info">Số lượng phòng: '.$_POST['quantity'.$i].'</div>';
         }
@@ -122,7 +122,7 @@ for($i = 1; $i < $number_item; $i++) {
             $html .= '<div class="info">Ngày nhận - trả phòng: '.date_format(date_create($_POST['Date_check_in'.$i]),"d/m/Y").' - '.date_format(date_create($_POST['Date_check_out'.$i]),"d/m/Y").'</div>';
         }
     } else {
-        $html .= $_POST['name'.$i].' - '.number_format($_POST['price'.$i]);
+        $html .= $_POST['name'.$i].' - '.number_format($_POST['price'.$i]).'VNĐ';
     }
     $html .= '<br>';
 }
@@ -144,7 +144,7 @@ if($payment == "momo") {
 
 $html .= '<div class="info-customer">';
     $html .= '<div class="info">Phương thức thanh toán: '.$payment_method.'</div>';
-    $html .= '<div class="info">Tổng tiền: '.$total.'</div>';
+    $html .= '<div class="info">Tổng tiền: '.number_format($total).'VNĐ</div>';
 $html .= '</div>';
 
 $date = date("d/m/Y");

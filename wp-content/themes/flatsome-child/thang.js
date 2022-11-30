@@ -4,6 +4,11 @@
         var date_checkin = $('.date-checkin').val();
         var date_checkout = $('.date-checkout').val();
 
+        var format_checkin = new Date(date_checkin);
+        var format_checkout = new Date(date_checkout);
+        var difference_in_iime = format_checkout.getTime() - format_checkin.getTime();
+        var total_day = parseInt(difference_in_iime / (1000 * 3600 * 24));
+
         var current_url = window.location.href;
         var urlParams = new URLSearchParams(window.location.search);
         
@@ -12,11 +17,6 @@
         }
 
         $('.popup-add').removeClass('active');
-
-        // var format_checkin = new Date(date_checkin);
-        // var format_checkout = new Date(date_checkout);
-        // var difference_in_iime = format_checkout.getTime() - format_checkin.getTime();
-        // var total_day = difference_in_iime / (1000 * 3600 * 24);
         
         var adults = $('.number-adults').text();
         var childs = $('.number-childs').text();
@@ -77,7 +77,7 @@
                     html +=                 '<div class="info info-custom-adult">'+adults+'</div>' 
                     html +=                 '<div class="info info-custom-child">'+childs+'</div>'
                     html +=                 '<div class="gr-edit">' 
-                    html +=                 '<div class="info quantity">1</div>'
+                    html +=                 '<div class="info quantity">1</div><span>phòng, </span><span class="quatity-date">'+total_day+'</span><span>đêm</span>'
                     html +=                      res
                     html +=                 '</div>' 
                     html +=             '</div>'
@@ -280,6 +280,8 @@
                 isloading = false;
                 showSlides(slideIndex,0);
                 changePriceRoom();
+                $('#numberAdult').val(1);
+                $('#numberChild').val(0);
             },
 
         });
@@ -362,7 +364,7 @@
         var number_adult = $(this).val();
         $('#numberChild option').css('display','none');
         for(var i = 1; i <= 6 - parseInt(number_adult); i++) {
-            $('#numberChild option:nth-child('+i+')').css('display','block');
+            $('#numberChild option:nth-of-type('+i+')').css('display','block');
         }
     });
     $(document).on('change','#numberChild', function() {
@@ -390,13 +392,11 @@
                 action: 'custom_data_product'
             },
             success: function(res) { 
-                console.log(res);
+                setBBCookie('step',2,864000);
+                window.location.href = 'https://'+window.location.host+'/booking-page/?arrival='+checkin+'&departure='+checkout+'&adults1='+adults+'&children1='+childs+'&fromdetail=true';
             }
         }); 
-        setBBCookie('step',2,864000);
-        setTimeout(function() {
-            window.location.href = 'https://bamboosapa.diwe.com.vn/booking-page/?arrival='+checkin+'&departure='+checkout+'&adults1='+adults+'&children1='+childs+'&fromdetail=true';
-        }, 3000);
+        
     });
 
     function updateTotalPrice() {
@@ -513,6 +513,12 @@
             var sale_price = parseInt($(this).closest('.sale-price-gr').find('.sale-price-cal').text().replace(/,/g, ''));
             $(this).html((sale_price*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
         });
+        $('.date-gr span').each(function() {
+            $(this).html(total_day);
+        });
+        $('.quatity-date').each(function() {
+            $(this).html(total_day);
+        })
     }
 
     function changePriceCart() {
@@ -561,6 +567,9 @@
             var qty_service = parseInt($(this).closest('.cart-item-info').find('.quantity').text());
             $(this).html((price*qty_service).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
         });
+        $('.quatity-date').each(function() {
+            $(this).html(total_day);
+        })
     }
 
     $( document ).ready(function() {
@@ -627,9 +636,9 @@
             });
         });
 
-        setTimeout(function() { 
-            $('#place_order').prop('disabled', true);
-        }, 5000);
+        // setTimeout(function() { 
+        //     $('#place_order').prop('disabled', true);
+        // }, 5000);
 
         var current_url = window.location.href;
         if(current_url.indexOf("thanh-toan") > -1) {
@@ -674,6 +683,48 @@
             if(number_child == "") {
                 number_child = 0;
             }
+
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars[hash[0]] = hash[1];
+            }
+            if($('.info-date-checkin:first').html()) {
+                var date_checkin = $('.info-date-checkin:first').html().split("/");
+                var format_checkin = moment(new Date(+date_checkin[2], date_checkin[1] - 1, +date_checkin[0])).format('YYYY-MM-DD');
+                
+                var date_checkout = $('.info-date-checkout:first').html().split("/");
+                var format_checkout = moment(new Date(+date_checkout[2], date_checkout[1] - 1, +date_checkout[0])).format('YYYY-MM-DD');
+
+                var arrival = vars['arrival'];
+                var departure = vars['departure'];
+                if(arrival != format_checkin || departure != format_checkout) {
+                    $.ajax({
+                        url: '/wp-admin/admin-ajax.php',
+                        method: 'POST',
+                        data: {
+                            action: 'remove_cart'
+                        }
+                    });
+                    $('.add-service').prop('checked', false);
+                    $('.service-number').each(function() {
+                        $(this).val(1);
+                    })
+                    $('.room-gr').empty();
+                    $('.service-gr').empty();
+                    $('.total-price').html('0 VNĐ')
+                    $('.choose-room').css('display','block');
+                    $('.choose-service').css('display','none');
+                    setBBCookie('step',1,864000);
+                    $('.step-1').find('.number-step').addClass('active');
+                    $('.step-1').find('.text-step').addClass('active');
+                    $('.step-2').find('.number-step').removeClass('active');
+                    $('.step-2').find('.text-step').removeClass('active');
+                }
+            }
+
             $.ajax({
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
@@ -689,25 +740,18 @@
                     $('.number-adults').html(number_adult);
                     $('.number-childs').html(number_child);
                     $('.popup-add').removeClass('active');
-                    
                     $('.choose-room').html(res);
                     
-                    var vars = [], hash;
-                    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-                    for(var i = 0; i < hashes.length; i++)
-                    {
-                        hash = hashes[i].split('=');
-                        vars[hash[0]] = hash[1];
-                    }
                     if(!vars['fromdetail']) {
                         $('.choose-room').css('display','block');
                         $('.choose-service').css('display','none');
                         setBBCookie('step',1,864000);
+                        $('.step-1').find('.number-step').addClass('active');
+                        $('.step-1').find('.text-step').addClass('active');
+                        $('.step-2').find('.number-step').removeClass('active');
+                        $('.step-2').find('.text-step').removeClass('active');
                     }
-                    $('.step-1').find('.number-step').addClass('active');
-                    $('.step-1').find('.text-step').addClass('active');
-                    $('.step-2').find('.number-step').removeClass('active');
-                    $('.step-2').find('.text-step').removeClass('active');
+                    
                     $('.loading-wait').css('display','none');
                     isloading = false;
                     showSlides(slideIndex,0);
@@ -733,6 +777,18 @@
                 }
             }, 5000);
         });
+        $(window).on("navigate", function (event, data) {
+            setTimeout(function() {
+                if(!(current_url.indexOf("thanh-toan/order-received") > -1)) {
+                    location.reload();
+                }
+            }, 5000);
+        });
+        window.onpageshow = function(event) {
+            if (event.persisted && !(current_url.indexOf("thanh-toan/order-received") > -1)) {
+            window.location.reload();
+            }
+        };
         changePriceCart();
         updateTotalPrice();
     });
