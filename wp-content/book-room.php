@@ -28,14 +28,14 @@ $attachment_ids = $product->get_gallery_image_ids();
                     </div>
                     <p class="product-short-des"><?php echo $product->post->post_excerpt; ?></p>
                     <p class="detail-room-price"><span class="gia-phong"><?php echo $product->get_price(); ?></span><span class="don-vi">VND / đêm</span></p>
-<form action="" method="GET">
-<div class="form-input ngay-den"><input type="date" class="datePickerPlaceHolder"placeholder="Nhận phòng" name="arrival"><span class="open-button"><button type="button"><i class="fas fa-caret-down"></i></button></span></div>
-<div class="form-input ngay-di"><input type="date" class="datePickerPlaceHolder"placeholder="Trả phòng" name="departure"><span class="open-button"><button type="button"><i class="fas fa-caret-down"></i></button></span></div>
+<!-- <form action="" method="GET"> -->
+<div class="form-input ngay-den"><input type="date" class="datePickerPlaceHolder checkin" placeholder="Nhận phòng" name="arrival"><span class="open-button"><button type="button"><i class="fas fa-caret-down"></i></button></span></div>
+<div class="form-input ngay-di"><input type="date" class="datePickerPlaceHolder checkout" placeholder="Trả phòng" name="departure"><span class="open-button"><button type="button"><i class="fas fa-caret-down"></i></button></span></div>
 <div class="form-input nguoi-lon"><select name="adults1" class="select-adults"></select><span class="open-button"><button type="button"><i class="fas fa-caret-down"></i></button></span></div>
 <div class="form-input tre-em"><select name="children1" class="select-child"></select><span class="open-button"><button type="button"><i class="fas fa-caret-down"></i></button></span></div>
-<div class="form-input btn-submit <?php echo ($tinh_trang['value']=="hetphong") ? "het-phong" : "" ;?>"><button type="submit"  class="btn-booking-detail"><img src="/wp-content/uploads/2022/11/book-icon.png"><span><?php echo ($tinh_trang['value']=="hetphong") ? "Hết phòng" : "Đặt phòng ngay" ;?></span></button></div>
+<div class="form-input btn-submit <?php echo ($tinh_trang['value']=="hetphong") ? "het-phong" : "" ;?>"><button type="submit"  class="btn-booking-detail" data-product_id="<?php echo $product->id; ?>"><img src="/wp-content/uploads/2022/11/book-icon.png"><span><?php echo ($tinh_trang['value']=="hetphong") ? "Hết phòng" : "Đặt phòng ngay" ;?></span></button></div>
 <div class="input-roomname"><input type="text" class="roomname" name="roomname" value="<?php echo $product->get_title(); ?>"></div>
-</form>
+<!-- </form> -->
                 </div>
             </div>
             <div class="col large-6 tien-ich">
