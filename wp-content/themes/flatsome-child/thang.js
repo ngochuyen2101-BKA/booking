@@ -77,7 +77,7 @@
                     html +=                 '<div class="info info-custom-adult">'+adults+'</div>' 
                     html +=                 '<div class="info info-custom-child">'+childs+'</div>'
                     html +=                 '<div class="gr-edit">' 
-                    html +=                 '<div class="info quantity">1</div><span>phòng, </span><span class="quatity-date">'+total_day+'</span><span>đêm</span>'
+                    html +=                 '<div><div class="info quantity">1</div><span> phòng / </span><span class="quatity-date">'+total_day+'</span><span> đêm</span></div>'
                     html +=                      res
                     html +=                 '</div>' 
                     html +=             '</div>'
@@ -361,17 +361,18 @@
 
     $(document).on('change','#numberAdult', function() {
         $('.validate-customer').css('display','none');
-        var number_adult = $(this).val();
-        $('#numberChild option').css('display','none');
-        for(var i = 1; i <= 6 - parseInt(number_adult); i++) {
-            $('#numberChild option:nth-of-type('+i+')').css('display','block');
-        }
+//         var number_adult = $(this).val();
+//         $('#numberChild option').css('display','none');
+//         for(var i = 1; i <= 6 - parseInt(number_adult); i++) {
+//             $('#numberChild option:nth-of-type('+i+')').css('display','block');
+//         }
     });
     $(document).on('change','#numberChild', function() {
         $('.validate-customer').css('display','none');
     });
     $(document).on('click','.btn-booking-detail', function(e) {
         e.preventDefault();
+        $('.loading-wait').css('display', 'block');
         var current_url = window.location.href;
         if(current_url.indexOf("/list-room") > -1) {
             var checkin = $('.checkin').val();
@@ -393,6 +394,7 @@
             },
             success: function(res) { 
                 setBBCookie('step',2,864000);
+                $('.loading-wait').css('display', 'none');
                 window.location.href = 'https://'+window.location.host+'/booking-page/?arrival='+checkin+'&departure='+checkout+'&adults1='+adults+'&children1='+childs+'&fromdetail=true';
             }
         }); 
@@ -494,7 +496,7 @@
     function changePriceRoom() {
         var date_checkin = $('.date-checkin').val();
         var date_checkout = $('.date-checkout').val();
-        if(!date_checkin || !date_checkout || date_checkout == date_checkin) {
+        if(!date_checkin || !date_checkout || date_checkout <= date_checkin) {
             return ;
         }
         var format_checkin = new Date(date_checkin);
@@ -582,7 +584,16 @@
         var year = today.getFullYear();
         var date = year + '-' + month + '-' + day;
         $('.date-checkin').attr('min', date);
-        $('.date-checkout').attr('min', date);
+        
+        var tomorrow =  new Date()
+        tomorrow.setDate(today.getDate() + 1)
+        
+        var dayTomorrow = ('0' + tomorrow.getDate()).slice(-2);
+        var monthTomorrow = ('0' + (tomorrow.getMonth() + 1)).slice(-2);
+        var yearTomorrow = tomorrow.getFullYear();
+        
+        var dateTomorrow = yearTomorrow + '-' + monthTomorrow + '-' + dayTomorrow;
+        $('.date-checkout').attr('min', dateTomorrow);
 
         var current_url = window.location.href;
         if(current_url.indexOf("/booking-page") > -1) {
@@ -793,3 +804,7 @@
         updateTotalPrice();
     });
 })(jQuery);
+jQuery(document).ready(function(){
+	jQuery('.time-show-mobile .time-den').text(moment(jQuery(".info-booking .date-checkin").val()).format('DD-MM-YYYY'));
+	jQuery('.time-show-mobile .time-di').text(moment(jQuery(".info-booking .date-checkout").val()).format('DD-MM-YYYY'));
+});

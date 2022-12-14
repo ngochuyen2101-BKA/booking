@@ -44,12 +44,12 @@ msgid "Continue"
 msgstr "Tiếp tục"
 
 #. translators: %s: WordPress Field Guide link.
-#: wp-admin/about.php:529
+#: wp-admin/about.php:560
 msgid "Check out the latest version of the <a href=\"%s\">WordPress Field Guide</a>. It is overflowing with detailed developer notes to help you build with WordPress."
 msgstr "Kiểm tra phiên bản mới nhất của <a href=\"%s\">Hướng dẫn trường nhập WordPress</a>. Nó chứa đầy các ghi chú chi tiết của đội ngũ phát triển để giúp bạn xây dựng với WordPress."
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:495
+#: wp-admin/about.php:526
 msgid "Learn more about WordPress %s"
 msgstr "Tìm hiểu thêm về WordPress %s"
 
@@ -116,7 +116,7 @@ msgstr "Đang kích hoạt"
 
 #: wp-admin/includes/class-core-upgrader.php:160
 #: wp-admin/includes/class-wp-upgrader.php:166
-#: wp-admin/includes/update-core.php:1019
+#: wp-admin/includes/update-core.php:1020
 msgid "The update cannot be installed because some files could not be copied. This is usually due to inconsistent file permissions."
 msgstr "Không thể cài đặt bản cập nhật vì không thể sao chép một số file. Điều này thường là do quyền đối với file không nhất quán."
 
@@ -167,7 +167,7 @@ msgstr "Không thể kích hoạt"
 msgid "%1$s &#8220;%2$s&#8221;"
 msgstr "%1$s &#8220;%2$s&#8221;"
 
-#: wp-admin/includes/theme.php:338
+#: wp-admin/includes/theme.php:339
 msgid "Template Editing"
 msgstr "Chỉnh sửa template"
 
@@ -663,7 +663,7 @@ msgstr "Thêm mật khẩu ứng dụng mới"
 msgid "Required to create an Application Password, but not to update the user."
 msgstr "Bắt buộc phải tạo Mật khẩu ứng dụng, nhưng không được cập nhật người dùng."
 
-#: wp-admin/about.php:558
+#: wp-admin/about.php:589
 msgid "Go to Updates"
 msgstr "Tới Cập nhật"
 
@@ -940,7 +940,7 @@ msgstr "Loại môi trường"
 msgid "Auto-updates are only available for plugins recognized by WordPress.org, or that include a compatible update system."
 msgstr "Tự động cập nhật chỉ làm việc với các plugin trong thư viện WordPress.org, hoặc những gì tương thích với chức năng này."
 
-#: wp-admin/includes/theme.php:874 wp-admin/themes.php:1036
+#: wp-admin/includes/theme.php:875 wp-admin/themes.php:1036
 msgid "Update Incompatible"
 msgstr "Cập nhật không tương thích"
 
@@ -1581,17 +1581,13 @@ msgstr "Yêu cầu phiên bản WordPress"
 msgid "Theme name"
 msgstr "Tên giao diện"
 
-#: wp-admin/includes/theme.php:1063 wp-admin/theme-install.php:432
+#: wp-admin/includes/theme.php:1064 wp-admin/theme-install.php:432
 #: wp-admin/theme-install.php:464
 msgctxt "theme"
 msgid "Cannot Install"
 msgstr "Không thể cài"
 
-#: wp-admin/includes/theme.php:334
-msgid "Full Site Editing"
-msgstr "Sửa toàn site"
-
-#: wp-admin/includes/theme.php:324
+#: wp-admin/includes/theme.php:325
 msgid "Block Editor Patterns"
 msgstr "Mẫu công cụ soạn thảo block"
 
@@ -1651,11 +1647,11 @@ msgstr "PHP memory limit (chỉ cho màn hình quản trị)"
 msgid "Is this site discouraging search engines?"
 msgstr "Có phải website này ngăn chặn công cụ tìm kiếm?"
 
-#: wp-admin/includes/theme.php:350
+#: wp-admin/includes/theme.php:351
 msgid "Wide Blocks"
 msgstr "Block tràn khung"
 
-#: wp-admin/includes/theme.php:325
+#: wp-admin/includes/theme.php:326
 msgid "Block Editor Styles"
 msgstr "Block Editor Styles"
 
@@ -1836,7 +1832,7 @@ msgid "The seventh parameter passed to %s should be numeric representing menu po
 msgstr "Tham số thứ bảy được truyền cho %s phải là số nguyên, cho vị trí của menu."
 
 #. translators: 1: WordPress version number, 2: The PHP extension name needed.
-#: wp-admin/includes/update-core.php:1114
+#: wp-admin/includes/update-core.php:1115
 msgid "The update cannot be installed because WordPress %1$s requires the %2$s PHP extension."
 msgstr "Không thể cài đặt bản cập nhật này vì WordPress %1$s yêu cầu phần mở rộng PHP %2$s."
 
@@ -2686,7 +2682,7 @@ msgstr "Có một phiên bản mới của %1$s, nhưng nó không hoạt độn
 msgid "This plugin failed to load properly and is paused during recovery mode."
 msgstr "Plugin này không hoạt động đúng cách và bị tạm dừng trong chế độ khôi phục."
 
-#: wp-admin/includes/theme.php:1208
+#: wp-admin/includes/theme.php:1209
 msgid "Go to the Themes screen"
 msgstr "Chuyển tới phần Giao diện "
 
@@ -3592,7 +3588,7 @@ msgid "Must Use Plugins"
 msgstr "Plugin cần cài"
 
 #: wp-admin/includes/class-wp-debug-data.php:153
-#: wp-admin/includes/theme.php:834 wp-admin/themes.php:958
+#: wp-admin/includes/theme.php:835 wp-admin/themes.php:958
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:917
 msgid "Active Theme"
 msgstr "Giao diện đang kích hoạt"
@@ -3841,11 +3837,11 @@ msgctxt "plugin"
 msgid "Cannot Install"
 msgstr "Không thể cài đặt"
 
-#. translators: %s: WordPress version number.
 #. translators: %s: WordPress version.
-#: wp-admin/about.php:543 wp-admin/includes/update.php:306
-#: wp-admin/index.php:119 wp-admin/install.php:239 wp-admin/update-core.php:94
-#: wp-admin/upgrade.php:81
+#. translators: %s: WordPress version number.
+#: wp-admin/about.php:67 wp-admin/about.php:574
+#: wp-admin/includes/update.php:306 wp-admin/index.php:119
+#: wp-admin/install.php:239 wp-admin/update-core.php:94 wp-admin/upgrade.php:81
 msgid "https://wordpress.org/support/wordpress-version/version-%s/"
 msgstr "https://wordpress.org/support/wordpress-version/version-%s/"
 
@@ -3860,15 +3856,15 @@ msgctxt "plugin"
 msgid "Resume %s"
 msgstr "Tiếp tục %s"
 
-#: wp-admin/includes/theme.php:1206
+#: wp-admin/includes/theme.php:1207
 msgid "You can find more details and make changes on the Themes screen."
 msgstr "Bạn có thể xem chi tiết và thay đổi ở màn hình Giao diện."
 
-#: wp-admin/includes/theme.php:1205
+#: wp-admin/includes/theme.php:1206
 msgid "One or more themes failed to load properly."
 msgstr "Một hoặc nhiều giao diện không thể tải được."
 
-#: wp-admin/includes/theme.php:1176
+#: wp-admin/includes/theme.php:1177
 msgid "Could not resume the theme."
 msgstr "Không thể trở lại giao diện."
 
@@ -5289,7 +5285,7 @@ msgid "Select one or more Theme features to filter by"
 msgstr "Chọn một hoặc nhiều tính năng giao diện để lọc"
 
 #. translators: %s: Number of ratings.
-#: wp-admin/includes/theme.php:857 wp-admin/theme-install.php:489
+#: wp-admin/includes/theme.php:858 wp-admin/theme-install.php:489
 msgid "(%s ratings)"
 msgstr "(%s đánh giá)"
 
@@ -5458,7 +5454,7 @@ msgstr "%s đã được xóa thành công."
 msgid "The search for installed plugins will search for terms in their name, description, or author."
 msgstr "Sự tìm kiếm cho các gói mở rộng đã được cài đặt sẽ tìm các điều kiện trên tên của họ, mô tả hoặc tác giả."
 
-#: wp-admin/includes/theme.php:329
+#: wp-admin/includes/theme.php:330
 msgid "Custom Logo"
 msgstr "Tùy chỉnh Logo"
 
@@ -5575,43 +5571,43 @@ msgstr "Vui lòng cập nhật WordPress ngay"
 msgid "<a href=\"%1$s\">WordPress %2$s</a> is available! <a href=\"%3$s\" aria-label=\"%4$s\">Please update now</a>."
 msgstr "<a href=\"%1$s\">WordPress %2$s</a> đang có sẵn! <a href=\"%3$s\" aria-label=\"%4$s\">Vui lòng cập nhật ngay</a>."
 
-#: wp-admin/includes/theme.php:319
+#: wp-admin/includes/theme.php:320
 msgid "Portfolio"
 msgstr "Hồ sơ"
 
-#: wp-admin/includes/theme.php:318
+#: wp-admin/includes/theme.php:319
 msgid "Photography"
 msgstr "Nhiếp ảnh"
 
-#: wp-admin/includes/dashboard.php:1314 wp-admin/includes/theme.php:317
+#: wp-admin/includes/dashboard.php:1314 wp-admin/includes/theme.php:318
 msgid "News"
 msgstr "Tin tức"
 
-#: wp-admin/includes/theme.php:315
+#: wp-admin/includes/theme.php:316
 msgid "Food & Drink"
 msgstr "Đồ ăn & Thức uống"
 
-#: wp-admin/includes/theme.php:314
+#: wp-admin/includes/theme.php:315
 msgid "Entertainment"
 msgstr "Giải trí"
 
-#: wp-admin/includes/theme.php:313
+#: wp-admin/includes/theme.php:314
 msgid "Education"
 msgstr "Giáo dục"
 
-#: wp-admin/includes/theme.php:312
+#: wp-admin/includes/theme.php:313
 msgid "E-Commerce"
 msgstr "Thương mại điện tử"
 
-#: wp-admin/includes/theme.php:311
+#: wp-admin/includes/theme.php:312
 msgid "Blog"
 msgstr "Blog"
 
-#: wp-admin/includes/theme.php:333
+#: wp-admin/includes/theme.php:334
 msgid "Footer Widgets"
 msgstr "Widget cuối trang"
 
-#: wp-admin/includes/theme.php:343
+#: wp-admin/includes/theme.php:344
 msgid "Grid Layout"
 msgstr "Bố cục lưới"
 
@@ -6177,7 +6173,7 @@ msgid "(Currently set to: %s)"
 msgstr "(Hiện tại: %s)"
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:582
+#: wp-admin/about.php:613
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr "<strong>Phiên bản %s</strong> đã giải quyết vấn đề bảo mật."
 
@@ -6189,15 +6185,15 @@ msgstr "https://en.gravatar.com/"
 msgid "Profile Picture"
 msgstr "Ảnh đại diện"
 
-#: wp-admin/about.php:579
+#: wp-admin/about.php:47 wp-admin/about.php:610
 msgid "Maintenance and Security Releases"
 msgstr "Các phiên bản bảo trì và bảo mật"
 
-#: wp-admin/about.php:576
+#: wp-admin/about.php:607
 msgid "Security Releases"
 msgstr "Các phiên bản bảo mật"
 
-#: wp-admin/about.php:573
+#: wp-admin/about.php:604
 msgid "Maintenance Releases"
 msgstr "Các phiên bản bảo trì"
 
@@ -7024,7 +7020,7 @@ msgstr ""
 "###SITENAME###\n"
 "###SITEURL###"
 
-#: wp-admin/includes/theme.php:821 wp-admin/themes.php:945
+#: wp-admin/includes/theme.php:822 wp-admin/themes.php:945
 msgid "Close details dialog"
 msgstr "Đóng bảng biểu chi tiết"
 
@@ -7613,12 +7609,12 @@ msgctxt "theme"
 msgid "Active:"
 msgstr "Đang kích hoạt:"
 
-#: wp-admin/includes/theme.php:323
+#: wp-admin/includes/theme.php:324
 msgid "Accessibility Ready"
 msgstr "Truy Cập Sẵn Sàng"
 
 #. translators: %s: Theme name.
-#: wp-admin/includes/theme.php:948 wp-admin/themes.php:1115
+#: wp-admin/includes/theme.php:949 wp-admin/themes.php:1115
 msgid "This is a child theme of %s."
 msgstr "Đây là giao diện con của %s."
 
@@ -7703,15 +7699,15 @@ msgstr "Những plugin sau đã cập nhật thành công:"
 msgid "Add Widget"
 msgstr "Thêm"
 
-#: wp-admin/includes/theme.php:820 wp-admin/themes.php:944
+#: wp-admin/includes/theme.php:821 wp-admin/themes.php:944
 msgid "Show next theme"
 msgstr "Xem giao diện tiếp theo"
 
-#: wp-admin/includes/theme.php:819 wp-admin/themes.php:943
+#: wp-admin/includes/theme.php:820 wp-admin/themes.php:943
 msgid "Show previous theme"
 msgstr "Xem giao diện trước"
 
-#: wp-admin/includes/theme.php:869 wp-admin/themes.php:1031
+#: wp-admin/includes/theme.php:870 wp-admin/themes.php:1031
 msgid "Update Available"
 msgstr "Phiên bản mới sẵn sàng cập nhật"
 
@@ -7937,7 +7933,7 @@ msgstr "Nâng Cấp Bản Dịch"
 msgid "Background updates"
 msgstr "Cập nhật nền"
 
-#: wp-admin/includes/update-core.php:1287
+#: wp-admin/includes/update-core.php:1288
 msgid "There is not enough free disk space to complete the update."
 msgstr "Dung lượng ổ cứng còn trống không đủ để hoàn thành việc nâng cấp."
 
@@ -8005,11 +8001,11 @@ msgstr "Tên đăng nhập của bạn có ký tự không phù hợp."
 msgid "Please provide a valid username."
 msgstr "Hãy nhập tên người dùng hợp lệ."
 
-#: wp-admin/includes/update-core.php:1208
+#: wp-admin/includes/update-core.php:1209
 msgid "Copying the required files&#8230;"
 msgstr "Đang sao chép các tập tin cần thiết&#8230;"
 
-#: wp-admin/includes/update-core.php:1122
+#: wp-admin/includes/update-core.php:1123
 msgid "Preparing to install the latest version&#8230;"
 msgstr "Chuẩn bị cài đặt phiên bản mới nhất&#8230;"
 
@@ -8661,7 +8657,7 @@ msgid "Search engine visibility"
 msgstr "Hiển thị với công cụ tìm kiếm"
 
 #. translators: 1: WordPress version, 2: URL to About screen.
-#: wp-admin/includes/update-core.php:1521 wp-admin/update-core.php:904
+#: wp-admin/includes/update-core.php:1522 wp-admin/update-core.php:904
 msgid "Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href=\"%2$s\">here</a>."
 msgstr "Chào mừng tới WordPress %1$s. Bạn sẽ được chuyển đến màn hình Giới Thiệu WordPress. Nếu việc đó không xảy ra, hãy <a href=\"%2$s\">bấm vào đây</a>."
 
@@ -9345,45 +9341,46 @@ msgstr "Nhập địa chỉ email người sử dụng trong mạng lưới đ�
 msgid "Show Toolbar when viewing site"
 msgstr "Hiển thị thanh công cụ khi xem trang"
 
+#. translators: %s: HelpHub URL.
 #. translators: %s: Documentation URL.
-#: wp-admin/about.php:605
+#: wp-admin/about.php:64 wp-admin/about.php:636
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Để biết thêm thông tin, xem <a href=\"%s\">thông báo phát hành</a>."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:599
+#: wp-admin/about.php:630
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>Phiên bản %1$s</strong> đã giải quyết một số vấn đề về bảo mật và sửa %2$s lỗi."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:593
+#: wp-admin/about.php:624
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>Phiên bản %1$s</strong> đã giải quyết một vấn đề về bảo mật và sửa %2$s lỗi."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs.
-#: wp-admin/about.php:587
+#: wp-admin/about.php:52 wp-admin/about.php:618
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Phiên bản %1$s</strong> đã giải quyết %2$s lỗi."
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:584
+#: wp-admin/about.php:615
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr "<strong>Phiên bản %1$s</strong> đã giải quyết một số vấn đề về bảo mật."
 
-#: wp-admin/about.php:578
+#: wp-admin/about.php:609
 msgid "Maintenance and Security Release"
 msgstr "Các bản Bảo Mật và Bảo Trì"
 
-#: wp-admin/about.php:575
+#: wp-admin/about.php:606
 msgid "Security Release"
 msgstr "Các bản Bảo Mật"
 
-#: wp-admin/about.php:572
+#: wp-admin/about.php:603
 msgid "Maintenance Release"
 msgstr "Các bản Bảo Trì"
 
@@ -9397,7 +9394,7 @@ msgid "This screen allows you to choose your permalink structure. You can choose
 msgstr "Màn hình này cho phép bạn định nghĩa cấu trúc liên kết tĩnh mặc định. Bạn có thể chon từ các cài đặt thông dụng hoặc tạo một cấu trúc địa chỉ mạng tùy biến."
 
 #. translators: 1: WordPress version, 2: URL to About screen.
-#: wp-admin/includes/update-core.php:1529 wp-admin/update-core.php:912
+#: wp-admin/includes/update-core.php:1530 wp-admin/update-core.php:912
 msgid "Welcome to WordPress %1$s. <a href=\"%2$s\">Learn more</a>."
 msgstr "Chào mừng tới WordPress %1$s. <a href=\"%2$s\">Đọc tiếp</a>."
 
@@ -9656,11 +9653,11 @@ msgstr "<strong>Biên Tập</strong> đưa bạn tới màn hình soạn thảo 
 msgid "Because this is a multisite installation, you may add accounts that already exist on the Network by specifying a username or email, and defining a role. For more options, such as specifying a password, you have to be a Network Administrator and use the hover link under an existing user&#8217;s name to Edit the user profile under Network Admin > All Users."
 msgstr "Do đây là một bản cài đặt đa mạng, bạn có thể thêm tài khoản đã tồn tại trong Mạng Lưới bằng cách chỉ định tên truy cập hoặc địa chỉ thư điện tử, và lựa chọn một vai trò người dùng. Để có thêm lựa chọn, như chỉ định mật khẩu, bạn phải là Quản Trị Viên Mạng Lưới và sử dụng liên kết hiển thị phía dưới tên người dùng khi di chuột lên để Biên Tập hồ sơ người dùng tại Quản Trị Mạng Lưới > Tất Cả Người Dùng."
 
-#: wp-admin/about.php:561
+#: wp-admin/about.php:592
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Đến Bảng tin &rarr; Trang chủ"
 
-#: wp-admin/about.php:558
+#: wp-admin/about.php:589
 msgid "Go to Dashboard &rarr; Updates"
 msgstr "Tới Bảng tin &rarr; Cập nhật"
 
@@ -9931,7 +9928,7 @@ msgstr "Xoá site"
 
 #. translators: %s: Plugin name.
 #: wp-admin/includes/class-wp-theme-install-list-table.php:493
-#: wp-admin/includes/deprecated.php:1387 wp-admin/includes/theme.php:1060
+#: wp-admin/includes/deprecated.php:1387 wp-admin/includes/theme.php:1061
 #: wp-admin/theme-install.php:425 wp-admin/theme-install.php:462
 #: wp-admin/includes/network.php:374
 msgid "Install"
@@ -10038,19 +10035,19 @@ msgstr ""
 "Hãy bấm vào liên kết sau để kích hoạt tải khoản của bạn:\n"
 "%%s"
 
-#: wp-admin/includes/meta-boxes.php:495 wp-admin/includes/theme.php:336
+#: wp-admin/includes/meta-boxes.php:495 wp-admin/includes/theme.php:337
 msgid "Post Formats"
 msgstr "Định dạng bài viết"
 
-#: wp-admin/includes/theme.php:335
+#: wp-admin/includes/theme.php:336
 msgid "Full Width Template"
 msgstr "Chế độ xem toàn màn hình"
 
-#: wp-admin/includes/theme.php:332
+#: wp-admin/includes/theme.php:333
 msgid "Featured Images"
 msgstr "Ảnh tiêu biểu"
 
-#: wp-admin/includes/theme.php:331
+#: wp-admin/includes/theme.php:332
 msgid "Featured Image Header"
 msgstr "Ảnh đầu trang tiêu biểu"
 
@@ -10456,7 +10453,7 @@ msgstr "Tiến trình nâng cấp đang bắt đầu. Tiến trình này có th�
 msgid "Apply Filters"
 msgstr "Thực hiện lọc"
 
-#: wp-admin/includes/theme.php:330
+#: wp-admin/includes/theme.php:331
 msgid "Editor Style"
 msgstr "Kiểu Công Cụ Biên Tập"
 
@@ -11326,7 +11323,7 @@ msgid "User already exists. Password inherited."
 msgstr "Người dùng đã tồn tại. Mật khẩu đã được kế thừa."
 
 #: wp-admin/includes/class-wp-automatic-updater.php:428
-#: wp-admin/includes/update-core.php:1515 wp-admin/update-core.php:900
+#: wp-admin/includes/update-core.php:1516 wp-admin/update-core.php:900
 msgid "WordPress updated successfully."
 msgstr "Cập nhật WordPress thành công."
 
@@ -11355,7 +11352,7 @@ msgstr "Cập nhật WordPress"
 msgid "Edit menu item"
 msgstr "Sửa mục trong menu"
 
-#: wp-admin/about.php:561 wp-admin/includes/network.php:148
+#: wp-admin/about.php:592 wp-admin/includes/network.php:148
 msgid "Go to Dashboard"
 msgstr "Xem bảng tin"
 
@@ -11786,7 +11783,7 @@ msgstr "Chọn giao diện để chỉnh sửa:"
 msgid "Edit Themes"
 msgstr "Chỉnh sửa Giao diện"
 
-#: wp-admin/includes/theme.php:1028 wp-admin/themes.php:1121
+#: wp-admin/includes/theme.php:1029 wp-admin/themes.php:1121
 msgid "Tags:"
 msgstr "Thẻ:"
 
@@ -12138,7 +12135,7 @@ msgstr "Ai cũng có thể đăng ký"
 msgid "Membership"
 msgstr "Gói thành viên"
 
-#: wp-admin/about.php:298 wp-admin/options-general.php:20
+#: wp-admin/about.php:329 wp-admin/options-general.php:20
 msgid "General Settings"
 msgstr "Tùy chọn tổng quan"
 
@@ -12505,34 +12502,34 @@ msgstr "Cập nhật tới %s"
 msgid "You are using a development version (%1$s). Cool! Please <a href=\"%2$s\">stay updated</a>."
 msgstr "Bạn đang dùng bản phát triển (%1$s). Hãy <a href=\"%2$s\">cập nhật khi có bản mới</a>."
 
-#: wp-admin/includes/update-core.php:1445
+#: wp-admin/includes/update-core.php:1446
 msgid "Upgrading database&#8230;"
 msgstr "Nâng cấp cơ sở dữ liệu&#8230;"
 
-#: wp-admin/includes/update-core.php:1003
+#: wp-admin/includes/update-core.php:1004
 msgid "The update could not be unpacked"
 msgstr "Tập tin cập nhập không thể giải nén."
 
-#: wp-admin/includes/update-core.php:985
+#: wp-admin/includes/update-core.php:986
 msgid "Verifying the unpacked files&#8230;"
 msgstr "Đang kiểm tra các tập tin được giải nén&#8230;"
 
 #. translators: 1: WordPress version number, 2: Minimum required MySQL version
 #. number, 3: Current MySQL version number.
-#: wp-admin/includes/update-core.php:1100
+#: wp-admin/includes/update-core.php:1101
 msgid "The update cannot be installed because WordPress %1$s requires MySQL version %2$s or higher. You are running version %3$s."
 msgstr "Cập nhật không thể thực hiện được bởi vì WordPress %1$s yêu cầu MySQL phiên bản %2$s hoặc mới hơn. Bạn đang sử dụng MySQL phiên bản %3$s."
 
 #. translators: 1: WordPress version number, 2: Minimum required PHP version
 #. number, 3: Current PHP version number.
-#: wp-admin/includes/update-core.php:1089
+#: wp-admin/includes/update-core.php:1090
 msgid "The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher. You are running version %3$s."
 msgstr "Cập nhật không thể thực hiện được bởi vì WordPress %1$s yêu cầu PHP phiên bản %2$s hoặc mới hơn. Bạn đang sử dụng PHP phiên bản %3$s."
 
 #. translators: 1: WordPress version number, 2: Minimum required PHP version
 #. number, 3: Minimum required MySQL version number, 4: Current PHP version
 #. number, 5: Current MySQL version number.
-#: wp-admin/includes/update-core.php:1076
+#: wp-admin/includes/update-core.php:1077
 msgid "The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s."
 msgstr "Cập nhật không thể thực hiện được bởi vì WordPress %1$s yêu cầu PHP phiên bản %2$s hoặc mới hơn và MySQL phiên bản %3$s hoặc mới hơn. Bạn đang sử dụng PHP phiên bản %4$s và MySQL phiên bản %5$s."
 
@@ -12550,7 +12547,7 @@ msgid "This theme is already installed."
 msgstr "Giao diện này đã được cài."
 
 #. translators: %s: Theme version.
-#: wp-admin/includes/theme.php:839 wp-admin/theme-install.php:500
+#: wp-admin/includes/theme.php:840 wp-admin/theme-install.php:500
 #: wp-admin/themes.php:963
 msgid "Version: %s"
 msgstr "Phiên bản: %s"
@@ -12563,51 +12560,51 @@ msgstr "Nếu bạn có file .zip của giao diện, bạn có thể cài giao d
 msgid "Find Themes"
 msgstr "Tìm kiếm giao diện"
 
-#: wp-admin/includes/theme.php:316
+#: wp-admin/includes/theme.php:317
 msgid "Holiday"
 msgstr "Lễ tết"
 
-#: wp-admin/includes/theme.php:310 wp-admin/includes/theme.php:380
+#: wp-admin/includes/theme.php:311 wp-admin/includes/theme.php:381
 msgid "Subject"
 msgstr "Chủ đề"
 
-#: wp-admin/includes/theme.php:337
+#: wp-admin/includes/theme.php:338
 msgid "Sticky Post"
 msgstr "Bài viết đáng chú ý"
 
-#: wp-admin/includes/theme.php:339
+#: wp-admin/includes/theme.php:340
 msgid "Theme Options"
 msgstr "Tùy chỉnh cho giao diện"
 
-#: wp-admin/includes/theme.php:327
+#: wp-admin/includes/theme.php:328
 msgid "Custom Colors"
 msgstr "Màu tùy biến"
 
-#: wp-admin/includes/theme.php:322 wp-admin/includes/theme.php:379
+#: wp-admin/includes/theme.php:323 wp-admin/includes/theme.php:380
 msgid "Features"
 msgstr "Tính năng"
 
-#: wp-admin/includes/theme.php:349
+#: wp-admin/includes/theme.php:350
 msgid "Right Sidebar"
 msgstr "Sidebar phải"
 
-#: wp-admin/includes/theme.php:348
+#: wp-admin/includes/theme.php:349
 msgid "Left Sidebar"
 msgstr "Sidebar trái"
 
-#: wp-admin/includes/theme.php:347
+#: wp-admin/includes/theme.php:348
 msgid "Four Columns"
 msgstr "4 cột"
 
-#: wp-admin/includes/theme.php:346
+#: wp-admin/includes/theme.php:347
 msgid "Three Columns"
 msgstr "Ba cột"
 
-#: wp-admin/includes/theme.php:345
+#: wp-admin/includes/theme.php:346
 msgid "Two Columns"
 msgstr "Hai cột"
 
-#: wp-admin/includes/theme.php:344
+#: wp-admin/includes/theme.php:345
 msgid "One Column"
 msgstr "Một cột"
 
@@ -13472,7 +13469,7 @@ msgid "Empty archive."
 msgstr "Tập tin rỗng."
 
 #: wp-admin/includes/file.php:1742 wp-admin/includes/file.php:1872
-#: wp-admin/includes/file.php:1917 wp-admin/includes/update-core.php:1386
+#: wp-admin/includes/file.php:1917 wp-admin/includes/update-core.php:1387
 msgid "Could not copy file."
 msgstr "Không thể sao chép tập tin."
 
@@ -13790,12 +13787,12 @@ msgid "The plugin is at the latest version."
 msgstr "Plugin phiên bản mới nhất."
 
 #: wp-admin/includes/class-wp-upgrader.php:169
-#: wp-admin/includes/update-core.php:1335
+#: wp-admin/includes/update-core.php:1336
 msgid "Disabling Maintenance mode&#8230;"
 msgstr "Vô hiệu hóa chế độ bảo trì&#8230;"
 
 #: wp-admin/includes/class-wp-upgrader.php:168
-#: wp-admin/includes/update-core.php:1199
+#: wp-admin/includes/update-core.php:1200
 msgid "Enabling Maintenance mode&#8230;"
 msgstr "Bật chế độ Bảo trì&#8230;"
 
@@ -14245,7 +14242,7 @@ msgid "Header updated. <a href=\"%s\">Visit your site</a> to see how it looks."
 msgstr "Header đã được cập nhật. <a href=\"%s\">Xem trang của bạn</a>."
 
 #: wp-admin/includes/class-custom-image-header.php:504
-#: wp-admin/includes/theme.php:328
+#: wp-admin/includes/theme.php:329
 msgid "Custom Header"
 msgstr "Tùy biến Header"
 
@@ -14265,7 +14262,7 @@ msgid "Background updated. <a href=\"%s\">Visit your site</a> to see how it look
 msgstr "Nền đã được cập nhật. <a href=\"%s\">Xem trang của bạn</a>."
 
 #: wp-admin/includes/class-custom-background.php:233
-#: wp-admin/includes/theme.php:326
+#: wp-admin/includes/theme.php:327
 msgid "Custom Background"
 msgstr "Nền tùy chọn"
 

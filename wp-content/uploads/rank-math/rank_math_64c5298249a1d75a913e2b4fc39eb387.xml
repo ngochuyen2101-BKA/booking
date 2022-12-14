@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="//bamboosapahotel.com.vn/main-sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>https://bamboosapahotel.com.vn/blocks/blog-sidebar/</loc>
+		<lastmod>2022-12-03T15:06:41+07:00</lastmod>
+	</url>
+	<url>
+		<loc>https://bamboosapahotel.com.vn/blocks/footer/</loc>
+		<lastmod>2022-11-29T15:58:56+07:00</lastmod>
+	</url>
+	<url>
+		<loc>https://bamboosapahotel.com.vn/blocks/san-pham-lien-quan/</loc>
+		<lastmod>2022-11-24T15:56:08+07:00</lastmod>
+	</url>
+	<url>
+		<loc>https://bamboosapahotel.com.vn/blocks/bai-viet-lien-quan/</loc>
+		<lastmod>2022-11-19T14:26:26+07:00</lastmod>
+	</url>
+	<url>
+		<loc>https://bamboosapahotel.com.vn/blocks/banner-blog/</loc>
+		<lastmod>2022-11-19T12:31:59+07:00</lastmod>
+	</url>
+	<url>
+		<loc>https://bamboosapahotel.com.vn/blocks/banner/</loc>
+		<lastmod>2022-10-11T09:47:06+07:00</lastmod>
+	</url>
+	<url>
+		<loc>https://bamboosapahotel.com.vn/blocks/dia-diem/</loc>
+		<lastmod>2022-10-10T19:33:46+07:00</lastmod>
+	</url>
+	<url>
+		<loc>https://bamboosapahotel.com.vn/blocks/banner-single-product/</loc>
+		<lastmod>2022-10-10T17:04:51+07:00</lastmod>
+	</url>
+	<url>
+		<loc>https://bamboosapahotel.com.vn/blocks/dat-cho-info/</loc>
+		<lastmod>2022-10-10T11:37:13+07:00</lastmod>
+	</url>
+	<url>
+		<loc>https://bamboosapahotel.com.vn/blocks/dat-phong/</loc>
+		<lastmod>2022-09-30T08:55:16+07:00</lastmod>
+	</url>
+</urlset>

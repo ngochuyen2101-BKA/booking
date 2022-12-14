@@ -115,7 +115,7 @@ get_header();
                                                 <div class="label">Trẻ em</div>
                                             </div>
                                             <div class="col-md-6 cart-item-info">
-                                                <div class="price-gr"><span class="price"><?php echo number_format($_product->get_sale_price()); ?></span> VNĐ</div>
+                                                <div class="price"><?php echo $_product->get_sale_price(); ?></div>
                                                 <div class="info"><?php echo $cart_item['customData']['custom_date_checkin']; ?></div>
                                                 <div class="info"><?php echo $cart_item['customData']['custom_date_checkout']; ?></div>
                                                 <div class="info"><?php echo $cart_item['customData']['custom_adult']; ?></div>
@@ -132,7 +132,7 @@ get_header();
                                                 <div class="title"><?php echo $_product->get_title(); ?></div>
                                             </div>
                                             <div class="col-md-6 cart-item-info">
-                                                <div class="price"><span class="price"><?php echo number_format($_product->get_regular_price()); ?></span> VNĐ</div>
+                                                <div class="price"><?php echo $_product->get_regular_price(); ?></div>
                                             </div>
                                         </div>
                                     </div>

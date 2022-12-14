@@ -104,7 +104,7 @@ function getDataRoom() {
 		if($room_status == 'hetphong') continue;
 
 		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
-		$area = $product->get_attribute( 'area' );
+		$area = get_field('dien_tich', $product->id);
 		$number_adult = get_field('so_nguoi_lon', $product->id);
 		$number_child = get_field('so_tre_em', $product->id);
 		$date = $product->get_attribute( 'number-of-date' );
@@ -142,19 +142,19 @@ function getDataRoom() {
 			$html .= 				'<div class="room-change"><img src="/wp-content/uploads/2022/11/huy.svg" width="20px" height="20px">Không hủy và thay đổi</div>';
             $html .= 			'</div>';                            
             $html .= 			'<div class="col-md-4">';                        
-            $html .= 				'<div class="room-user"><img src="/wp-content/uploads/2022/11/nguoi.svg" width="20px" height="20px">'.$number_adult.' người lớn - '.$number_child.' trẻ em</div>';                        
+            $html .= 				'<div class="room-user" data-number-adult="'.$number_adult.'" data-number-child="'.$number_child.'"><img src="/wp-content/uploads/2022/11/nguoi.svg" width="20px" height="20px">'.$number_adult.' người lớn - '.$number_child.' trẻ em</div>';                        
             $html .= 				'<div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>';
 			$html .= 			'</div>';                            
             $html .= 			'<div class="col-md-4 price-col '.$has_sale_price.'">';
 			$html .= 				'<div class="date-gr"><span>1</span> đêm</div>';
-			$html .= 				'<div class="regular-price-gr booking-price-box"><span class="regular-price-cal" style="display: none;">'.($sale_price ? $regular_price : '').'</span><span class="regular-price">';
+			$html .= 				'<div class="booking-price-box"><div class="regular-price-gr"><span class="regular-price-cal" style="display: none;">'.($sale_price ? $regular_price : '').'</span><span class="regular-price">';
 			if ($sale_price) {
 				$html .= number_format($regular_price);
 			} else {
 				$html .= '';
 			}
 			$html .= 				'</span>'.($sale_price ? ' VNĐ' : '').'</div>';
-			$html .= 				'<div class="sale-price-gr"><span class="sale-price-cal" style="display: none;">'.($sale_price ? $sale_price : $regular_price).'</span><span class="sale-price">'.number_format($sale_price ? $sale_price : $regular_price).'</span> VNĐ</div>';
+			$html .= 				'<div class="sale-price-gr"><span class="sale-price-cal" style="display: none;">'.($sale_price ? $sale_price : $regular_price).'</span><span class="sale-price">'.number_format($sale_price ? $sale_price : $regular_price).'</span> VNĐ / <div class="date-gr show"><span> 1</span> đêm</div></div></div>';
 			$html .= 				'<button type="submit" class=" button alt btn-select select-room" data-product_id="'.$product->id.'">Lựa chọn</button>';
             $html .= 			'</div>';
 			$html .= 		'</div>';
@@ -344,3 +344,71 @@ function on_checkout_create_order( $order, $data ) {
 	}
 	$order->set_total($sumTotal);
 }
+function get_excerpt_by_id($post_id){
+    $the_post = get_post($post_id); //Gets post ID
+    $the_excerpt = ($the_post ? $the_post->post_content : null); //Gets post_content to be used as a basis for the excerpt
+    $excerpt_length = 50; //Sets excerpt length by word count
+    $the_excerpt = strip_tags(strip_shortcodes($the_excerpt)); //Strips tags and images
+    $words = explode(' ', $the_excerpt, $excerpt_length + 1);
+
+    if(count($words) > $excerpt_length) :
+        array_pop($words);
+        array_push($words, '…');
+        $the_excerpt = implode(' ', $words);
+    endif;
+
+    return $the_excerpt;
+}
+function thang_related_post($content) {
+    if(is_singular('post')) {
+        global $post;
+        ob_start();
+        $categories = get_the_category($post->ID);
+        if ($categories) {
+            $category_ids = array();
+            foreach($categories as $individual_category) $category_ids[] = $individual_category->term_id;
+            $args=array(
+                'category__in' => $category_ids,
+                'post__not_in' => array($post->ID),
+                'posts_per_page'=>3,
+                'ignore_sticky_posts'=>1
+            );
+
+            $my_query = new wp_query( $args );
+            if( $my_query->have_posts() ) {?>
+				<div class="row related-post home-sec-7 row-bvlq row-small">
+					<h3>Bài viết liên quan</h3>
+					<?php while ($my_query->have_posts()):$my_query->the_post(); ?>
+					<div class="col large-4">
+						<div class="post-item">
+							<div class="col-inner">
+								<a href="<?php echo get_the_permalink(); ?>" class="plain">
+									<div class="box box-normal box-text-bottom box-blog-post has-hover">
+										<div class="box-image ">
+											<div class="image-cover" style="padding-top:56.25%;">
+												<img width="900" height="600" src="<?php echo get_the_post_thumbnail_url();?>" class="attachment-original size-original wp-post-image" alt="" decoding="async" loading="lazy">
+											</div>
+										</div>
+										<div class="box-text text-left">
+											<div class="box-text-inner blog-post-inner">
+												<h5 class="post-title is-large "><?php echo get_the_title(); ?></h5>
+												<p class="from_the_blog_excerpt "><?php echo get_excerpt_by_id($post->ID);; ?></p>
+												<button href="" class="button secondary is-link is-small mb-0">Xem thêm </button>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<?php endwhile; ?>
+				</div>
+            <?php } // end if has post
+        } // end if $categories
+        $related_post = ob_get_contents();
+        ob_end_clean();
+        return $content.$related_post;
+    } //end if is single post
+    else return $content;
+}
+add_shortcode('thang_related_post', 'thang_related_post');

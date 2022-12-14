@@ -6,9 +6,9 @@ Template: flatsome
 Version: 3.0
 */
 /*************** ADD CUSTOM CSS HERE.   ***************/
-.booking-page {
+/* .booking-page {
   color: #005F55;
-}
+} */
 .booking-page .progress-booking {
   background-color: #005F55;
   color: #fff;
@@ -86,15 +86,15 @@ Version: 3.0
   width: 100%;
 }
 .booking-page .product-booking .room-title {
-  font-size: 24px;
+/*   font-size: 24px; */
   font-weight: 700 !important;
 }
 .booking-page .product-booking .btn-select {
   text-align: center;
   margin-bottom: 30px;
-  margin-top: 10px;
+  margin-top: 15px;
   color: #fff;
-  background-color: #005F55;
+  background-color: #005F55;	
 }
 .booking-page .product-booking .sale-price {
   font-size: 22px;
@@ -136,9 +136,9 @@ Version: 3.0
 .booking-page .booking-service .servive-quatity div {
   padding: 0 5px;
 }
-.booking-page .booking-service .description {
+/* .booking-page .booking-service .description {
   color: rgba(0, 95, 85, 0.6196078431);
-}
+} */
 .booking-page .booking-service .added_to_cart {
   display: none;
 }
@@ -148,10 +148,12 @@ Version: 3.0
 }
 .booking-page .info-selected .detail-selected .gr-edit {
   display: flex;
-  align-items: center;
+  align-items: baseline;
+	justify-content: space-between
 }
 .booking-page .info-selected .detail-selected .gr-edit a {
-  margin-left: 20px;
+  margin-left: 0;
+	width: max-content
 }
 .booking-page .info-selected .total {
   margin-top: 20px;
@@ -160,9 +162,9 @@ Version: 3.0
   font-weight: 600 !important;
 }
 
-.checkout-page {
+/* .checkout-page {
   color: #005F55;
-}
+} */
 .checkout-page .progress-booking {
   background-color: #005F55;
   color: #fff;
@@ -196,18 +198,18 @@ Version: 3.0
   background-color: rgba(220, 220, 220, 0.1411764706);
   padding: 30px 0;
 }
-.checkout-page .checkout-content .hotel-info {
+/* .checkout-page .checkout-content .hotel-info {
   margin-top: 30px;
-}
+} */
 .checkout-page .checkout-content .hotel-info .info {
   display: flex;
 }
 .checkout-page .checkout-content .hotel-info .info strong {
   font-weight: 600 !important;
 }
-.checkout-page .checkout-content .infor-customer-input {
+/* .checkout-page .checkout-content .infor-customer-input {
   margin-top: 30px;
-}
+} */
 .checkout-page .checkout-content .infor-customer-input label {
   display: flex;
 }
@@ -229,11 +231,11 @@ Version: 3.0
 .woocommerce-thank-you-page .export-bill {
   background-color: rgb(0, 95, 85);
   color: #fff;
-  padding: 10px 0;
-  width: 40%;
-  margin: auto;
-  margin-bottom: 30px;
-  margin-top: 30px;
+    padding: 5px 20px;
+    width: max-content;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 /* Absolute Center Spinner */

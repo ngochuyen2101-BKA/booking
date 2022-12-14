@@ -16,6 +16,7 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+echo do_shortcode('[block id="banner"]');
 
 $row_classes     = array();
 $main_classes    = array();

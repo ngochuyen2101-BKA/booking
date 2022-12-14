@@ -28,7 +28,8 @@
 	<?php
 		if(is_single()){
 			echo "<div class='large-12 col'>";
-			echo do_shortcode('[block id="bai-viet-lien-quan"]');
+// 			echo do_shortcode('[block id="bai-viet-lien-quan"]');
+			echo do_shortcode('[thang_related_post]');
 			echo "</div>";
 		}?>
 </div>

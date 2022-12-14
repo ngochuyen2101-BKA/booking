@@ -33,6 +33,7 @@ echo do_shortcode('[block id="banner"]');
       <button type="button"><i class="fas fa-caret-down"></i></button>
     </span></span>
             </div>
+            <div class="time-show-mobile"><span class="time-title">Thời gian: </span><span class="time-den"></span> &#8658; <span class="time-di"></span></div>
             <div class="number-of-date info">
                 <img src="/wp-content/uploads/2022/11/icon-room.svg"></i> <span class="room-number" style="display: none;">1</span><span class="room-number-cal">0</span> phòng
             </div>
@@ -42,7 +43,7 @@ echo do_shortcode('[block id="banner"]');
             <div class="add-room">
                 <p class="btn-show">Thêm phòng</p>
                 <div class="popup-add">
-                    <div class="validate-customer" style="display: none;">Please choose customer under 6.</div>
+                    <div class="validate-customer" style="display: none;">Tối đa 5 người/phòng</div>
                     <div class="adults">
                         <div class="label">Người lớn</div>
                         <select id="numberAdult">
@@ -138,12 +139,14 @@ echo do_shortcode('[block id="banner"]');
                                     </div>
                                     <div class="col-md-4 price-col <?php echo ($regular_price) ? 'has-sale-price' : ''; ?>">
                                         <div class="date-gr"><span>1</span> đêm</div>
-                                        <div class="regular-price-gr booking-price-box">
-                                            <span class="regular-price-cal" style="display: none;"><?php if($sale_price != ''){ echo $regular_price; ?><?php } ?></span><span class="regular-price"><?php if($sale_price != ''){ echo number_format($regular_price); ?><?php } ?></span>
-                                            <?php if($sale_price != ''){ echo ' VNĐ'; ?><?php } ?>
-                                        </div>
-                                        <div class="sale-price-gr">
-                                            <span class="sale-price-cal" style="display: none;"><?php echo ($sale_price ? $sale_price : $regular_price); ?></span><span class="sale-price"><?php echo number_format($sale_price ? $sale_price : $regular_price); ?></span>VNĐ
+                                        <div class="booking-price-box">
+                                            <div class="regular-price-gr">
+                                                <span class="regular-price-cal" style="display: none;"><?php if($sale_price != ''){ echo $regular_price; ?><?php } ?></span><span class="regular-price"><?php if($sale_price != ''){ echo number_format($regular_price); ?><?php } ?></span>
+                                                <?php if($sale_price != ''){ echo ' VNĐ'; ?><?php } ?>
+                                            </div>
+                                            <div class="sale-price-gr">
+                                                <span class="sale-price-cal" style="display: none;"><?php echo ($sale_price ? $sale_price : $regular_price); ?></span><span class="sale-price"><?php echo number_format($sale_price ? $sale_price : $regular_price); ?></span>VNĐ / <div class="date-gr show"><span> 1</span> đêm</div>
+                                            </div>
                                         </div>
                                         <button type="submit" class="button alt btn-select select-room" data-product_id="<?php echo $product->id; ?>">Lựa chọn</button>
                                     </div>
@@ -251,11 +254,13 @@ echo do_shortcode('[block id="banner"]');
                                         <div class="info info-custom-adult"><?php echo $cart_item['customData']['custom_adult']; ?></div>
                                         <div class="info info-custom-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
                                         <div class="gr-edit">
+                                            <div>
                                             <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
-                                            <span>phòng, </span><span class="quatity-date"></span><span>đêm</span>
+                                            <span> phòng / </span><span class="quatity-date"></span><span> đêm</span>
+                                            </div>
                                             <?php
                                                 echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
-                                                    '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank">Bỏ</a>',
+                                                    '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
                                                     esc_url(wc_get_cart_remove_url($cart_item_key)),
                                                     esc_html__('Remove this item', 'woocommerce'),
                                                     esc_attr($_product_id),
@@ -301,7 +306,7 @@ echo do_shortcode('[block id="banner"]');
                                             <div class="info quantity qty-service" data-product_id="<?php echo $_product_id; ?>"><?php echo $cart_item['quantity']; ?></div>
                                             <?php
                                                 echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
-                                                    '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank">Bỏ</a>',
+                                                    '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
                                                     esc_url(wc_get_cart_remove_url($cart_item_key)),
                                                     esc_html__('Remove this item', 'woocommerce'),
                                                     esc_attr($_product_id),

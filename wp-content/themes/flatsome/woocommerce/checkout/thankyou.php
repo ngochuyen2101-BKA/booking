@@ -182,6 +182,7 @@ foreach( $order->get_items() as $item_id => $item){
 			<input type="hidden" name="phone" value="<?php echo $phone; ?>" />
 			<input type="hidden" name="payment" value="<?php echo $payment; ?>" />
 			<input type="hidden" name="total" value="<?php echo $total; ?>" />
+			<input type="hidden" name="orderId" value="<?php echo $order->get_id(); ?>" />
 			<button class="export-bill" type="submit"> Xác nhận đặt phòng </button>
 		</form>
 	</div>

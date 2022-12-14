@@ -91,6 +91,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                   <button type="button"><i class="fas fa-caret-down"></i></button>
                 </span></span>
                         </div>
+                        <div class="time-show-mobile"><span class="time-title">Thời gian: </span><span class="time-den"></span> &#8658; <span class="time-di"></span></div>
                         <div class="number-of-date info">
                             <img src="/wp-content/uploads/2022/11/icon-room.svg"> <span class="room-number">1</span> phòng
                         </div>
@@ -168,7 +169,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                                 <div class="info info-checkout"><?php echo date_format(date_create($cart_item['customData']['custom_date_checkout']),"d/m/Y"); ?></div>
                                                 <div class="info info-adult "><?php echo $cart_item['customData']['custom_adult']; ?></div>
                                                 <div class="info info-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
-                                                <div class="info quantity info-qty"><?php echo $cart_item['quantity']; ?></div><span>phòng, </span><span class="quatity-date"></span><span>đêm</span>
+                                                <div class="info quantity info-qty"><?php echo $cart_item['quantity']; ?></div><span>phòng / </span><span class="quatity-date"></span><span>đêm</span>
                                             </div>
                                         </div>
                                     </div>
@@ -189,7 +190,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                                 <div class="label">Số lượng</div>
                                             </div>
                                             <div class="col-md-6 cart-item-info">
-                                                <div class="price-gr"><span class="price"><?php echo number_format($_product->get_regular_price()); ?></span>VNĐ</div>
+                                                <div class="price-gr"><span class="price"><?php echo number_format($_product->get_regular_price()); ?></span> VNĐ</div>
                                                 <div class="info quantity info-qty"><?php echo $cart_item['quantity']; ?></div>
                                             </div>
                                         </div>
@@ -212,14 +213,14 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                 <h2>Thông tin khách hàng</h2>
     							<label for="fname">Tên<p class="icon-require">*</p></label>
     							<input type="text" class="input-text " name="billing_first_name" id="billing_first_name" value="" autocomplete="given-name">
-    							<div class="error-name error-notice" style="display:none;">Please fill in information</div>
+    							<div class="error-name error-notice" style="display:none;">Vui lòng điền thông tin</div>
     							<label for="fname">Email<p class="icon-require">*</p></label>
     							<input type="email" class="input-text " name="billing_email" id="billing_email" value="" autocomplete="email username">
-    							<div class="error-email error-notice" style="display:none;">Please fill in information</div>
-    							<div class="error-format error-notice" style="display:none;">Please fill in correct email</div>
+    							<div class="error-email error-notice" style="display:none;">Vui lòng điền thông tin</div>
+    							<div class="error-format error-notice" style="display:none;">Vui lòng điền đúng email</div>
     							<label for="fname">Số điện thoai<p class="icon-require">*</p></label>
     							<input type="tel" class="input-text " name="billing_phone" id="billing_phone" value="" autocomplete="tel">
-    							<div class="error-phone error-notice" style="display:none;">Please fill in information</div>
+    							<div class="error-phone error-notice" style="display:none;">Vui lòng điền thông tin</div>
     						</div>
     						<div class="woocommerce-additional-fields__field-wrapper">
                                 <p class="form-row notes" id="order_comments_field" data-priority="">
