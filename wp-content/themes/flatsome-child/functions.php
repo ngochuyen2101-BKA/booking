@@ -48,6 +48,7 @@ function saveCustomData() {
 	$date_checkin = $_POST['date_checkin'];
 	$date_checkout = $_POST['date_checkout'];
 	$product_id = $_POST['product_id'];
+	$diff = (int)$_POST['diff'];
 
 	$custom_data = array( 'customData'=> array( 
 		'custom_adult' => $adult,
@@ -62,10 +63,14 @@ function saveCustomData() {
 		echo $product_id;
 		die();
 	}
-
+	$item_bed_key = false;
 	foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
 		$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
 		$_product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+		if($_product_id == 1738) {
+			$item_bed_key = true;
+			WC()->cart->set_quantity($cart_item_key,$cart_item['quantity'] + $diff);
+		}
 		if($product_id == $_product_id) {
 			echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
 				'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
@@ -75,7 +80,29 @@ function saveCustomData() {
 				esc_attr($cart_item_key),
 				esc_attr($_product->get_sku())
 			), $cart_item_key);
-			die();
+			break;
+		}
+	}
+	if(!$item_bed_key) {
+		WC()->cart->add_to_cart( 1738 , $diff );
+	}
+	die();
+}
+
+add_action('wp_ajax_remove_bed', 'removeBed');
+add_action('wp_ajax_nopriv_remove_bed', 'removeBed');
+
+function removeBed() {
+	$diff = $_POST['diff'];
+
+	foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+		$_product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+		if($_product_id == 1738) {
+			if($cart_item['quantity'] == $diff) {
+				WC()->cart->remove_cart_item(1738);
+			} else {
+				WC()->cart->set_quantity($cart_item_key,$cart_item['quantity'] - $diff);
+			}
 		}
 	}
 }
@@ -115,7 +142,7 @@ function getDataRoom() {
 			$has_sale_price = "has-sale-price";
 		}
 
-		if( ( (int)$number_adult + (int)$number_child ) >= ( (int)$adult + (int)$child )  ) {
+		if( ( (int)$number_adult + (int)$number_child ) >= ( (int)$adult + (int)$child - 2 )  ) {
 			$has_product = true;
 			$html .= '<div class="cart" data-product_id="'.$product->id.'">';
 			$html .= 	'<div class="product-booking">';
@@ -284,6 +311,8 @@ function check_product_before_order () {
 	$price = 0;
 	foreach ($woocommerce->cart->get_cart() as $cart_item_key => $cart_item) {
 		$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+		$_product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+		
 		if(isset($cart_item['customData'])) {
 			$checkin = $cart_item['customData']['custom_date_checkin'];
 			$checkout = $cart_item['customData']['custom_date_checkout'];
@@ -294,6 +323,10 @@ function check_product_before_order () {
         $price_real = $_product->get_regular_price();
 		$qty = $cart_item['quantity'];
 		
+		if($_product_id == 1738) {
+			$price += $price_real * $qty * $count_day;
+			continue;
+		}
 		if(isset($cart_item['customData'])) {
 			if($price_sale) {
 				$price += $price_sale * $qty * $count_day;
@@ -313,6 +346,10 @@ add_action('woocommerce_checkout_create_order', 'on_checkout_create_order', 20, 
 function on_checkout_create_order( $order, $data ) {
 	$sumTotal = 0;
 	foreach( $order->get_items() as $item_id => $line_item ){
+		$product_id = $line_item->get_product_id();
+		if($product_id == 1738) {
+			continue;
+		}
 		$subtotal = 0;
 		$checkin = 0;
 		$checkout = 0;
@@ -341,6 +378,18 @@ function on_checkout_create_order( $order, $data ) {
 		}
 		$order->items[$item_id]->set_subtotal($subtotal);
 		$order->items[$item_id]->set_total($total_cart);
+	}
+	foreach( $order->get_items() as $item_id => $line_item ){ 
+		$product_id = $line_item->get_product_id();
+		if($product_id == 1738) {
+			$total = $line_item->get_total();
+			$qty = $line_item->get_quantity();
+			$subtotal = $total * $count_day;
+			$total_cart = $total * $count_day;
+			$sumTotal += $total * $count_day;
+			$order->items[$item_id]->set_subtotal($subtotal);
+			$order->items[$item_id]->set_total($total_cart);
+		}
 	}
 	$order->set_total($sumTotal);
 }

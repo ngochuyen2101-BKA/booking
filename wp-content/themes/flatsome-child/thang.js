@@ -18,8 +18,16 @@
 
         $('.popup-add').removeClass('active');
         
-        var adults = $('.number-adults').text();
-        var childs = $('.number-childs').text();
+        var adults = parseInt($('.number-adults').text());
+        var childs = parseInt($('.number-childs').text());
+
+        var customer_amout = $(this).closest('.product-booking').find('.room-user');
+        var adults_amount = parseInt(customer_amout.data('number-adult'));
+        var childs_amount = parseInt(customer_amout.data('number-child'));
+
+        var diff = ( adults + childs ) - ( adults_amount + childs_amount );
+        diff = diff > 0 ? diff : 0;
+
         var product_id = $(this).data('product_id');
         var price = $(this).closest('.product-booking').find('.sale-price').text();
         price = parseInt(price.replace(/,/g, ''));
@@ -38,6 +46,7 @@
                 date_checkin:date_checkin,
                 date_checkout:date_checkout,
                 product_id: product_id,
+                diff: diff,
                 action: 'custom_data_product'
             },
             success: function(res) {
@@ -88,6 +97,47 @@
 					html += 'jQuery("document").ready(function(){jQuery(".detail-room[data-product_id='+ngoac+product_id+ngoac+'] .price-gr").css("height",jQuery(".detail-room[data-product_id='+ngoac+product_id+ngoac+'] .title").height()+"px");});'
 					html += '</script>'  
                     $('.room-gr').append(html);
+                }
+
+                var hasBed = false;
+                $('.service-gr .title').each(function() {
+                    if($(this).text() == "Giường Phụ") {
+                        hasBed = true;
+                    }
+                });
+                if(diff > 0) {
+                    if( !hasBed ) {
+                        var total_bed = 600000 * diff * total_day;
+                        var html = '';
+                        var ngoac = "'";
+                        html += '<div class="detail-selected detail-selected-service" data-product_id="1738">'
+                        html +=     '<div class="row">'
+                        html +=         '<div class="col-md-6 cart-info-label">'
+                        html +=             '<div class="title">Giường Phụ</div>'
+                        html +=             '<div class="label">Số lượng</div>'
+                        html +=         '</div>'
+                        html +=         '<div class="col-md-6 cart-item-info">' 
+                        html +=             '<div class="price-gr"><span class="price">'+total_bed.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")+'</span> VNĐ</div>'
+                        html +=             '<div class="gr-edit">' 
+                        html +=             '<div class="info quantity qty-service" data-product_id="1738">'+diff+'</div>'
+                        html +=             '</div>'
+                        html +=         '</div>'
+                        html +=     '</div>' 
+                        html += '</div>'
+                        html += '<script>'
+                        html += 'jQuery("document").ready(function(){jQuery(".detail-selected-service[data-product_id='+ngoac+1738+ngoac+'] .price-gr").css("height",jQuery(".detail-selected-service[data-product_id='+ngoac+1738+ngoac+'] .title").height()+"px");});'
+                        html += '</script>'
+                        $('.service-gr').append(html);
+                    } else {
+                        $('.qty-service').each(function() {
+                            if($(this).data('product_id') == 1738) {
+                                var qty = parseInt($(this).html());
+                                $(this).html(qty + diff);
+                                var total = ( 600000 * (qty + diff) * total_day ).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+                                $(this).closest('.cart-item-info').find('.price').html(total);
+                            }
+                        })
+                    }
                 }
                 
                 updateTotalPrice();
@@ -228,6 +278,44 @@
                 $(this).prop('checked', false);
             }
         });
+        var adult = parseInt($(this).closest('.cart-item-info').find('.info-custom-adult').html());
+        var child = parseInt($(this).closest('.cart-item-info').find('.info-custom-child').html());
+        $('.cart').each(function() {
+            var item_id = $(this).data('product_id');
+            if(item_id == product_id) {
+                var custom_amount = $(this).find('.room-user');
+                var adult_num = parseInt(custom_amount.data('number-adult'));
+                var child_num = parseInt(custom_amount.data('number-child'));
+
+                var diff = (adult + child) - (adult_num + child_num);
+                if(diff > 0) {
+                    $.ajax({
+                        url: '/wp-admin/admin-ajax.php',
+                        method: 'POST',
+                        data: {
+                            diff: diff,
+                            action: 'remove_bed'
+                        },
+                        success: function() {
+                            $('.service-gr .title').each(function() {
+                                if($(this).text() == "Giường Phụ") {
+                                    var parent = $(this).closest('.detail-selected-service')
+                                    var qty = parseInt(parent.find('.quantity').html());
+                                    if(qty == diff) {
+                                        parent.remove();
+                                    } else {
+                                        parent.find('.quantity').html(qty - diff);
+                                        var price = parseInt(parent.find('.price').text().replace(/,/g, ''));
+                                        parent.find('.price').html((price*(qty - diff)/qty).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+                                    }
+                                }
+                            });
+                        },
+            
+                    });
+                }
+            }
+        });
         $(this).closest('.detail-selected').remove();
         updateTotalPrice();
         checkBtnRemove();
@@ -238,7 +326,7 @@
         var number_adult = $('#numberAdult').val();
         var number_child = $('#numberChild').val();
         var total_customer = parseInt(number_adult) + parseInt(number_child);
-        if(total_customer > 5) {
+        if(total_customer > 6) {
             $('.validate-customer').css('display','block');
             return ;
         }
@@ -380,6 +468,13 @@
             var adults = $('.select-adults').val();
             var childs = $('.select-child').val();
             var product_id = $(this).data('product_id');
+
+            var customer_amout = $('.thong-tin').find('.so-nguoi');
+            var adults_amount = parseInt(customer_amout.data('nguoi-lon'));
+            var childs_amount = parseInt(customer_amout.data('tre-em'));
+
+            var diff = ( adults + childs ) - ( adults_amount + childs_amount );
+            diff = diff > 0 ? diff : 0;
         }
         $.ajax({
             url: '/wp-admin/admin-ajax.php',
@@ -390,6 +485,7 @@
                 date_checkin:checkin,
                 date_checkout:checkout,
                 product_id: product_id,
+                diff: diff,
                 action: 'custom_data_product'
             },
             success: function(res) { 
@@ -540,6 +636,15 @@
                 $(this).html((regular_price*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
             }
         });
+
+        $('.detail-selected-service .price').each(function() {
+            var price = parseInt($(this).text().replace(/,/g, ''));
+            var qty_service = parseInt($(this).closest('.cart-item-info').find('.quantity').text());
+            var title = $(this).closest('.detail-selected-service').find('.title').text();
+            if(title == "Giường Phụ") {
+                $(this).html((price*qty_service*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+            }
+        });
     }
 
     function changePriceCartCheckout() {
@@ -567,7 +672,12 @@
         $('.service-selected .price').each(function() {
             var price = parseInt($(this).text().replace(/,/g, ''));
             var qty_service = parseInt($(this).closest('.cart-item-info').find('.quantity').text());
-            $(this).html((price*qty_service).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+            var title = $(this).closest('.service-selected').find('.title').text();
+            if(title == "Giường Phụ") {
+                $(this).html((price*qty_service*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+            } else {
+                $(this).html((price*qty_service).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+            }
         });
         $('.quatity-date').each(function() {
             $(this).html(total_day);
@@ -802,6 +912,12 @@
         };
         changePriceCart();
         updateTotalPrice();
+
+        $('.servive-name').each(function() {
+            if($(this).text() == "Giường Phụ") {
+                $(this).closest('.cart').css('display','none');
+            }
+        })
     });
 })(jQuery);
 jQuery(document).ready(function(){

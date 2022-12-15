@@ -9,7 +9,7 @@ echo do_shortcode('[block id="banner"]');
         <div class="container">
             <div class="step-1">
                 <p class="number-step">1</p>
-                <p class="text-step">Chọn phòng</p>
+                <p class="text-step">Chọn phòng</p>n
             </div>
             <div class="step-2">
                 <p class="number-step">2</p>
@@ -43,7 +43,7 @@ echo do_shortcode('[block id="banner"]');
             <div class="add-room">
                 <p class="btn-show">Thêm phòng</p>
                 <div class="popup-add">
-                    <div class="validate-customer" style="display: none;">Tối đa 5 người/phòng</div>
+                    <div class="validate-customer" style="display: none;">Tối đa 6 người/phòng</div>
                     <div class="adults">
                         <div class="label">Người lớn</div>
                         <select id="numberAdult">
