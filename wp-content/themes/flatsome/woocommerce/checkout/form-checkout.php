@@ -192,6 +192,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                             <div class="col-md-6 cart-item-info">
                                                 <div class="price-gr"><span class="price"><?php echo number_format($_product->get_regular_price()); ?></span> VNĐ</div>
                                                 <div class="info quantity info-qty"><?php echo $cart_item['quantity']; ?></div>
+                                                <?php if($_product->id == 1738) { echo ' giường/<span class="quatity-date"></span><span> đêm</span>'; } ?>
                                             </div>
                                         </div>
                                     </div>

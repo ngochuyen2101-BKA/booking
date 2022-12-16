@@ -9,7 +9,7 @@ echo do_shortcode('[block id="banner"]');
         <div class="container">
             <div class="step-1">
                 <p class="number-step">1</p>
-                <p class="text-step">Chọn phòng</p>n
+                <p class="text-step">Chọn phòng</p>
             </div>
             <div class="step-2">
                 <p class="number-step">2</p>
@@ -75,6 +75,7 @@ echo do_shortcode('[block id="banner"]');
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
+                    <div class="message-notice" style="display: none;">Do số gười vượt quá giới hạn nên phải bổ sung thêm giường phụ.</div>
                     <div class="choose-room">
                         <h2 class="title">Chọn phòng cho chuyến đi của bạn</h2>
                         <p class="description">Quý khách sẽ được đặt phòng ở mức giá tốt nhất do không phải qua đơn vị trung gian:<br>
@@ -305,6 +306,9 @@ echo do_shortcode('[block id="banner"]');
                                         <div class="gr-edit">
                                             <div class="info quantity qty-service" data-product_id="<?php echo $_product_id; ?>"><?php echo $cart_item['quantity']; ?></div>
                                             <?php
+                                                if($_product_id == 1738) {
+                                                    echo ' giường/<span class="quatity-date"></span><span> đêm</span>';
+                                                }
                                                 echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
                                                     '<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s" target="_blank"><i class="fa fa-times" aria-hidden="true"></i></a>',
                                                     esc_url(wc_get_cart_remove_url($cart_item_key)),

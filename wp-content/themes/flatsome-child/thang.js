@@ -119,7 +119,7 @@
                         html +=         '<div class="col-md-6 cart-item-info">' 
                         html +=             '<div class="price-gr"><span class="price">'+total_bed.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")+'</span> VNĐ</div>'
                         html +=             '<div class="gr-edit">' 
-                        html +=             '<div class="info quantity qty-service" data-product_id="1738">'+diff+'</div>'
+                        html +=             '<div class="info quantity qty-service" data-product_id="1738">'+diff+'</div>giường/<span class="quatity-date">'+total_day+'</span><span> đêm</span>'
                         html +=             '</div>'
                         html +=         '</div>'
                         html +=     '</div>' 
@@ -138,6 +138,10 @@
                             }
                         })
                     }
+                    $('.message-notice').css('display','block');
+                    setTimeout(function() { 
+                        $(".message-notice").hide();
+                    }, 4000);
                 }
                 
                 updateTotalPrice();
@@ -465,11 +469,11 @@
         if(current_url.indexOf("/list-room") > -1) {
             var checkin = $('.checkin').val();
             var checkout = $('.checkout').val();
-            var adults = $('.select-adults').val();
-            var childs = $('.select-child').val();
+            var adults = parseInt($('.select-adults').val());
+            var childs = parseInt($('.select-child').val());
             var product_id = $(this).data('product_id');
 
-            var customer_amout = $('.thong-tin').find('.so-nguoi');
+            var customer_amout = $('.thong-tin').find('.so-nguoi-cal');
             var adults_amount = parseInt(customer_amout.data('nguoi-lon'));
             var childs_amount = parseInt(customer_amout.data('tre-em'));
 
@@ -491,7 +495,8 @@
             success: function(res) { 
                 setBBCookie('step',2,864000);
                 $('.loading-wait').css('display', 'none');
-                window.location.href = 'https://'+window.location.host+'/booking-page/?arrival='+checkin+'&departure='+checkout+'&adults1='+adults+'&children1='+childs+'&fromdetail=true';
+                var hasextrabed = diff > 0 ? true : false;
+                window.location.href = 'https://'+window.location.host+'/booking-page/?arrival='+checkin+'&departure='+checkout+'&adults1='+adults+'&children1='+childs+'&fromdetail=true&hasextrabed='+hasextrabed;
             }
         }); 
         
@@ -714,6 +719,12 @@
                 hash = hashes[i].split('=');
                 vars[hash[0]] = hash[1];
             }
+            if(vars['hasextrabed']) {
+                $('.message-notice').css('display','block');
+                setTimeout(function() { 
+                    $(".message-notice").hide();
+                }, 4000);
+            }
             var total_cus = parseInt(vars['adults1']) + parseInt(vars['children1']);
             $('.date-checkin').val(vars['arrival']);
             $('.date-checkout').val(vars['departure']);
@@ -757,9 +768,9 @@
             });
         });
 
-        // setTimeout(function() { 
-        //     $('#place_order').prop('disabled', true);
-        // }, 5000);
+        setTimeout(function() { 
+            $('#place_order').prop('disabled', true);
+        }, 3000);
 
         var current_url = window.location.href;
         if(current_url.indexOf("thanh-toan") > -1) {
@@ -916,6 +927,13 @@
         $('.servive-name').each(function() {
             if($(this).text() == "Giường Phụ") {
                 $(this).closest('.cart').css('display','none');
+            }
+        })
+
+        $('.detail-selected-service').each(function() {
+            var title = $(this).find('.title').text();
+            if(title == "Giường Phụ") {
+                $(this).find('.remove_from_cart_button').css('display','none');
             }
         })
     });
