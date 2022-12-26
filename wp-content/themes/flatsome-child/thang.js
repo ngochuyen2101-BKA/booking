@@ -20,10 +20,12 @@
         
         var adults = parseInt($('.number-adults').text());
         var childs = parseInt($('.number-childs').text());
+        childs = isNaN(childs) ? 0 : childs;
 
         var customer_amout = $(this).closest('.product-booking').find('.room-user');
         var adults_amount = parseInt(customer_amout.data('number-adult'));
         var childs_amount = parseInt(customer_amout.data('number-child'));
+        childs_amount = isNaN(childs_amount) ? 0 : childs_amount;
 
         var diff = ( adults + childs ) - ( adults_amount + childs_amount );
         diff = diff > 0 ? diff : 0;
@@ -118,7 +120,7 @@
                         html +=         '</div>'
                         html +=         '<div class="col-md-6 cart-item-info">' 
                         html +=             '<div class="price-gr"><span class="price">'+total_bed.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")+'</span> VNĐ</div>'
-                        html +=             '<div class="gr-edit">' 
+                        html +=             '<div class="gr-edit giuong-phu-quantity">' 
                         html +=             '<div class="info quantity qty-service" data-product_id="1738">'+diff+'</div>giường/<span class="quatity-date">'+total_day+'</span><span> đêm</span>'
                         html +=             '</div>'
                         html +=         '</div>'
@@ -275,6 +277,10 @@
 
     $(document).on('click','.remove_from_cart_button', function(e) {
         e.preventDefault();
+        if(!isloading) {
+            isloading = true;
+            $('.loading-wait').css('display','block');
+        }
         var product_id = $(this).closest('.detail-selected').data('product_id');
         $('.add-service').each(function() {
             var cur_id = $(this).data('product_id');
@@ -284,13 +290,31 @@
         });
         var adult = parseInt($(this).closest('.cart-item-info').find('.info-custom-adult').html());
         var child = parseInt($(this).closest('.cart-item-info').find('.info-custom-child').html());
+        child = isNaN(child) ? 0 : child;
+        $.ajax({
+            async: false,
+            url: '/wp-admin/admin-ajax.php',
+            method: 'POST',
+            data: {
+                adult: 0,
+                child: 0,
+                action: 'get_data_room'
+            },
+            success: function(res) {
+                if(res.substr(res.length-1, 1) == '0') {
+                    res = res.substr(0, res.length-1);
+                }
+                $('.choose-room').html(res);
+            },
+
+        });
         $('.cart').each(function() {
             var item_id = $(this).data('product_id');
             if(item_id == product_id) {
                 var custom_amount = $(this).find('.room-user');
                 var adult_num = parseInt(custom_amount.data('number-adult'));
                 var child_num = parseInt(custom_amount.data('number-child'));
-
+                child_num = isNaN(child_num) ? 0 : child_num;
                 var diff = (adult + child) - (adult_num + child_num);
                 if(diff > 0) {
                     $.ajax({
@@ -324,6 +348,7 @@
         updateTotalPrice();
         checkBtnRemove();
         countRoomAndCustomer();
+        $('.loading-wait').css('display','none');
     });
 
     $(document).on('click','.add-btn', function() {
@@ -471,12 +496,13 @@
             var checkout = $('.checkout').val();
             var adults = parseInt($('.select-adults').val());
             var childs = parseInt($('.select-child').val());
+            childs = isNaN(childs) ? 0 : childs;
             var product_id = $(this).data('product_id');
 
             var customer_amout = $('.thong-tin').find('.so-nguoi-cal');
             var adults_amount = parseInt(customer_amout.data('nguoi-lon'));
             var childs_amount = parseInt(customer_amout.data('tre-em'));
-
+            childs_amount = isNaN(childs_amount) ? 0 : childs_amount;
             var diff = ( adults + childs ) - ( adults_amount + childs_amount );
             diff = diff > 0 ? diff : 0;
         }
@@ -647,7 +673,7 @@
             var qty_service = parseInt($(this).closest('.cart-item-info').find('.quantity').text());
             var title = $(this).closest('.detail-selected-service').find('.title').text();
             if(title == "Giường Phụ") {
-                $(this).html((price*qty_service*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+                $(this).html((price*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
             }
         });
     }
@@ -719,7 +745,7 @@
                 hash = hashes[i].split('=');
                 vars[hash[0]] = hash[1];
             }
-            if(vars['hasextrabed']) {
+            if(vars['hasextrabed'] == true) {
                 $('.message-notice').css('display','block');
                 setTimeout(function() { 
                     $(".message-notice").hide();
