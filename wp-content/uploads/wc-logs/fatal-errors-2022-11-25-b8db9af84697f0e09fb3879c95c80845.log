@@ -1,0 +1,10 @@
+2022-11-25T17:27:13+00:00 CRITICAL Uncaught Error: Call to a member function get_gallery_image_ids() on null in /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/plugins/insert-php-code-snippet/shortcode-handler.php(99) : eval()'d code:10
+Stack trace:
+#0 /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/plugins/insert-php-code-snippet/shortcode-handler.php(99): eval()
+#1 /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-includes/shortcodes.php(355): xyz_ips_display_content()
+#2 [internal function]: do_shortcode_tag()
+#3 /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-includes/shortcodes.php(227): preg_replace_callback()
+#4 /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/plugins/insert-php-code-snippet/xyz-functions.php(95): do_shortcode()
+#5 /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-includes/class-wp-hook.php(308): xyz_ips_preview_page()
+#6 /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-includes/plugin.php(205): WP_ in /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/plugins/insert-php-code-snippet/shortcode-handler.php(99) : eval()'d code on line 10
+

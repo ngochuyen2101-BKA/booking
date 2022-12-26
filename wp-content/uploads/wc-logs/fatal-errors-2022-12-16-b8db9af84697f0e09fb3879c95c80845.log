@@ -1,0 +1,54 @@
+2022-12-16T00:13:45+00:00 CRITICAL Uncaught Error: Call to a member function get_gallery_image_ids() on null in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/insert-php-code-snippet/shortcode-handler.php(99) : eval()'d code:10
+Stack trace:
+#0 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/insert-php-code-snippet/shortcode-handler.php(99): eval()
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-includes/shortcodes.php(355): xyz_ips_display_content(Array, '', 'xyz-ips')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-includes/shortcodes.php(227): preg_replace_callback('/\\[(\\[?)(xyz\\-i...', 'do_shortcode_ta...', '[xyz-ips snippe...')
+#4 /home/laocaist/bamboosapahotel.com.vn/wp-content/themes/flatsome/inc/helpers/helpers-shortcode.php(203): do_shortcode('[xyz-ips snippe...')
+#5 /home/laocaist/bamboosapahotel.com.vn/wp-includes/class-wp-hook.php(308): flatsome_contentfix('[xyz-ips snippe...')
+#6 /home/laocaist/bamboosapahotel.com.vn/wp-includes/plugin.php(205): WP_Hook->apply_filters('[ in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/insert-php-code-snippet/shortcode-handler.php(99) : eval()'d code on line 10
+
+2022-12-16T02:40:59+00:00 CRITICAL Uncaught Error: Call to undefined function mb_strtolower() in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/BaseController.php:58
+Stack trace:
+#0 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/EditController.php(231): Loco_admin_file_BaseController->setFileTitle(Object(Loco_fs_LocaleFile))
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/mvc/AdminRouter.php(244): Loco_admin_file_EditController->render()
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-includes/class-wp-hook.php(308): Loco_mvc_AdminRouter->renderPage('')
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#4 /home/laocaist/bamboosapahotel.com.vn/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#5 /home/laocaist/bamboosapahotel.com.vn/wp-admin/admin.php(259): do_action('loco-translate_...')
+#6 {main}
+  thrown in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/BaseController.php on line 58
+
+2022-12-16T02:41:54+00:00 CRITICAL Uncaught Error: Call to undefined function mb_strtolower() in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/BaseController.php:58
+Stack trace:
+#0 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/EditController.php(231): Loco_admin_file_BaseController->setFileTitle(Object(Loco_fs_LocaleFile))
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/mvc/AdminRouter.php(244): Loco_admin_file_EditController->render()
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-includes/class-wp-hook.php(308): Loco_mvc_AdminRouter->renderPage('')
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#4 /home/laocaist/bamboosapahotel.com.vn/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#5 /home/laocaist/bamboosapahotel.com.vn/wp-admin/admin.php(259): do_action('loco-translate_...')
+#6 {main}
+  thrown in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/BaseController.php on line 58
+
+2022-12-16T02:42:39+00:00 CRITICAL Uncaught Error: Call to undefined function mb_strtolower() in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/BaseController.php:58
+Stack trace:
+#0 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/EditController.php(231): Loco_admin_file_BaseController->setFileTitle(Object(Loco_fs_LocaleFile))
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/mvc/AdminRouter.php(244): Loco_admin_file_EditController->render()
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-includes/class-wp-hook.php(308): Loco_mvc_AdminRouter->renderPage('')
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#4 /home/laocaist/bamboosapahotel.com.vn/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#5 /home/laocaist/bamboosapahotel.com.vn/wp-admin/admin.php(259): do_action('loco-translate_...')
+#6 {main}
+  thrown in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/BaseController.php on line 58
+
+2022-12-16T02:43:57+00:00 CRITICAL Uncaught Error: Call to undefined function mb_strtolower() in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/BaseController.php:58
+Stack trace:
+#0 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/EditController.php(231): Loco_admin_file_BaseController->setFileTitle(Object(Loco_fs_LocaleFile))
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/mvc/AdminRouter.php(244): Loco_admin_file_EditController->render()
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-includes/class-wp-hook.php(308): Loco_mvc_AdminRouter->renderPage('')
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#4 /home/laocaist/bamboosapahotel.com.vn/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#5 /home/laocaist/bamboosapahotel.com.vn/wp-admin/admin.php(259): do_action('loco-translate_...')
+#6 {main}
+  thrown in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/loco-translate/src/admin/file/BaseController.php on line 58
+

@@ -1,0 +1,108 @@
+2022-11-16T03:38:21+00:00 CRITICAL Out of memory (allocated 60817408) (tried to allocate 20480 bytes) in C:\xampp\htdocs\booking\wp-includes\PHPMailer\PHPMailer.php on line 3814
+
+2022-11-16T09:27:20+00:00 CRITICAL syntax error, unexpected ')' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 90
+
+2022-11-16T09:27:24+00:00 CRITICAL syntax error, unexpected ')' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 90
+
+2022-11-16T09:27:29+00:00 CRITICAL syntax error, unexpected ')' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 90
+
+2022-11-16T09:27:43+00:00 CRITICAL syntax error, unexpected ')' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 90
+
+2022-11-16T09:27:44+00:00 CRITICAL syntax error, unexpected ')' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 90
+
+2022-11-16T09:27:59+00:00 CRITICAL syntax error, unexpected ')' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 90
+
+2022-11-16T09:39:15+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 93
+
+2022-11-16T09:39:23+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 94
+
+2022-11-16T09:39:31+00:00 CRITICAL syntax error, unexpected '.' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 92
+
+2022-11-16T09:39:36+00:00 CRITICAL syntax error, unexpected '.' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 92
+
+2022-11-16T09:39:51+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 94
+
+2022-11-16T09:39:51+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 94
+
+2022-11-16T09:40:05+00:00 CRITICAL syntax error, unexpected 'src' (T_STRING) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 96
+
+2022-11-16T09:41:15+00:00 CRITICAL syntax error, unexpected 'type' (T_STRING) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 98
+
+2022-11-16T09:41:24+00:00 CRITICAL syntax error, unexpected 'type' (T_STRING) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 98
+
+2022-11-16T09:41:32+00:00 CRITICAL syntax error, unexpected 'type' (T_STRING) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 107
+
+2022-11-16T09:41:37+00:00 CRITICAL syntax error, unexpected 'type' (T_STRING) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 107
+
+2022-11-16T09:41:51+00:00 CRITICAL syntax error, unexpected 'type' (T_STRING) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 109
+
+2022-11-16T09:41:52+00:00 CRITICAL syntax error, unexpected 'type' (T_STRING) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 109
+
+2022-11-16T09:42:06+00:00 CRITICAL syntax error, unexpected '.' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 105
+
+2022-11-16T09:43:16+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 111
+
+2022-11-16T09:43:25+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 111
+
+2022-11-16T09:43:33+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 111
+
+2022-11-16T09:43:38+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 111
+
+2022-11-16T09:43:52+00:00 CRITICAL syntax error, unexpected '/' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 112
+
+2022-11-16T09:43:53+00:00 CRITICAL syntax error, unexpected '/' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 112
+
+2022-11-16T09:44:07+00:00 CRITICAL syntax error, unexpected 'Standard' (T_STRING) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 112
+
+2022-11-16T09:45:17+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 113
+
+2022-11-16T09:45:26+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 113
+
+2022-11-16T09:45:34+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 113
+
+2022-11-16T09:45:40+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 113
+
+2022-11-16T09:45:53+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 114
+
+2022-11-16T09:45:54+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 114
+
+2022-11-16T09:46:09+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 115
+
+2022-11-16T09:47:18+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 118
+
+2022-11-16T09:47:27+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 118
+
+2022-11-16T09:47:36+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 118
+
+2022-11-16T09:47:40+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 118
+
+2022-11-16T09:47:54+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 116
+
+2022-11-16T09:47:55+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 116
+
+2022-11-16T09:48:09+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 116
+
+2022-11-16T09:49:19+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 118
+
+2022-11-16T09:49:29+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 120
+
+2022-11-16T09:49:36+00:00 CRITICAL syntax error, unexpected 'class' (T_CLASS) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 120
+
+2022-11-16T09:49:41+00:00 CRITICAL syntax error, unexpected '' VNĐ</div>'' (T_CONSTANT_ENCAPSED_STRING) in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 118
+
+2022-11-16T09:49:55+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 121
+
+2022-11-16T09:49:56+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 122
+
+2022-11-16T09:50:10+00:00 CRITICAL syntax error, unexpected '<' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 122
+
+2022-11-16T09:51:29+00:00 CRITICAL syntax error, unexpected '}' in C:\xampp\htdocs\booking\wp-content\themes\flatsome-child\functions.php on line 129
+
+2022-11-16T10:04:48+00:00 CRITICAL Uncaught Error: Call to undefined function DateTime() in C:\xampp\htdocs\booking\wp-content\themes\flatsome\booking.php:29
+Stack trace:
+#0 C:\xampp\htdocs\booking\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\booking\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\booking\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\booking\wp-content\themes\flatsome\booking.php on line 29
+

@@ -1931,14 +1931,15 @@ input.datePickerPlaceHolder:before {
 .popup-add .btn-huy:hover{
 	color: #286863
 }
-.booking-page .info-booking .container .add-room .popup-add .add-btn{
+.booking-page .info-booking .container .add-room .popup-add .add-btn, .booking-content .col-md-8 .add-room .popup-add .add-btn{
 	padding: 5px 10px !important;
     width: max-content;
 	font-family: ManropeRegular !important;
 	background: -webkit-linear-gradient(0deg, rgba(255,216,136,1) 0%, rgba(197,152,87,1) 33%, rgba(250,223,168,1) 100%) !important;
 	cursor: pointer;
+	color: white
 }
-.booking-page .info-booking .container .add-room .popup-add .add-btn:hover{
+.booking-page .info-booking .container .add-room .popup-add .add-btn:hover, .booking-content .col-md-8 .add-room .popup-add .add-btn:hover{
 	background-color: #286863 !important;
 	background-image: none !important;
 }
@@ -2243,7 +2244,15 @@ input.datePickerPlaceHolder:before {
 .checkout-page .checkout-content .hotel-info, .checkout-page .checkout-content .infor-customer-input{
 	margin-top: 0 !important;
 }
-
+.giuong-phu-quantity{
+	justify-content: flex-start !important
+}
+.service-gr .gr-edit.giuong-phu-quantity > *{
+	margin-right: 5px !important
+}
+.info-booking .number-childs-cal, .info-booking .number-childs{
+	margin-left: 5px
+}
 @media(min-width:1100px){
 	.home-sec-3 .col-slide-phong{
 		margin-left: 2px
@@ -2880,4 +2889,27 @@ input.datePickerPlaceHolder:before {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+.booking-content .col-md-8 .add-room .btn-show{
+	width: max-content;
+	text-align: center;
+    margin-bottom: 0;
+    padding: 5px 30px;
+    background-color: #005F55;
+    color: #fff;
+}
+.booking-content .col-md-8 .add-room .popup-add {
+    display: none;
+	-webkit-box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+    width: 250px;
+    background-color: #fff;
+    padding: 20px;
+}
+.booking-content .col-md-8 .add-room .popup-add .adults, .booking-content .col-md-8 .add-room .popup-add .childs {
+    display: flex;
+    justify-content: space-between;
+}
+.booking-content .col-md-8 .add-room .popup-add select {
+    max-width: 50px;
+	box-shadow: none !important
 }

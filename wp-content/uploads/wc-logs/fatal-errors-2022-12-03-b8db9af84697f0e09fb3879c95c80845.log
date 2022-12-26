@@ -1,0 +1,173 @@
+2022-12-03T07:21:11+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:22:10+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:39:28+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:39:39+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:39:48+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:40:00+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:40:15+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:41:30+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:41:43+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:41:52+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:42:05+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:42:48+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:42:54+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:45:02+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:45:56+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:46:36+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:48:05+00:00 CRITICAL Uncaught Error: Cannot use object of type Yoast\WP\SEO\Models\Indexable as array in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:171
+Stack trace:
+#0 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/schema/breadcrumb.php(37): Yoast\WP\SEO\Presentations\Abstract_Presentation->__get('breadcrumbs')
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/schema-generator.php(129): Yoast\WP\SEO\Generators\Schema\Breadcrumb->generate()
+#4 /home/laocaist/bamboosapa in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 171
+
+2022-12-03T07:48:32+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::add_paged_crumb() must be of the type array, null given, called in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 174 and defined in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:373
+Stack trace:
+#0 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(174): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->add_paged_crumb(NULL, Object(Yoast\WP\SEO\Models\Indexable))
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Present in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 373
+
+2022-12-03T07:49:00+00:00 CRITICAL Uncaught Error: Class 'Yoast\WP\SEO\Generators\Breadcrumbs_Generator' not found in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generated/container.php:2505
+Stack trace:
+#0 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generated/container.php(4597): Yoast\WP\SEO\Generated\Cached_Container->getBreadcrumbsGeneratorService()
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/vendor_prefixed/symfony/dependency-injection/Container.php(271): Yoast\WP\SEO\Generated\Cached_Container->getIndexablePostTypePresentationService()
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/memoizers/presentation-memoizer.php(50): YoastSEO_Vendor\Symfony\Component\DependencyInjection\Container->get('Yoast\\WP\\SEO\\Pr...', 2)
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/memoizers/meta-tags-context-memoizer.php(152): Yoast\WP\SEO\Memoizers\Presentation_Memoizer->get(Object(Yoast\WP\SEO\Models\I in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generated/container.php on line 2505
+
+2022-12-03T07:49:18+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:50:13+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+
+2022-12-03T07:52:49+00:00 CRITICAL Uncaught TypeError: Argument 1 passed to Yoast\WP\SEO\Generators\Breadcrumbs_Generator::Yoast\WP\SEO\Generators\{closure}() must be an instance of Yoast\WP\SEO\Models\Indexable, bool given in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php:141
+Stack trace:
+#0 [internal function]: Yoast\WP\SEO\Generators\Breadcrumbs_Generator->Yoast\WP\SEO\Generators\{closure}(false)
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php(168): array_map(Object(Closure), Array)
+#2 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/indexable-presentation.php(765): Yoast\WP\SEO\Generators\Breadcrumbs_Generator->generate(Object(Yoast\WP\SEO\Context\Meta_Tags_Context))
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php(64): Yoast\WP\SEO\Presentations\Indexable_Presentation->generate_breadcrumbs()
+#4 /home/l in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/wordpress-seo/src/generators/breadcrumbs-generator.php on line 141
+

@@ -192,6 +192,9 @@ function getDataRoom() {
 	endwhile;
 	if(!$has_product) {
 		$html .= '<p>Rất tiếc, không có phòng nghỉ phù hợp với tiêu chí tìm kiếm của Quý khách.</p><p>Quý khách vui lòng thay đổi lựa chọn!</p>';
+		$html .='<script>';
+		$html .='jQuery("document").ready(function(){jQuery(".add-room").appendTo(jQuery(".booking-content .col-md-8")); jQuery(".booking-content .col-md-8 .add-room .btn-show").click(function(){jQuery(".booking-content .col-md-8 .add-room .popup-add").toggle()}); jQuery(".booking-content .col-md-8 .add-room .popup-add .add-btn").click(function(){jQuery(".add-room").appendTo(jQuery(".info-booking .container")); jQuery(".popup-add").removeAttr("style");});});';
+		$html .='</script>';
 		echo $html;
 	} else {
 		$title = '<h2 class="title">Chọn phòng cho chuyến đi của bạn</h2>';

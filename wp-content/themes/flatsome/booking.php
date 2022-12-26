@@ -303,7 +303,7 @@ echo do_shortcode('[block id="banner"]');
                                     <div class="col-md-6 cart-item-info">
                                         <div class="price-gr"><span class="price"><?php echo number_format($total); ?></span> VNĐ</div>
                                             
-                                        <div class="gr-edit">
+                                        <div class="gr-edit giuong-phu-quantity">
                                             <div class="info quantity qty-service" data-product_id="<?php echo $_product_id; ?>"><?php echo $cart_item['quantity']; ?></div>
                                             <?php
                                                 if($_product_id == 1738) {

@@ -5,6 +5,7 @@ define( 'HTML_EMAIL_HEADERS', array('Content-Type: text/html; charset=UTF-8\r\n'
 
 $headers = HTML_EMAIL_HEADERS;
 $email = $_POST['email'];
+$email_send = $_POST['email'].", res@bamboosapahotel.com.vn";
 $name_customer = $_POST['name_customer'];
 $phone = $_POST['phone'];
 $payment = $_POST['payment'];
@@ -25,6 +26,7 @@ $html = '<section class="title" style="text-align: center">
 <div class="info">Email KH: '.$email.'</div>
 </section>';
 $html .= '<section class="info-customer">';
+$html .= '<br><div class="info"><strong>Mã đặt phòng:</strong> '.$_POST['orderId'].'</div>';
 for($i = 1; $i < $number_item; $i++) {
     if(isset($_POST['Childs'.$i])) {
         $nhanPhong = date_format(date_create($_POST['Date_check_in'.$i]),"d/m/Y");
@@ -41,14 +43,14 @@ for($i = 1; $i < $number_item; $i++) {
             $html .= '<div class="info">Số lượng trẻ em: '.$_POST['Childs'.$i].'</div>';
         }
         if(isset($_POST['Date_check_in'.$i])) {
-            $html .= '<div class="info">Ngày nhận - trả phòng: '.date_format(date_create($_POST['Date_check_in'.$i]),"d/m/Y").' - '.date_format(date_create($_POST['Date_check_out'.$i]),"d/m/Y").'</div>';
+            $html .= '<div class="info">Ngày nhận - trả phòng: '.date_format(date_create($_POST['Date_check_in'.$i]),"d/m/Y").' - '.date_format(date_create($_POST['Date_check_out'.$i]),"d/m/Y").'</div><br>';
         }
     } else {
-        $html .= $_POST['name'.$i].' - '.number_format($_POST['price'.$i]).'VNĐ';
+        $html .= '<div>'.$_POST['name'.$i].': '.number_format($_POST['price'.$i]).' VNĐ</div>';
     }
     
 }
-$html .= '</section>';
+$html .= '<br></section>';
 $payment_method = '';
 if($payment == "bacs") {
     $payment_method = 'Chuyển khoản';
@@ -65,7 +67,7 @@ if($payment == "momo") {
 
 $html .= '<section class="info-customer">';
     $html .= '<div class="info">Phương thức thanh toán: '.$payment_method.'</div>';
-    $html .= '<div class="info">Tổng tiền: '.$total.'</div>';
+    $html .= '<div class="info">Tổng tiền: '.number_format($total).' VNĐ</div>';
 $html .= '</section>';
 
 $date = date("d/m/Y");

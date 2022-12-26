@@ -1,0 +1,42 @@
+2022-11-15T14:32:46+00:00 CRITICAL Out of memory (allocated 35651584) (tried to allocate 20480 bytes) in C:\xampp\htdocs\booking\wp-includes\PHPMailer\PHPMailer.php on line 3814
+
+2022-11-15T14:32:54+00:00 CRITICAL Out of memory (allocated 35651584) (tried to allocate 65536 bytes) in C:\xampp\htdocs\booking\wp-content\plugins\advanced-custom-fields\includes\fields\class-acf-field-url.php on line 5
+
+2022-11-15T15:31:16+00:00 CRITICAL require(): Failed opening required '../../assets/fpdf/fpdf.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php on line 19
+
+2022-11-15T15:33:04+00:00 CRITICAL require(): Failed opening required '../../../assets/fpdf/fpdf.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php on line 19
+
+2022-11-15T15:33:53+00:00 CRITICAL require(): Failed opening required '../assets/fpdf/fpdf.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php on line 19
+
+2022-11-15T15:42:39+00:00 CRITICAL require(): Failed opening required '../../assets/fpdf/fpdf.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php on line 19
+
+2022-11-15T15:44:17+00:00 CRITICAL require(): Failed opening required '../../assets/fpdf/fpdf.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php on line 19
+
+2022-11-15T15:45:04+00:00 CRITICAL require(): Failed opening required '/wp-content/themes/flatsome/assets/fpdf/fpdf.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php on line 19
+
+2022-11-15T15:50:48+00:00 CRITICAL require(): Failed opening required 'C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout../../assets/fpdf/fpdf.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php on line 19
+
+2022-11-15T16:01:43+00:00 CRITICAL syntax error, unexpected end of file in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php on line 147
+
+2022-11-15T17:18:06+00:00 CRITICAL Uncaught Error: Call to a member function get_items() on bool in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php:107
+Stack trace:
+#0 C:\xampp\htdocs\booking\wp-content\plugins\woocommerce\includes\wc-core-functions.php(345): include()
+#1 C:\xampp\htdocs\booking\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-checkout.php(276): wc_get_template('checkout/thanky...', Array)
+#2 C:\xampp\htdocs\booking\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-checkout.php(63): WC_Shortcode_Checkout::order_received(1373)
+#3 C:\xampp\htdocs\booking\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(72): WC_Shortcode_Checkout::output('')
+#4 C:\xampp\htdocs\booking\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(95): WC_Shortcodes::shortcode_wrapper(Array, '')
+#5 C:\xampp\htdocs\booking\wp-includes\shortcodes.php(355): WC_Shortcodes::checkout('', '', 'woocommerce_che...')
+#6 [internal function]: do_shortcode_tag(Array)
+ in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php on line 107
+
+2022-11-15T17:21:10+00:00 CRITICAL Uncaught Error: Call to a member function get_items() on bool in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php:107
+Stack trace:
+#0 C:\xampp\htdocs\booking\wp-content\plugins\woocommerce\includes\wc-core-functions.php(345): include()
+#1 C:\xampp\htdocs\booking\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-checkout.php(276): wc_get_template('checkout/thanky...', Array)
+#2 C:\xampp\htdocs\booking\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-checkout.php(63): WC_Shortcode_Checkout::order_received(1373)
+#3 C:\xampp\htdocs\booking\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(72): WC_Shortcode_Checkout::output('')
+#4 C:\xampp\htdocs\booking\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(95): WC_Shortcodes::shortcode_wrapper(Array, '')
+#5 C:\xampp\htdocs\booking\wp-includes\shortcodes.php(355): WC_Shortcodes::checkout('', '', 'woocommerce_che...')
+#6 [internal function]: do_shortcode_tag(Array)
+ in C:\xampp\htdocs\booking\wp-content\themes\flatsome\woocommerce\checkout\thankyou.php on line 107
+

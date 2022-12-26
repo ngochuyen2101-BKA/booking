@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="//bamboosapahotel.com.vn/main-sitemap.xsl"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
-		<loc>https://bamboosapahotel.com.vn/blocks/blog-sidebar/</loc>
-		<lastmod>2022-12-03T15:06:41+07:00</lastmod>
+		<loc>https://bamboosapahotel.com.vn/blocks/footer/</loc>
+		<lastmod>2022-12-15T16:56:31+07:00</lastmod>
 	</url>
 	<url>
-		<loc>https://bamboosapahotel.com.vn/blocks/footer/</loc>
-		<lastmod>2022-11-29T15:58:56+07:00</lastmod>
+		<loc>https://bamboosapahotel.com.vn/blocks/blog-sidebar/</loc>
+		<lastmod>2022-12-03T15:06:41+07:00</lastmod>
 	</url>
 	<url>
 		<loc>https://bamboosapahotel.com.vn/blocks/san-pham-lien-quan/</loc>

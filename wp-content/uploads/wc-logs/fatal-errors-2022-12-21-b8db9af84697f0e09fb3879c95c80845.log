@@ -1,0 +1,10 @@
+2022-12-21T00:00:14+00:00 CRITICAL Uncaught Error: Call to a member function get_gallery_image_ids() on null in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/insert-php-code-snippet/shortcode-handler.php(99) : eval()'d code:10
+Stack trace:
+#0 /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/insert-php-code-snippet/shortcode-handler.php(99): eval()
+#1 /home/laocaist/bamboosapahotel.com.vn/wp-includes/shortcodes.php(355): xyz_ips_display_content(Array, '', 'xyz-ips')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 /home/laocaist/bamboosapahotel.com.vn/wp-includes/shortcodes.php(227): preg_replace_callback('/\\[(\\[?)(xyz\\-i...', 'do_shortcode_ta...', '[xyz-ips snippe...')
+#4 /home/laocaist/bamboosapahotel.com.vn/wp-content/themes/flatsome/inc/helpers/helpers-shortcode.php(203): do_shortcode('[xyz-ips snippe...')
+#5 /home/laocaist/bamboosapahotel.com.vn/wp-includes/class-wp-hook.php(308): flatsome_contentfix('[xyz-ips snippe...')
+#6 /home/laocaist/bamboosapahotel.com.vn/wp-includes/plugin.php(205): WP_Hook->apply_filters('[ in /home/laocaist/bamboosapahotel.com.vn/wp-content/plugins/insert-php-code-snippet/shortcode-handler.php(99) : eval()'d code on line 10
+

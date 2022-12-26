@@ -58,7 +58,7 @@ Version: 3.0
   background-color: #005F55;
   color: #fff;
 }
-.booking-page .info-booking .container .add-room .popup-add.active {
+.booking-page .info-booking .container .add-room .popup-add.active, .booking-content .col-md-8 .add-room .popup-add.active {
   display: block;
 }
 .booking-page .info-booking .container .add-room .popup-add {

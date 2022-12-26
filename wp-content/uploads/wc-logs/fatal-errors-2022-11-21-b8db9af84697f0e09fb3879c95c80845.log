@@ -1,0 +1,16 @@
+2022-11-21T02:46:26+00:00 CRITICAL Uncaught Error: Call to undefined function now() in /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/generate.php:163
+Stack trace:
+#0 {main}
+  thrown in /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/generate.php on line 163
+
+2022-11-21T02:46:41+00:00 CRITICAL Uncaught Error: Call to undefined function now() in /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/generate.php:163
+Stack trace:
+#0 {main}
+  thrown in /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/generate.php on line 163
+
+2022-11-21T07:40:12+00:00 CRITICAL syntax error, unexpected '$num' (T_VARIABLE), expecting ')' in /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/themes/flatsome-child/functions.php on line 116
+
+2022-11-21T08:27:42+00:00 CRITICAL syntax error, unexpected '$html' (T_VARIABLE) in /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/themes/flatsome-child/functions.php on line 159
+
+2022-11-21T08:27:43+00:00 CRITICAL syntax error, unexpected '$html' (T_VARIABLE) in /home/bamboosapa/domains/bamboosapa.diwe.com.vn/public_html/wp-content/themes/flatsome-child/functions.php on line 159
+

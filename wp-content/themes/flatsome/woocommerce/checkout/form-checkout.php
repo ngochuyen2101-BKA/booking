@@ -222,6 +222,11 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
     							<label for="fname">Số điện thoai<p class="icon-require">*</p></label>
     							<input type="tel" class="input-text " name="billing_phone" id="billing_phone" value="" autocomplete="tel">
     							<div class="error-phone error-notice" style="display:none;">Vui lòng điền thông tin</div>
+                                <input type="hidden" id="billing_country" name="billing_country" value="VN">
+                                <!-- <input type="hidden" id="billing_state" name="billing_state" value="704"> -->
+                                <input type="hidden" id="billing_city" name="billing_city" value="Ha Noi">
+                                <input type="hidden" id="billing_address_1" name="billing_address_1" value="Ha Noi">
+                                <input type="hidden" id="billing_address_2" name="billing_address_2" value="Ha Noi">
     						</div>
     						<div class="woocommerce-additional-fields__field-wrapper">
                                 <p class="form-row notes" id="order_comments_field" data-priority="">

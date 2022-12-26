@@ -88,6 +88,7 @@ jQuery("document").ready(function(){
 	});
 	jQuery(".popup-add .btn-huy").click(function(){
 		jQuery(".popup-add").removeClass("active");
+		jQuery(".popup-add").removeAttr("style");
 	});
 	jQuery(".check-condition #condition").click(function(){
 		jQuery(".col-bo-sung .btn-dat-phong-box").toggleClass("dissable");
@@ -227,9 +228,13 @@ jQuery("document").ready(function(){
 		});
 		console.log("nglon " + booking_total_adults);
 		console.log("treem " + booking_total_childs);
-		booking_room_adult_max = Math.max.apply(null, booking_total_adults);
+		booking_room_adult_max = Math.max.apply(null, booking_total_adults) + 2;
 		booking_room_child_max = Math.max.apply(null, booking_total_childs);
-		booking_room_total_child_adult = booking_room_adult_max + booking_room_child_max;
+		if(booking_total_adults == '' && booking_total_childs == ''){
+			booking_room_adult_max = 6;
+			booking_room_child_max = 2;
+		}
+		booking_room_total_child_adult = booking_room_adult_max + booking_room_child_max;		
 		console.log(booking_room_adult_max);
 		console.log(booking_room_child_max);
 		jQuery(".booking-page .info-booking .container .add-room #numberAdult option").remove();
