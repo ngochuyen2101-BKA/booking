@@ -1,6 +1,10 @@
 (function($) {
 	var isloading = false;    
     $(document).on('click','.select-room', function() {
+        var count_empty_room = $('.room-empty').length;
+        if(!count_empty_room) {
+            return ;
+        }
         var date_checkin = $('.date-checkin').val();
         var date_checkout = $('.date-checkout').val();
 
@@ -22,12 +26,30 @@
         var childs = parseInt($('.number-childs').text());
         childs = isNaN(childs) ? 0 : childs;
 
-        var customer_amout = $(this).closest('.product-booking').find('.room-user');
-        var adults_amount = parseInt(customer_amout.data('number-adult'));
-        var childs_amount = parseInt(customer_amout.data('number-child'));
-        childs_amount = isNaN(childs_amount) ? 0 : childs_amount;
+        var standard = $(this).closest('.product-booking').find('.room-user').data('standard');
+        var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+        var nextRoom = selectedRoom + 1;
+        var cur_filter = $('.filter-gr').eq(selectedRoom-1).find('.select-child-num');
+        var count5 = 0;
+        var count10 = 0;
+        var count11 = 0;
+        cur_filter.each(function() {
+            var child_age = parseInt($(this).val());
+            if(child_age <= 5) {
+                count5++;
+            } else if(child_age > 5 && child_age <=10) {
+                count10++;
+            } else {
+                count11++;
+            }
+        })
 
-        var diff = ( adults + childs ) - ( adults_amount + childs_amount );
+        // var customer_amout = $(this).closest('.product-booking').find('.room-user');
+        // var adults_amount = parseInt(customer_amout.data('number-adult'));
+        // var childs_amount = parseInt(customer_amout.data('number-child'));
+        // childs_amount = isNaN(childs_amount) ? 0 : childs_amount;
+
+        var diff = adults + count11 - standard;
         diff = diff > 0 ? diff : 0;
 
         var product_id = $(this).data('product_id');
@@ -45,30 +67,35 @@
             data: {
                 adult: adults,
                 child: childs,
+                count5: count5,
+                count10: count10,
+                count11: count11,
                 date_checkin:date_checkin,
                 date_checkout:date_checkout,
                 product_id: product_id,
-                diff: diff,
+                standard: standard,
                 action: 'custom_data_product'
             },
             success: function(res) {
-                if($.isNumeric( res )) {
-                    $('.detail-room').each(function() {
-                        var id = $(this).data('product_id');
-                        var current_child = $(this).find('.info-custom-child').html();
-                        var current_adult = $(this).find('.info-custom-adult').html();
+                $('.room-empty').first().remove();
+                setBBCookie('selectedRoom',nextRoom,864000);
+                var count_room_empty = $('.room-empty').length;
+                
+                // if($.isNumeric( res )) {
+                //     $('.detail-room').each(function() {
+                //         var id = $(this).data('product_id');
+                //         var current_child = $(this).find('.info-custom-child').html();
+                //         var current_adult = $(this).find('.info-custom-adult').html();
 
-                        if(id == res && current_adult == adults && current_child == childs) {
-                            var amount_new = parseInt($(this).find('.quantity').html()) + 1;
-                            $(this).find('.quantity').html(amount_new);
-                            var price_new = parseInt(price) * amount_new;
-                            $(this).find('.price').html(price_new.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
+                //         if(id == res && current_adult == adults && current_child == childs) {
+                //             var amount_new = parseInt($(this).find('.quantity').html()) + 1;
+                //             $(this).find('.quantity').html(amount_new);
+                //             var price_new = parseInt(price) * amount_new;
+                //             $(this).find('.price').html(price_new.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
                             
-                        }
-                    });
-                } else {
-                    $('.choose-room').css('display','none');
-                    $('.choose-service').css('display','block');
+                //         }
+                //     });
+                // } else {
                     var html = '';
                     var ngoac = "'";
                     html += '<div class="detail-selected detail-room" data-product_id="'+product_id+'">'
@@ -87,6 +114,10 @@
                     html +=                 '<div class="info info-date-checkout">'+moment(date_checkout).format('DD/MM/YYYY')+'</div>' 
                     html +=                 '<div class="info info-custom-adult">'+adults+'</div>' 
                     html +=                 '<div class="info info-custom-child">'+childs+'</div>'
+                    html +=                 '<div class="info info-custom-child5" style="display:none">'+count5+'</div>'
+                    html +=                 '<div class="info info-custom-child10" style="display:none">'+count10+'</div>'
+                    html +=                 '<div class="info info-custom-child11" style="display:none">'+count11+'</div>'
+                    html +=                 '<div class="info info-standard" style="display:none">'+standard+'</div>'
                     html +=                 '<div class="gr-edit">' 
                     html +=                 '<div><div class="info quantity">1</div><span> phòng / </span><span class="quatity-date">'+total_day+'</span><span> đêm</span></div>'
                     html +=                      res
@@ -99,8 +130,10 @@
 					html += 'jQuery("document").ready(function(){jQuery(".detail-room[data-product_id='+ngoac+product_id+ngoac+'] .price-gr").css("height",jQuery(".detail-room[data-product_id='+ngoac+product_id+ngoac+'] .title").height()+"px");});'
 					html += '</script>'  
                     $('.room-gr').append(html);
+                // }
+                if(count_room_empty > 0) {
+                    $('.add-btn').click();
                 }
-
                 var hasBed = false;
                 $('.service-gr .title').each(function() {
                     if($(this).text() == "Giường Phụ") {
@@ -147,18 +180,24 @@
                 }
                 
                 updateTotalPrice();
-                setBBCookie('step',2,864000);
-                $('.choose-room').css('display','none');
-                $('.choose-service').css('display','block');
-                // location.reload();
-                $('.step-1').find('.number-step').removeClass('active');
-                $('.step-1').find('.text-step').removeClass('active');
-                $('.step-2').find('.number-step').addClass('active');
-                $('.step-2').find('.text-step').addClass('active');
+                if(count_room_empty == 0) {
+                    setBBCookie('step',2,864000);
+                    $('.choose-room').css('display','none');
+                    $('.choose-service').css('display','block');
+                    $('.step-1').find('.number-step').removeClass('active');
+                    $('.step-1').find('.text-step').removeClass('active');
+                    $('.step-2').find('.number-step').addClass('active');
+                    $('.step-2').find('.text-step').addClass('active');
+                }
+                
                 $('.loading-wait').css('display','none');
                 isloading = false;
                 checkBtnRemove();
                 countRoomAndCustomer();
+                
+                var saveFilter = JSON.parse(getBBCookie('saveFilter'));
+                saveFilter[selectedRoom - 1]['room'] = title;
+                setBBCookie('saveFilter',JSON.stringify(saveFilter),864000);
             },
 
         });
@@ -268,12 +307,102 @@
     });
 
     $(document).on('click','.btn-show', function() {
-        if($('.popup-add').hasClass('active')) {
-            $('.popup-add').removeClass('active');
-        } else {
-            $('.popup-add').addClass('active');
-        }
+        generateFIlter();
     });
+
+    function generateFIlter() {
+        var saveFilter = JSON.parse(getBBCookie('saveFilter'));
+        if(saveFilter) {
+            var html = '';
+            $.each(saveFilter, function(index) {
+                
+                html += '<div class="filter-gr">'
+                html +=     '<div class="number-room" data-number-room="'+(index+1)+'">Phòng '+(index+1)+'</div>'
+                html +=     '<div class="adults">'
+                html +=         '<div class="label">Người lớn</div>'
+                html +=         '<select class="numberAdult">'
+                html +=             '<option value="1" '+ ( $(this)[0].cur_adult == 1 ? 'selected' : '' ) +'>1</option>'
+                html +=             '<option value="2" '+ ( $(this)[0].cur_adult == 2 ? 'selected' : '' ) +'>2</option>'
+                html +=             '<option value="3" '+ ( $(this)[0].cur_adult == 3 ? 'selected' : '' ) +'>3</option>'
+                html +=             '<option value="4" '+ ( $(this)[0].cur_adult == 4 ? 'selected' : '' ) +'>4</option>'
+                html +=         '</select>'
+                html +=     '</div>'
+                html +=     '<div class="childs">'
+                html +=         '<div class="label">Trẻ em</div>'
+                html +=         '<select class="numberChild">'
+                html +=             '<option value="0" '+ ( $(this)[0].cur_child == 0 ? 'selected' : '' ) +'>0</option>'
+                html +=             '<option value="1" '+ ( $(this)[0].cur_child == 1 ? 'selected' : '' ) +'>1</option>'
+                html +=             '<option value="2" '+ ( $(this)[0].cur_child == 2 ? 'selected' : '' ) +'>2</option>'
+                html +=             '<option value="3" '+ ( $(this)[0].cur_child == 3 ? 'selected' : '' ) +'>3</option>'
+                html +=         '</select>'
+                html +=     '</div>'
+                html +=     '<div class="text-filter" style="display: '+($(this)[0].cur_child != 0 ? 'block' : 'none')+';">Tuổi của trẻ</div>'
+                html +=     '<div class="filter-child">'
+                if($(this)[0].cur_child != 0) {
+                    if($(this)[0].count5.count5 != 0) {
+                        for(var i = 1; i <= $(this)[0].count5.count5; i++) {
+                            html += '<select class="select-child-num">'
+                            html +=     '<option value="0" '+ ( $(this)[0].count5['count5'+i] == 0 ? 'selected' : '' ) +'>0</option>'
+                            html +=     '<option value="1" '+ ( $(this)[0].count5['count5'+i] == 1 ? 'selected' : '' ) +'>1</option>'
+                            html +=     '<option value="2" '+ ( $(this)[0].count5['count5'+i] == 2 ? 'selected' : '' ) +'>2</option>'
+                            html +=     '<option value="3" '+ ( $(this)[0].count5['count5'+i] == 3 ? 'selected' : '' ) +'>3</option>'
+                            html +=     '<option value="4" '+ ( $(this)[0].count5['count5'+i] == 4 ? 'selected' : '' ) +'>5</option>'
+                            html +=     '<option value="5" '+ ( $(this)[0].count5['count5'+i] == 5 ? 'selected' : '' ) +'>5</option>'
+                            html +=     '<option value="6" '+ ( $(this)[0].count5['count5'+i] == 6 ? 'selected' : '' ) +'>6</option>'
+                            html +=     '<option value="7" '+ ( $(this)[0].count5['count5'+i] == 7 ? 'selected' : '' ) +'>7</option>'
+                            html +=     '<option value="8" '+ ( $(this)[0].count5['count5'+i] == 8 ? 'selected' : '' ) +'>8</option>'
+                            html +=     '<option value="9" '+ ( $(this)[0].count5['count5'+i] == 9 ? 'selected' : '' ) +'>9</option>'
+                            html +=     '<option value="10" '+ ( $(this)[0].count5['count5'+i] == 10 ? 'selected' : '' ) +'>10</option>'
+                            html +=     '<option value="11" '+ ( $(this)[0].count5['count5'+i] == 11 ? 'selected' : '' ) +'>11</option>'
+                            html += '</select>'
+                        }
+                    }
+                    if($(this)[0].count10.count10 != 0) {
+                        for(var i = 1; i <= $(this)[0].count10.count10; i++) {
+                            html += '<select class="select-child-num">'
+                            html +=     '<option value="0" '+ ( $(this)[0].count10['count10'+i] == 0 ? 'selected' : '' ) +'>0</option>'
+                            html +=     '<option value="1" '+ ( $(this)[0].count10['count10'+i] == 1 ? 'selected' : '' ) +'>1</option>'
+                            html +=     '<option value="2" '+ ( $(this)[0].count10['count10'+i] == 2 ? 'selected' : '' ) +'>2</option>'
+                            html +=     '<option value="3" '+ ( $(this)[0].count10['count10'+i] == 3 ? 'selected' : '' ) +'>3</option>'
+                            html +=     '<option value="4" '+ ( $(this)[0].count10['count10'+i] == 4 ? 'selected' : '' ) +'>5</option>'
+                            html +=     '<option value="5" '+ ( $(this)[0].count10['count10'+i] == 5 ? 'selected' : '' ) +'>5</option>'
+                            html +=     '<option value="6" '+ ( $(this)[0].count10['count10'+i] == 6 ? 'selected' : '' ) +'>6</option>'
+                            html +=     '<option value="7" '+ ( $(this)[0].count10['count10'+i] == 7 ? 'selected' : '' ) +'>7</option>'
+                            html +=     '<option value="8" '+ ( $(this)[0].count10['count10'+i] == 8 ? 'selected' : '' ) +'>8</option>'
+                            html +=     '<option value="9" '+ ( $(this)[0].count10['count10'+i] == 9 ? 'selected' : '' ) +'>9</option>'
+                            html +=     '<option value="10" '+ ( $(this)[0].count10['count10'+i] == 10 ? 'selected' : '' ) +'>10</option>'
+                            html +=     '<option value="11" '+ ( $(this)[0].count10['count10'+i] == 11 ? 'selected' : '' ) +'>11</option>'
+                            html += '</select>'
+                        }
+                    }
+                    if($(this)[0].count11.count11 != 0) {
+                        for(var i = 1; i <= $(this)[0].count11.count11; i++) {
+                            html += '<select class="select-child-num">'
+                            html +=     '<option value="0" '+ ( $(this)[0].count11['count11'+i] == 0 ? 'selected' : '' ) +'>0</option>'
+                            html +=     '<option value="1" '+ ( $(this)[0].count11['count11'+i] == 1 ? 'selected' : '' ) +'>1</option>'
+                            html +=     '<option value="2" '+ ( $(this)[0].count11['count11'+i] == 2 ? 'selected' : '' ) +'>2</option>'
+                            html +=     '<option value="3" '+ ( $(this)[0].count11['count11'+i] == 3 ? 'selected' : '' ) +'>3</option>'
+                            html +=     '<option value="4" '+ ( $(this)[0].count11['count11'+i] == 4 ? 'selected' : '' ) +'>5</option>'
+                            html +=     '<option value="5" '+ ( $(this)[0].count11['count11'+i] == 5 ? 'selected' : '' ) +'>5</option>'
+                            html +=     '<option value="6" '+ ( $(this)[0].count11['count11'+i] == 6 ? 'selected' : '' ) +'>6</option>'
+                            html +=     '<option value="7" '+ ( $(this)[0].count11['count11'+i] == 7 ? 'selected' : '' ) +'>7</option>'
+                            html +=     '<option value="8" '+ ( $(this)[0].count11['count11'+i] == 8 ? 'selected' : '' ) +'>8</option>'
+                            html +=     '<option value="9" '+ ( $(this)[0].count11['count11'+i] == 9 ? 'selected' : '' ) +'>9</option>'
+                            html +=     '<option value="10" '+ ( $(this)[0].count11['count11'+i] == 10 ? 'selected' : '' ) +'>10</option>'
+                            html +=     '<option value="11" '+ ( $(this)[0].count11['count11'+i] == 11 ? 'selected' : '' ) +'>11</option>'
+                            html += '</select>'
+                        }
+                    }
+                }
+                html +=     '</div>'
+                html += '</div>'
+            }) ;
+            $('.filters').html(html);
+            addRemoveBtn();
+        }
+        
+        $('.popup-add').toggleClass('active');
+    }
 
     $(document).on('click','.remove_from_cart_button', function(e) {
         e.preventDefault();
@@ -288,16 +417,22 @@
                 $(this).prop('checked', false);
             }
         });
-        var adult = parseInt($(this).closest('.cart-item-info').find('.info-custom-adult').html());
-        var child = parseInt($(this).closest('.cart-item-info').find('.info-custom-child').html());
-        child = isNaN(child) ? 0 : child;
+        var parent = $(this).closest('.cart-item-info');
+        var adult = parseInt(parent.find('.info-custom-adult').html());
+        var count5 = parseInt(parent.find('.info-custom-child5').html());
+        var count10 = parseInt(parent.find('.info-custom-child10').html());
+        var count11 = parseInt(parent.find('.info-custom-child11').html());
+        var standard = parseInt(parent.find('.info-custom-child').html());
+
         $.ajax({
             async: false,
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
-                adult: 0,
-                child: 0,
+                adult: adult,
+                count5: count5,
+                count10: count10,
+                count11: count11,
                 action: 'get_data_room'
             },
             success: function(res) {
@@ -308,43 +443,49 @@
             },
 
         });
-        $('.cart').each(function() {
-            var item_id = $(this).data('product_id');
-            if(item_id == product_id) {
-                var custom_amount = $(this).find('.room-user');
-                var adult_num = parseInt(custom_amount.data('number-adult'));
-                var child_num = parseInt(custom_amount.data('number-child'));
-                child_num = isNaN(child_num) ? 0 : child_num;
-                var diff = (adult + child) - (adult_num + child_num);
-                if(diff > 0) {
-                    $.ajax({
-                        url: '/wp-admin/admin-ajax.php',
-                        method: 'POST',
-                        data: {
-                            diff: diff,
-                            action: 'remove_bed'
-                        },
-                        success: function() {
-                            $('.service-gr .title').each(function() {
-                                if($(this).text() == "Giường Phụ") {
-                                    var parent = $(this).closest('.detail-selected-service')
-                                    var qty = parseInt(parent.find('.quantity').html());
-                                    if(qty == diff) {
-                                        parent.remove();
-                                    } else {
-                                        parent.find('.quantity').html(qty - diff);
-                                        var price = parseInt(parent.find('.price').text().replace(/,/g, ''));
-                                        parent.find('.price').html((price*(qty - diff)/qty).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
-                                    }
-                                }
-                            });
-                        },
-            
+        var diff = (adult + count11) - standard;
+
+        if(diff > 0) {
+            $.ajax({
+                url: '/wp-admin/admin-ajax.php',
+                method: 'POST',
+                data: {
+                    diff: diff,
+                    action: 'remove_bed'
+                },
+                success: function() {
+                    $('.service-gr .title').each(function() {
+                        if($(this).text() == "Giường Phụ") {
+                            var parent = $(this).closest('.detail-selected-service')
+                            var qty = parseInt(parent.find('.quantity').html());
+                            if(qty == diff) {
+                                parent.remove();
+                            } else {
+                                parent.find('.quantity').html(qty - diff);
+                                var price = parseInt(parent.find('.price').text().replace(/,/g, ''));
+                                parent.find('.price').html((price*(qty - diff)/qty).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+                            }
+                        }
                     });
-                }
-            }
-        });
+                },
+    
+            });
+        }
         $(this).closest('.detail-selected').remove();
+        var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+        setBBCookie('selectedRoom',selectedRoom - 1,864000);
+        select = '<div class="room-empty" data-room-number="'+(selectedRoom - 1)+'"><span class="text-select">Select accommodation </span><span>'+(selectedRoom - 1)+'</span></div>';
+        $('.selected-filters').html(select);
+
+        $('.choose-room').css('display','block');
+        $('.choose-service').css('display','none');
+        setBBCookie('step',1,864000);
+        $('.step-1').find('.number-step').addClass('active');
+        $('.step-1').find('.text-step').addClass('active');
+        $('.step-2').find('.number-step').removeClass('active');
+        $('.step-2').find('.text-step').removeClass('active');
+        showSlides(slideIndex,0);
+
         updateTotalPrice();
         checkBtnRemove();
         countRoomAndCustomer();
@@ -352,20 +493,204 @@
     });
 
     $(document).on('click','.add-btn', function() {
-        var number_adult = $('#numberAdult').val();
-        var number_child = $('#numberChild').val();
-        var total_customer = parseInt(number_adult) + parseInt(number_child);
-        if(total_customer > 6) {
-            $('.validate-customer').css('display','block');
+        var number_adult = '';
+        var count5 = 0;
+        var count10 = 0;
+        var count11 = 0;
+
+        var has_filter = false;
+        var count_room_empty = $('.room-empty').length;
+        var count_cur_filter = $('.filter-gr').length;
+        var count_cur_room = $('.detail-room').length;
+        if((count_cur_room + count_room_empty ) > count_cur_filter) {
+            if((count_cur_room + count_room_empty - count_cur_filter) <= count_room_empty ) {
+                var count_remove = count_cur_room + count_room_empty - count_cur_filter;
+                for( var i = 1; i <= count_remove; i++) {
+                    $('.room-empty').last().remove();
+                }
+            } else {
+                $('.room-empty').remove();
+                var count_remove_room = count_cur_room - count_cur_filter;
+                for( var i = 1; i <= count_remove_room; i++) {
+                    $('.detail-room').last().find('.remove_from_cart_button').click();
+                    $('.detail-room').last().remove();
+                }
+            }
             return ;
+        } else if(count_room_empty > 0) {
+            has_filter = true;
+
+            var has_change = false;
+            $('.detail-room').each(function(index) {
+                var item_adult = $(this).find('.info-custom-adult').text();
+                var item_child = $(this).find('.info-custom-child').text();
+                var item_child5 = $(this).find('.info-custom-child5').text();
+                var item_child10 = $(this).find('.info-custom-child10').text();
+                var item_child11 = $(this).find('.info-custom-child11').text();
+
+                var filter_child5 = 0;
+                var filter_child10 = 0;
+                var filter_child11 = 0;
+
+                var filter = $('.filter-gr').eq(index);
+                var filter_adult = filter.find('.numberAdult').val();
+                var filter_child = filter.find('.numberChild').val();
+                
+                filter.find('.select-child-num').each(function() {
+                    var child_age = parseInt($(this).val());
+                    if(child_age <= 5) {
+                        filter_child5++;
+                    } else if(child_age > 5 && child_age <=10) {
+                        filter_child10++;
+                    } else {
+                        filter_child11++;
+                    }
+                });
+
+                if(item_adult != filter_adult || item_child != filter_child || item_child5 != filter_child5 || item_child10 != filter_child10 || item_child11 != filter_child11) {
+                    has_change = true;
+                }
+            })
+
+            if(has_change) {
+                $.ajax({
+                    url: '/wp-admin/admin-ajax.php',
+                    method: 'POST',
+                    data: {
+                        action: 'remove_cart'
+                    }
+                });
+                $('.room-gr').empty();
+                $('.selected-filters').empty();
+                $('.service-gr').empty();
+                has_filter = false;
+                setBBCookie('selectedRoom',1,864000);
+            }
+
+            var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+
+            number_adult = $('.numberAdult').eq(selectedRoom - 1).val();
+            number_child = $('.numberChild').eq(selectedRoom - 1).val();
+
+            $('.filter-gr').eq(selectedRoom - 1).find('.select-child-num').each(function() {
+                var child_age = parseInt($(this).val());
+                if(child_age <= 5) {
+                    count5++;
+                } else if(child_age > 5 && child_age <=10) {
+                    count10++;
+                } else {
+                    count11++;
+                }
+            });
+
+        } else {
+            number_adult = $('.numberAdult').first().val();
+            number_child = $('.numberChild').first().val();
+            
+            var stop = false;
+            
+            if(count_cur_room == count_cur_filter) {
+                stop = true;
+            }
+            $('.filter-gr').each(function() {
+                count5 = 0;
+                count10 = 0;
+                count11 = 0;
+                var cur_adult = $(this).find('.numberAdult').val();
+                $(this).find('.select-child-num').each(function() {
+                    var child_age = parseInt($(this).val());
+                    if(child_age <= 5) {
+                        count5++;
+                    } else if(child_age > 5 && child_age <=10) {
+                        count10++;
+                    } else {
+                        count11++;
+                    }
+                });
+                var total_customer = parseInt(cur_adult) + parseInt(count5) + parseInt(count10) + parseInt(count11);
+                if(total_customer > 4 || (cur_adult == 2 && count11 == 2)) {
+                    $(this).find('.numberAdult').css('border','1px solid red');
+                    $(this).find('.numberChild').css('border','1px solid red');
+                    stop = true;
+                }
+            });
+            if(stop) {
+                return ;
+            }
+            
+            count5 = 0;
+            count10 = 0;
+            count11 = 0;
+            
+            var show_room = false;
+            if(count_cur_room > 0) {
+                var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+                
+                number_adult = $('.numberAdult').eq(selectedRoom - 1).val();
+                number_child = $('.numberChild').eq(selectedRoom - 1).val();
+
+                $('.filter-gr').eq(selectedRoom - 1).find('.select-child-num').each(function() {
+                    var child_age = parseInt($(this).val());
+                    if(child_age <= 5) {
+                        count5++;
+                    } else if(child_age > 5 && child_age <=10) {
+                        count10++;
+                    } else {
+                        count11++;
+                    }
+                });
+                show_room = true;
+            } else {
+                var first_filter = $('.filter-gr').first();
+                first_filter.find('.select-child-num').each(function() {
+                    var child_age = parseInt($(this).val());
+                    if(child_age <= 5) {
+                        count5++;
+                    } else if(child_age > 5 && child_age <=10) {
+                        count10++;
+                    } else {
+                        count11++;
+                    }
+                });
+                setBBCookie('selectedRoom',1,864000);
+                
+            }
         }
-        
-        if(number_adult == "") {
-            number_adult = 1;
-        }
-        if(number_child == "") {
-            number_child = 0;
-        }
+
+        var save_filter = [];
+        $('.filter-gr').each(function() {
+            var data = {};
+            count5 = 0;
+            count10 = 0;
+            count11 = 0;
+            data['count5'] = {};
+            data['count10'] = {};
+            data['count11'] = {};
+            var cur_adult = $(this).find('.numberAdult').val();
+            var cur_child = $(this).find('.numberChild').val();
+            $(this).find('.select-child-num').each(function() {
+                var child_age = parseInt($(this).val());
+                if(child_age <= 5) {
+                    count5++;
+                    data['count5']['count5'+count5] = child_age;
+                } else if(child_age > 5 && child_age <=10) {
+                    count10++;
+                    data['count10']['count10'+count10] = child_age;
+                } else {
+                    count11++;
+                    data['count11']['count11'+count11] = child_age;
+                }
+            });
+            data['cur_adult'] = cur_adult;
+            data['cur_child'] = cur_child;
+            data['count5']['count5'] = count5;
+            data['count10']['count10'] = count10;
+            data['count11']['count11'] = count11;
+            
+            save_filter.push(data)
+        });
+        setBBCookie('saveFilter',JSON.stringify(save_filter),864000);
+
         if(!isloading) {
             isloading = true;
             $('.loading-wait').css('display','block');
@@ -375,7 +700,9 @@
             method: 'POST',
             data: {
                 adult: number_adult,
-                child: number_child,
+                count5: count5,
+                count10: count10,
+                count11: count11,
                 action: 'get_data_room'
             },
             success: function(res) {
@@ -385,20 +712,39 @@
                 $('.number-adults').html(number_adult);
                 $('.number-childs').html(number_child);
                 $('.popup-add').removeClass('active');
-                $('.choose-room').css('display','block');
-                $('.choose-service').css('display','none');
+                if(show_room) {
+                    $('.choose-room').css('display','block');
+                    $('.choose-service').css('display','none');
+                    setBBCookie('step',1,864000);
+                    $('.step-1').find('.number-step').addClass('active');
+                    $('.step-1').find('.text-step').addClass('active');
+                    $('.step-2').find('.number-step').removeClass('active');
+                    $('.step-2').find('.text-step').removeClass('active');
+                }
+                
                 $('.choose-room').html(res);
-                setBBCookie('step',1,864000);
-                $('.step-1').find('.number-step').addClass('active');
-                $('.step-1').find('.text-step').addClass('active');
-                $('.step-2').find('.number-step').removeClass('active');
-                $('.step-2').find('.text-step').removeClass('active');
+                
                 $('.loading-wait').css('display','none');
                 isloading = false;
                 showSlides(slideIndex,0);
-                changePriceRoom();
-                $('#numberAdult').val(1);
-                $('#numberChild').val(0);
+                // changePriceRoom();
+                // $('.numberAdult').val(1);
+                // $('.numberChild').val(0);
+
+                if(!has_filter) {
+                    var select = '';
+                    var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+                    $('.filter-gr').each(function(index) {
+                        if(selectedRoom - 1 > index) {
+                            return true;
+                        } else {
+                            var number = index + 1;
+                            select += '<div class="room-empty" data-room-number="'+number+'"><span class="text-select">Select accommodation </span><span>'+number+'</span></div>';
+                        }
+                    })
+                    $('.selected-filters').html(select);
+                }
+                changePriceRoom(number_adult, count5, count10, count11);
             },
 
         });
@@ -469,23 +815,280 @@
         updateTotalPrice();
     });
     
-    $(document).on('click','.remove_from_cart_button', function() {
-        var qty_room = $('.detail-room').length;
-        if(qty_room < 2) {
-            setBBCookie('step',1,864000);
-        }
-    });
+    // $(document).on('click','.remove_from_cart_button', function() {
+    //     var qty_room = $('.detail-room').length;
+    //     if(qty_room < 2) {
+    //         setBBCookie('step',1,864000);
+    //     }
+    // });
 
-    $(document).on('change','#numberAdult', function() {
-        $('.validate-customer').css('display','none');
+    $(document).on('change','.numberAdult', function() {
+        $('.numberAdult').css('border','1px solid #ddd');
+        $('.numberChild').css('border','1px solid #ddd');
+        // $('.validate-customer').css('display','none');
 //         var number_adult = $(this).val();
-//         $('#numberChild option').css('display','none');
+//         $('.numberChild option').css('display','none');
 //         for(var i = 1; i <= 6 - parseInt(number_adult); i++) {
-//             $('#numberChild option:nth-of-type('+i+')').css('display','block');
+//             $('.numberChild option:nth-of-type('+i+')').css('display','block');
 //         }
     });
-    $(document).on('change','#numberChild', function() {
-        $('.validate-customer').css('display','none');
+
+    $(document).on('click','.btn-add-more', function() {
+        var count_room = $('.filter-gr').length;
+        if(count_room == 4 ) {
+            $('.btn-add-more').remove();
+        }
+        var new_room = parseInt(count_room) + 1;
+        var html = '';
+        html += '<div class="filter-gr">'
+        html +=     '<div class="number-room" data-number-room="'+new_room+'">Phòng '+new_room+'</div>'
+        html +=     '<div class="adults">'
+        html +=         '<div class="label">Người lớn</div>'
+        html +=         '<select class="numberAdult">'
+        html +=             '<option value="1" selected="">1</option>'
+        html +=             '<option value="2">2</option>'
+        html +=             '<option value="3">3</option>'
+        html +=             '<option value="4">4</option>'
+        html +=         '</select>'
+        html +=     '</div>'
+        html +=     '<div class="childs">'
+        html +=         '<div class="label">Trẻ em</div>'
+        html +=         '<select class="numberChild">'
+        html +=             '<option value="0" selected="">0</option>'
+        html +=             '<option value="1">1</option>'
+        html +=             '<option value="2">2</option>'
+        html +=             '<option value="3">3</option>'
+        html +=         '</select>'
+        html +=     '</div>'
+        html +=     '<div class="text-filter" style="display: none;">Tuổi của trẻ</div>'
+        html +=     '<div class="filter-child"></div>'
+        html += '</div>'
+
+        $('.filters').append(html);
+        addRemoveBtn();
+    });
+
+    function addRemoveBtn() {
+        $('.remove-filter').remove();
+        var count_room = $('.filter-gr').length;
+        if(count_room == 1 ) {
+            return ;
+        }
+        $('.filter-gr').last().prepend('<i class="fas fa-trash remove-filter"></i>');
+    }
+
+    $(document).on('click','.remove-filter', function() {
+        $('.filter-gr').last().remove();
+        addRemoveBtn()
+    });
+
+    $(document).on('change','.numberChild', function() {
+        $('.numberAdult').css('border','1px solid #ddd');
+        $('.numberChild').css('border','1px solid #ddd');
+        // $('.validate-customer').css('display','none');
+        var html = '';
+        var child_number = $(this).val();
+        var has_child = true;
+        if(child_number == 0) {
+            has_child = false;
+        } else if(child_number == 1) {
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+        }
+        else if(child_number == 2) {
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+        }
+        else if(child_number == 3) {
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+        }
+        if(has_child) {
+            $(this).closest('.filter-gr').find('.text-filter').css('display','block');
+        } else {
+            $(this).closest('.filter-gr').find('.text-filter').css('display','none');
+        }
+        $(this).closest('.filter-gr').find('.filter-child').html(html);
+    });
+    $(document).on('change','.select-child', function() {
+        var html = '';
+        var child_number = $(this).val();
+        if(child_number == 0) {
+        } else if(child_number == 1) {
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+        }
+        else if(child_number == 2) {
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+        }
+        else if(child_number == 3) {
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+
+            html += '<select class="select-child-num">';
+            html +=     '<option value="0">0</option>';
+            html +=     '<option value="1">1</option>';
+            html +=     '<option value="2">2</option>';
+            html +=     '<option value="3">3</option>';
+            html +=     '<option value="4">4</option>';
+            html +=     '<option value="5">5</option>';
+            html +=     '<option value="6">6</option>';
+            html +=     '<option value="7">7</option>';
+            html +=     '<option value="8">8</option>';
+            html +=     '<option value="9">9</option>';
+            html +=     '<option value="10">10</option>';
+            html +=     '<option value="11">11</option>';
+            html += '</select>';
+        }
+        $('.tuoi-tre-em').html(html);
     });
     $(document).on('click','.btn-booking-detail', function(e) {
         e.preventDefault();
@@ -499,11 +1102,22 @@
             childs = isNaN(childs) ? 0 : childs;
             var product_id = $(this).data('product_id');
 
-            var customer_amout = $('.thong-tin').find('.so-nguoi-cal');
-            var adults_amount = parseInt(customer_amout.data('nguoi-lon'));
-            var childs_amount = parseInt(customer_amout.data('tre-em'));
-            childs_amount = isNaN(childs_amount) ? 0 : childs_amount;
-            var diff = ( adults + childs ) - ( adults_amount + childs_amount );
+            var standard = parseInt($('.tieu-chuan').data('nguoi-lon'));
+            var count5 = 0;
+            var count10 = 0;
+            var count11 = 0;
+            $('.select-child-num').each(function() {
+                var child_age = parseInt($(this).val());
+                if(child_age <= 5) {
+                    count5++;
+                } else if(child_age > 5 && child_age <=10) {
+                    count10++;
+                } else {
+                    count11++;
+                }
+            })
+
+            var diff = adults + count11 - standard ;
             diff = diff > 0 ? diff : 0;
         }
         $.ajax({
@@ -512,16 +1126,51 @@
             data: {
                 adult: adults,
                 child: childs,
+                count5: count5,
+                count10: count10,
+                count11: count11,
                 date_checkin:checkin,
                 date_checkout:checkout,
                 product_id: product_id,
-                diff: diff,
+                standard: standard,
                 action: 'custom_data_product'
             },
             success: function(res) { 
                 setBBCookie('step',2,864000);
                 $('.loading-wait').css('display', 'none');
                 var hasextrabed = diff > 0 ? true : false;
+                
+                var save_filter = [];
+                var data = {};
+                count5 = 0;
+                count10 = 0;
+                count11 = 0;
+                data['count5'] = {};
+                data['count10'] = {};
+                data['count11'] = {};
+                $('.select-child-num').each(function() {
+                    var child_age = parseInt($(this).val());
+                    if(child_age <= 5) {
+                        count5++;
+                        data['count5']['count5'+count5] = child_age;
+                    } else if(child_age > 5 && child_age <=10) {
+                        count10++;
+                        data['count10']['count10'+count10] = child_age;
+                    } else {
+                        count11++;
+                        data['count11']['count11'+count11] = child_age;
+                    }
+                });
+                data['cur_adult'] = adults;
+                data['cur_child'] = childs;
+                data['count5']['count5'] = count5;
+                data['count10']['count10'] = count10;
+                data['count11']['count11'] = count11;
+                
+                save_filter.push(data)
+            
+                setBBCookie('saveFilter',JSON.stringify(save_filter),864000);
+
                 window.location.href = 'https://'+window.location.host+'/booking-page/?arrival='+checkin+'&departure='+checkout+'&adults1='+adults+'&children1='+childs+'&fromdetail=true&hasextrabed='+hasextrabed;
             }
         }); 
@@ -568,7 +1217,8 @@
         if(count_room == 1) {
             $('.room-gr').find('.remove_from_cart_button').first().css('display','none');
         } else {
-            $('.room-gr').find('.remove_from_cart_button').css('display','block');
+            $('.room-gr').find('.remove_from_cart_button').css('display','none');
+            $('.room-gr').find('.remove_from_cart_button').last().css('display','block');
         }
      }
 
@@ -607,20 +1257,37 @@
             $(this).val(1);
         })
         setBBCookie('step',1,864000);
+        setBBCookie('selectedRoom',1,864000);
         $('.choose-room').css('display','block');
         $('.choose-service').css('display','none');
         $('.room-gr').empty();
         $('.service-gr').empty();
+        $('.room-empty').remove();
         $('.total-price').html('0 VNĐ')
         var date_checkin = $('.date-checkin').val();
         var date_checkout = $('.date-checkout').val();
 
         if(date_checkin && date_checkout) {
-            changePriceRoom();
+            var cur_filter = $('filter-gr').eq(0);
+            var adult = cur_filter.find('.numberAdult').val();
+            var count5 = 0;
+            var count10 = 0;
+            var count11 = 0;
+            cur_filter.find('.select-child-num').each(function() {
+                var child_age = parseInt($(this).val());
+                if(child_age <= 5) {
+                    count5++;
+                } else if(child_age > 5 && child_age <=10) {
+                    count10++;
+                } else {
+                    count11++;
+                }
+            })
+            changePriceRoom(adult, count5, count10, count11);
         }
      });
 
-    function changePriceRoom() {
+    function changePriceRoom(adult, count5, count10, count11) {
         var date_checkin = $('.date-checkin').val();
         var date_checkout = $('.date-checkout').val();
         if(!date_checkin || !date_checkout || date_checkout <= date_checkin) {
@@ -640,7 +1307,17 @@
         
         $('.sale-price').each(function() {
             var sale_price = parseInt($(this).closest('.sale-price-gr').find('.sale-price-cal').text().replace(/,/g, ''));
-            $(this).html((sale_price*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+            var standard = parseInt($(this).closest('.row').find('.room-user').data('standard'));
+            var additional_price = 0;
+            if(standard >= (adult + count10 + count11)) {
+                additional_price = 0;
+            } else if(standard >= (adult + count11) && standard < (adult + count10 + count11)) {
+                additional_price = 300000 * (adult + count10 + count11 - standard);
+            } else if(standard < (adult + count11)) {
+                additional_price = 300000 * count10;
+            }
+
+            $(this).html((( sale_price + additional_price ) * total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
         });
         $('.date-gr span').each(function() {
             $(this).html(total_day);
@@ -696,8 +1373,23 @@
             var regular_price = parseInt($(this).text().replace(/,/g, ''));
             var qty = parseInt($(this).closest('.cart-item-info').find('.quantity').text());
 
+            var standard = parseInt($(this).closest('.cart-item-info').find('.info-standard').text());
+            var adult = parseInt($(this).closest('.cart-item-info').find('.info-standard').text());
+            var count5 = parseInt($(this).closest('.cart-item-info').find('.info-child5').text());
+            var count10 = parseInt($(this).closest('.cart-item-info').find('.info-child10').text());
+            var count11 = parseInt($(this).closest('.cart-item-info').find('.info-child11').text());
+
+            var additional_price = 0;
+            if(standard >= (adult + count10 + count11)) {
+                additional_price = 0;
+            } else if(standard >= (adult + count11) && standard < (adult + count10 + count11)) {
+                additional_price = 300000 * (adult + count10 + count11 - standard);
+            } else if(standard < (adult + count11)) {
+                additional_price = 300000 * count10;
+            }
+
             if(regular_price) {
-                $(this).html((regular_price*total_day*qty).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+                $(this).html(((regular_price+additional_price)*total_day*qty).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
             }
         });
         $('.service-selected .price').each(function() {
@@ -833,15 +1525,8 @@
             changePriceCartCheckout();
         }
         if(current_url.indexOf("booking-page") > -1) {
-            var number_adult = $('.number-adults').text();
-            var number_child = $('.number-childs').text();
-            if(number_adult == "") {
-                number_adult = 1;
-            }
-            if(number_child == "") {
-                number_child = 0;
-            }
-
+            generateFIlter();
+            $('.popup-add').removeClass('active');
             var vars = [], hash;
             var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
             for(var i = 0; i < hashes.length; i++)
@@ -882,41 +1567,101 @@
                     $('.step-2').find('.text-step').removeClass('active');
                 }
             }
-
-            $.ajax({
-                url: '/wp-admin/admin-ajax.php',
-                method: 'POST',
-                data: {
-                    adult: number_adult,
-                    child: number_child,
-                    action: 'get_data_room'
-                },
-                success: function(res) {
-                    if(res.substr(res.length-1, 1) == '0') {
-                        res = res.substr(0, res.length-1);
-                    }
-                    $('.number-adults').html(number_adult);
-                    $('.number-childs').html(number_child);
-                    $('.popup-add').removeClass('active');
-                    $('.choose-room').html(res);
-                    
-                    if(!vars['fromdetail']) {
-                        $('.choose-room').css('display','block');
-                        $('.choose-service').css('display','none');
-                        setBBCookie('step',1,864000);
-                        $('.step-1').find('.number-step').addClass('active');
-                        $('.step-1').find('.text-step').addClass('active');
-                        $('.step-2').find('.number-step').removeClass('active');
-                        $('.step-2').find('.text-step').removeClass('active');
-                    }
-                    
-                    $('.loading-wait').css('display','none');
-                    isloading = false;
-                    showSlides(slideIndex,0);
-                    changePriceRoom();
-                },
-
+            var saveFilter = JSON.parse(getBBCookie('saveFilter'));
+            $('.detail-room .quantity').each(function() {
+                var quantity = parseInt($(this).text());
+                if(quantity > 1) {
+                    $(this).html(1);
+                    var title = $(this).closest('.detail-room').find('.title').text();
+                    var html = '';
+                    $.each(saveFilter, function(index) {
+                        var filter_title = $(this)[0].room;
+                        if(title == filter_title) {
+                            console.log(title)
+                            if(index == 0) {
+                                html = $('.detail-room').eq(index).clone();
+                                console.log(html)
+                            } else {
+                                $('.detail-room').eq(index - 1).after(html);
+                                console.log(html)
+                                console.log($('.detail-room').eq(index))
+                            }
+                        }
+                    });
+                }
             });
+
+            var count_room = $('.detail-room').length;
+            var count_cur_filter = $('.filter-gr').length;
+            var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+
+            if(count_room != count_cur_filter) {
+                var filter = $('.filter-gr').eq(selectedRoom - 1);
+                var adult = filter.filter('.numberAdult').val();
+                var child = filter.filter('.numberChild').val();
+                var count5 = 0;
+                var count10 = 0;
+                var count11 = 0;
+                filter.find('.select-child-num').each(function() {
+                    var child_age = parseInt($(this).val());
+                    if(child_age <= 5) {
+                        count5++;
+                    } else if(child_age > 5 && child_age <=10) {
+                        count10++;
+                    } else {
+                        count11++;
+                    }
+                });
+                var select = '';
+                $('.filter-gr').each(function(index) {
+                    if(selectedRoom - 1 > index) {
+                        return true;
+                    } else {
+                        var number = index + 1;
+                        select += '<div class="room-empty" data-room-number="'+number+'"><span class="text-select">Select accommodation </span><span>'+number+'</span></div>';
+                    }
+                })
+                $('.selected-filters').html(select);
+                $.ajax({
+                    url: '/wp-admin/admin-ajax.php',
+                    method: 'POST',
+                    data: {
+                        adult: adult,
+                        count5: count5,
+                        count10: count10,
+                        count11: count11,
+                        action: 'get_data_room'
+                    },
+                    success: function(res) {
+                        if(res.substr(res.length-1, 1) == '0') {
+                            res = res.substr(0, res.length-1);
+                        }
+                        $('.number-adults').html(adult);
+                        $('.number-childs').html(child);
+                        $('.popup-add').removeClass('active');
+                        $('.choose-room').html(res);
+                        
+                        if(!vars['fromdetail']) {
+                            $('.choose-room').css('display','block');
+                            $('.choose-service').css('display','none');
+                            setBBCookie('step',1,864000);
+                            $('.step-1').find('.number-step').addClass('active');
+                            $('.step-1').find('.text-step').addClass('active');
+                            $('.step-2').find('.number-step').removeClass('active');
+                            $('.step-2').find('.text-step').removeClass('active');
+                        }
+                        
+                        $('.loading-wait').css('display','none');
+                        isloading = false;
+                        showSlides(slideIndex,0);
+                        changePriceRoom(adult,0,0,0);
+                    },
+
+                });
+
+                var next_room = count_room + 1;
+                setBBCookie('selectedRoom',next_room,864000);
+            }
         }
         if( !( (current_url.indexOf("thanh-toan") > -1) || (current_url.indexOf("booking-page") > -1) ) ) {
             $.ajax({
@@ -962,6 +1707,7 @@
                 $(this).find('.remove_from_cart_button').css('display','none');
             }
         })
+
     });
 })(jQuery);
 jQuery(document).ready(function(){

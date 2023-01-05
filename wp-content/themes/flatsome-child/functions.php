@@ -48,21 +48,32 @@ function saveCustomData() {
 	$date_checkin = $_POST['date_checkin'];
 	$date_checkout = $_POST['date_checkout'];
 	$product_id = $_POST['product_id'];
-	$diff = (int)$_POST['diff'];
+	$standard = (int)$_POST['standard'];
+	$count5 = (int)$_POST['count5'];
+	$count10 = (int)$_POST['count10'];
+	$count11 = (int)$_POST['count11'];
+
+	$diff = 0;
+	if($standard <  ($adult + $count11)) {
+		$diff = $adult + $count11 - $standard;
+	}
 
 	$custom_data = array( 'customData'=> array( 
 		'custom_adult' => $adult,
 		'custom_child' => $child,
 		'custom_date_checkin' => $date_checkin,
 		'custom_date_checkout' => $date_checkout,
+		'child_under5' => $count5,
+		'child_under10' => $count10,
+		'child_over10' => $count11,
 	) );
 	
 	$list_key = array_keys(WC()->cart->get_cart());
 	$product_item_key = WC()->cart->add_to_cart( (int)$product_id , 1, 0, array(), $custom_data );
-	if (in_array($product_item_key, $list_key)) {
-		echo $product_id;
-		die();
-	}
+	// if (in_array($product_item_key, $list_key)) {
+	// 	echo $product_id;
+	// 	die();
+	// }
 	$item_bed_key = false;
 	foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
 		$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
@@ -83,7 +94,7 @@ function saveCustomData() {
 			break;
 		}
 	}
-	if(!$item_bed_key) {
+	if(!$item_bed_key && $diff > 0) {
 		WC()->cart->add_to_cart( 1738 , $diff );
 	}
 	die();
@@ -112,7 +123,9 @@ add_action('wp_ajax_nopriv_get_data_room', 'getDataRoom');
 
 function getDataRoom() {
 	$adult = $_POST['adult'];
-    $child = $_POST['child'];
+	$count5 = $_POST['count5'];
+	$count10 = $_POST['count10'];
+    $count11 = $_POST['count11'];
 	
 	$args = array(
 		'post_type'      => 'product',
@@ -132,8 +145,9 @@ function getDataRoom() {
 
 		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
 		$area = get_field('dien_tich', $product->id);
-		$number_adult = get_field('so_nguoi_lon', $product->id);
-		$number_child = get_field('so_tre_em', $product->id);
+		// $number_adult = get_field('so_nguoi_lon', $product->id);
+		// $number_child = get_field('so_tre_em', $product->id);
+		$standard = get_field('tieu_chuan_phong',$product->id);
 		$date = $product->get_attribute( 'number-of-date' );
 		$regular_price = $product->get_regular_price();
 		$sale_price = $product->get_sale_price();
@@ -142,7 +156,7 @@ function getDataRoom() {
 			$has_sale_price = "has-sale-price";
 		}
 
-		if( ( (int)$number_adult + (int)$number_child ) >= ( (int)$adult + (int)$child - 2 )  ) {
+		if( ( (int)$standard ) >= ( (int)$adult + (int)$count11 - 1 )  ) {
 			$has_product = true;
 			$html .= '<div class="cart" data-product_id="'.$product->id.'">';
 			$html .= 	'<div class="product-booking">';
@@ -169,7 +183,7 @@ function getDataRoom() {
 			$html .= 				'<div class="room-change"><img src="/wp-content/uploads/2022/11/huy.svg" width="20px" height="20px">Không hủy và thay đổi</div>';
             $html .= 			'</div>';                            
             $html .= 			'<div class="col-md-4">';                        
-            $html .= 				'<div class="room-user" data-number-adult="'.$number_adult.'" data-number-child="'.$number_child.'"><img src="/wp-content/uploads/2022/11/nguoi.svg" width="20px" height="20px">'.$number_adult.' người lớn - '.$number_child.' trẻ em</div>';                        
+            $html .= 				'<div class="room-user" data-standard="'.$standard.'"><img src="/wp-content/uploads/2022/11/nguoi.svg" width="20px" height="20px">Tiêu chuẩn: '.$standard.'</div>';                        
             $html .= 				'<div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>';
 			$html .= 			'</div>';                            
             $html .= 			'<div class="col-md-4 price-col '.$has_sale_price.'">';
@@ -262,6 +276,15 @@ function save_cart_item_custom_meta_as_order_item_meta( $item, $cart_item_key, $
 	if ( isset($values['customData']) && isset($values['customData']['custom_date_checkout']) ) {
         $item->update_meta_data( 'Date check out', $values['customData']['custom_date_checkout'] );
     }
+	if ( isset($values['customData']) && isset($values['customData']['child_under5']) ) {
+        $item->update_meta_data( 'Child under 5', $values['customData']['child_under5'] );
+    }
+	if ( isset($values['customData']) && isset($values['customData']['child_under10']) ) {
+        $item->update_meta_data( 'Child under 10', $values['customData']['child_under10'] );
+    }
+	if ( isset($values['customData']) && isset($values['customData']['child_over10']) ) {
+        $item->update_meta_data( 'Child over 10', $values['customData']['child_over10'] );
+    }
 }
 
 add_filter( 'woocommerce_checkout_fields', 'ybc_remove_default_validation' );
@@ -291,9 +314,10 @@ add_action( 'woocommerce_after_shop_loop_item_title', 'woo_show_detail_shop_page
 function woo_show_detail_shop_page() {
 	global $product;
 	$dien_tich = get_field("dien_tich");
-	$so_nguoi_lon = get_field("so_nguoi_lon");
-	$so_tre_em = get_field("so_tre_em");
-	echo "<div class='number-detail'><div class='number-dientich'>Diện tích: ".$dien_tich."</div><div class='so-nguoi'>Tối đa: ".$so_nguoi_lon." Người lớn - ".$so_tre_em." Trẻ em</div></div>";
+	// $so_nguoi_lon = get_field("so_nguoi_lon");
+	// $so_tre_em = get_field("so_tre_em");
+	$standard = get_field("tieu_chuan_phong");
+	echo "<div class='number-detail'><div class='number-dientich'>Diện tích: ".$dien_tich."</div><div class='so-nguoi'>Tiêu chuẩn: ".$standard."</div></div>";
 }
 add_action( 'woocommerce_after_shop_loop_item_title', 'woo_show_excerpt_shop_page', 5 );
 function woo_show_excerpt_shop_page() {
@@ -316,10 +340,22 @@ function check_product_before_order () {
 		$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
 		$_product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
 		
+		$additional_price = 0;
 		if(isset($cart_item['customData'])) {
 			$checkin = $cart_item['customData']['custom_date_checkin'];
 			$checkout = $cart_item['customData']['custom_date_checkout'];
+			$adult = $cart_item['customData']['custom_adult'];
+			$count5 = $cart_item['customData']['child_under5'];
+			$count10 = $cart_item['customData']['child_under10'];
+			$count11 = $cart_item['customData']['child_over10'];
 			$count_day = abs(strtotime($checkin)-strtotime($checkout))/86400;
+
+			$standard = get_field('tieu_chuan_phong',$_product_id);
+			if($standard >= ($adult + $count11) && $standard < ($adult + $count10 + $count11)) {
+				$additional_price = 300000 * ($adult + $count10 + $count11 - $standard);
+			} else if($standard < ($adult + $count11)) {
+				$additional_price = 300000 * $count10;
+			}
 		}
 		
 		$price_sale = $_product->get_sale_price();
@@ -332,9 +368,9 @@ function check_product_before_order () {
 		}
 		if(isset($cart_item['customData'])) {
 			if($price_sale) {
-				$price += $price_sale * $qty * $count_day;
+				$price += ($price_sale + $additional_price) * $qty * $count_day;
 			} else {
-				$price += $price_real * $qty * $count_day;
+				$price += ($price_real + $additional_price) * $qty * $count_day;
 			}
 		} else {
 			$price += $price_real * $qty;
@@ -357,6 +393,9 @@ function on_checkout_create_order( $order, $data ) {
 		$checkin = 0;
 		$checkout = 0;
 		$total_cart = 0;
+		$count5 = 0;
+		$count10 = 0;
+		$count11 = 0;
 		$total = $line_item->get_total();
 		$qty = $line_item->get_quantity();
 		$items_meta_data = $line_item->get_meta_data();
@@ -368,12 +407,32 @@ function on_checkout_create_order( $order, $data ) {
 			if($data['key'] == 'Date check out') {
 				$checkout = $data['value'];
 			}
+			if($data['key'] == 'Child under 5') {
+				$count5 = $data['value'];
+			}
+			if($data['key'] == 'Child under 10') {
+				$count10 = $data['value'];
+			}
+			if($data['key'] == 'Child over 10') {
+				$count11 = $data['value'];
+			}
+			if($data['key'] == 'Adults') {
+				$adult = $data['value'];
+			}
 		}
 		if($checkin && $checkout) {
 			$count_day = abs(strtotime($checkin) - strtotime($checkout)) / 86400;
-			$subtotal = $total * $qty * $count_day;
-			$total_cart = $total * $qty * $count_day;
-			$sumTotal += $total * $qty * $count_day;
+
+			$standard = get_field('tieu_chuan_phong',$product_id);
+			if($standard >= ($adult + $count11) && $standard < ($adult + $count10 + $count11)) {
+				$additional_price = 300000 * ($adult + $count10 + $count11 - $standard);
+			} else if($standard < ($adult + $count11)) {
+				$additional_price = 300000 * $count10;
+			}
+
+			$subtotal = ( $total + $additional_price ) * $qty * $count_day;
+			$total_cart = ( $total + $additional_price ) * $qty * $count_day;
+			$sumTotal += ( $total + $additional_price ) * $qty * $count_day;
 		} else {
 			$subtotal = $total;
 			$total_cart = $total;

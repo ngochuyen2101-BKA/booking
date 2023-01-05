@@ -19,7 +19,7 @@ jQuery("document").ready(function(){
 	if(jQuery(window).width() < 480){
 		jQuery(".post-item").each(function(){
 			if(jQuery(this).find(".box-image").hasClass("uu-dai-img-box") == true){
-				console.log(jQuery(this).find(".uu-dai-img-box").attr("data-ava-img"));
+				// console.log(jQuery(this).find(".uu-dai-img-box").attr("data-ava-img"));
 				var img_url = jQuery(this).find(".uu-dai-img-box").attr("data-ava-img");
 				var img_alt = jQuery(this).find(".uu-dai-img-box").attr("data-ava-alt");
 				jQuery(this).find(".uu-dai-img-box .image-cover").html("<img src='"+img_url+"' alt='"+img_alt+"'>");
@@ -190,27 +190,27 @@ jQuery("document").ready(function(){
 		});		
 	});
 	
-	var max_adults_detail_room = Number(jQuery(".thong-tin .so-nguoi").attr("data-nguoi-lon"));
-	var max_child_detail_room = Number(jQuery(".thong-tin .so-nguoi").attr("data-tre-em"));
-	var all_people_detail_room = max_child_detail_room + max_adults_detail_room;
-	for(var i = 0; i <= max_adults_detail_room; i++){
-		jQuery(".select-adults").append("<option value='"+i+"'>"+i+"</option>");
-	}
-	jQuery(".select-adults option:first-child").text("Người lớn");
-	for(var i = 0; i <= max_child_detail_room; i++){
-		jQuery(".select-child").append("<option value='"+i+"'>"+i+"</option>");
-	}
-	jQuery(".select-child option:first-child").text("Trẻ em");
-	jQuery(".select-adults").change(function(){
-		var number_adults_chose = Number(jQuery(this).val());
-		if(number_adults_chose > 0){
-			var minus_people_detail_room = all_people_detail_room - number_adults_chose;
-			jQuery(".select-child option:not(:first-child)").remove();
-			for(var i = 1; i <= minus_people_detail_room; i++){
-				jQuery(".select-child").append("<option value='"+i+"'>"+i+"</option>");
-			}
-		}
-	});
+	// var max_adults_detail_room = Number(jQuery(".thong-tin .so-nguoi").attr("data-nguoi-lon"));
+	// var max_child_detail_room = Number(jQuery(".thong-tin .so-nguoi").attr("data-tre-em"));
+	// var all_people_detail_room = max_child_detail_room + max_adults_detail_room;
+	// for(var i = 0; i <= max_adults_detail_room; i++){
+	// 	jQuery(".select-adults").append("<option value='"+i+"'>"+i+"</option>");
+	// }
+	// jQuery(".select-adults option:first-child").text("Người lớn");
+	// for(var i = 0; i <= max_child_detail_room; i++){
+	// 	jQuery(".select-child").append("<option value='"+i+"'>"+i+"</option>");
+	// }
+	// jQuery(".select-child option:first-child").text("Trẻ em");
+	// jQuery(".select-adults").change(function(){
+	// 	var number_adults_chose = Number(jQuery(this).val());
+	// 	if(number_adults_chose > 0){
+	// 		var minus_people_detail_room = all_people_detail_room - number_adults_chose;
+	// 		jQuery(".select-child option:not(:first-child)").remove();
+	// 		for(var i = 1; i <= minus_people_detail_room; i++){
+	// 			jQuery(".select-child").append("<option value='"+i+"'>"+i+"</option>");
+	// 		}
+	// 	}
+	// });
 	
 	var booking_total_adults = [];
 	var booking_total_childs = [];
@@ -226,8 +226,8 @@ jQuery("document").ready(function(){
 			booking_total_adults.push(booking_room_adults);
 			booking_total_childs.push(booking_room_childs);
 		});
-		console.log("nglon " + booking_total_adults);
-		console.log("treem " + booking_total_childs);
+		// console.log("nglon " + booking_total_adults);
+		// console.log("treem " + booking_total_childs);
 		booking_room_adult_max = Math.max.apply(null, booking_total_adults) + 2;
 		booking_room_child_max = Math.max.apply(null, booking_total_childs);
 		if(booking_total_adults == '' && booking_total_childs == ''){
@@ -235,24 +235,24 @@ jQuery("document").ready(function(){
 			booking_room_child_max = 2;
 		}
 		booking_room_total_child_adult = booking_room_adult_max + booking_room_child_max;		
-		console.log(booking_room_adult_max);
-		console.log(booking_room_child_max);
-		jQuery(".booking-page .info-booking .container .add-room #numberAdult option").remove();
-		jQuery(".booking-page .info-booking .container .add-room #numberChild option").remove();
-		for(var i = 1; i<= booking_room_adult_max; i++){
-			jQuery(".booking-page .info-booking .container .add-room #numberAdult").append("<option value='"+i+"'>"+i+"</option>");
-		}
-		for(var i = 0; i<= booking_room_child_max; i++){
-			jQuery(".booking-page .info-booking .container .add-room #numberChild").append("<option value='"+i+"'>"+i+"</option>");
-		}
-		jQuery(".booking-page .info-booking .container .add-room #numberAdult").change(function(){
-			var booking_room_number_adults_chose = Number(jQuery(this).val());
-			var minus_people_detail_booking = booking_room_total_child_adult - booking_room_number_adults_chose;
-			jQuery(".booking-page .info-booking .container .add-room #numberChild option").remove();
-			for(var i = 0; i<= minus_people_detail_booking; i++){
-				jQuery(".booking-page .info-booking .container .add-room #numberChild").append("<option value='"+i+"'>"+i+"</option>");
-			}
-		});
+		// console.log(booking_room_adult_max);
+		// console.log(booking_room_child_max);
+		// jQuery(".booking-page .info-booking .container .add-room #numberAdult option").remove();
+		// jQuery(".booking-page .info-booking .container .add-room #numberChild option").remove();
+		// for(var i = 1; i<= booking_room_adult_max; i++){
+		// 	jQuery(".booking-page .info-booking .container .add-room #numberAdult").append("<option value='"+i+"'>"+i+"</option>");
+		// }
+		// for(var i = 0; i<= booking_room_child_max; i++){
+		// 	jQuery(".booking-page .info-booking .container .add-room #numberChild").append("<option value='"+i+"'>"+i+"</option>");
+		// }
+		// jQuery(".booking-page .info-booking .container .add-room #numberAdult").change(function(){
+		// 	var booking_room_number_adults_chose = Number(jQuery(this).val());
+		// 	var minus_people_detail_booking = booking_room_total_child_adult - booking_room_number_adults_chose;
+		// 	jQuery(".booking-page .info-booking .container .add-room #numberChild option").remove();
+		// 	for(var i = 0; i<= minus_people_detail_booking; i++){
+		// 		jQuery(".booking-page .info-booking .container .add-room #numberChild").append("<option value='"+i+"'>"+i+"</option>");
+		// 	}
+		// });
 	});	
 	var cat_name = jQuery(".single-post .thang-blogs-meta .entry-category a").text();
 	if(cat_name && cat_name != "Tin tức"){
@@ -260,5 +260,5 @@ jQuery("document").ready(function(){
 		jQuery(".single-post .banner-inner .text-inner p > span:nth-child(2)").text(jQuery(".single-post .banner-inner .text-inner p > span:nth-child(2)").text().replace("Tin tức",cat_name));
 	}
 	jQuery(".related-post.home-sec-7.row-bvlq").attr("data-cate",cat_name);
-	console.log(cat_name)
+	// console.log(cat_name)
 });

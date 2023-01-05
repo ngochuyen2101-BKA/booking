@@ -169,6 +169,10 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
                                                 <div class="info info-checkout"><?php echo date_format(date_create($cart_item['customData']['custom_date_checkout']),"d/m/Y"); ?></div>
                                                 <div class="info info-adult "><?php echo $cart_item['customData']['custom_adult']; ?></div>
                                                 <div class="info info-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
+                                                <div class="info info-child5" style="display:none"><?php echo $cart_item['customData']['child_under5']; ?></div>
+                                                <div class="info info-child10" style="display:none"><?php echo $cart_item['customData']['child_under10']; ?></div>
+                                                <div class="info info-child11" style="display:none"><?php echo $cart_item['customData']['child_over10']; ?></div>
+                                                <div class="info info-standard" style="display:none"><?php echo get_field('tieu_chuan_phong',$_product->id); ?></div>
                                                 <div class="info quantity info-qty"><?php echo $cart_item['quantity']; ?></div><span>phòng / </span><span class="quatity-date"></span><span>đêm</span>
                                             </div>
                                         </div>

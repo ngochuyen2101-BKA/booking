@@ -43,26 +43,33 @@ echo do_shortcode('[block id="banner"]');
             <div class="add-room">
                 <p class="btn-show">Thêm phòng</p>
                 <div class="popup-add">
-                    <div class="validate-customer" style="display: none;">Tối đa 6 người/phòng</div>
-                    <div class="adults">
-                        <div class="label">Người lớn</div>
-                        <select id="numberAdult">
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
+                    <div class="validate-customer">Tối đa 4 người mỗi phòng</div>
+                    <div class="filters">
+                        <div class="filter-gr">
+                            <div class="number-room" data-number-room="1">Phòng 1</div>
+                            <div class="adults">
+                                <div class="label">Người lớn</div>
+                                <select class="numberAdult">
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="childs">
+                                <div class="label">Trẻ em</div>
+                                <select class="numberChild">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="text-filter" style="display: none;">Tuổi của trẻ</div>
+                            <div class="filter-child"></div>
+                        </div>
                     </div>
-                    <div class="childs">
-                        <div class="label">Trẻ em</div>
-                        <select id="numberChild">
-                            <option value="0" selected>0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </div>
+                    <span class="btn-add-more">Thêm phòng nghỉ</span>
                     <div class="btn-box">
                         <div class="btn-huy">Huỷ</div>
                         <div class="add-btn">Áp dụng</div>
@@ -98,8 +105,9 @@ echo do_shortcode('[block id="banner"]');
                             if($room_status == 'hetphong') continue;
                             $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->id ), 'single-post-thumbnail' );
                             $area  = get_field('dien_tich', $product->id);
-                            $adult = get_field('so_nguoi_lon', $product->id);
-                            $child = get_field('so_tre_em', $product->id);
+                            // $adult = get_field('so_nguoi_lon', $product->id);
+                            // $child = get_field('so_tre_em', $product->id);
+                            $standard = get_field('tieu_chuan_phong',$product->id);
                             $date = $product->get_attribute( 'number-of-date' );
                             $regular_price = $product->get_regular_price();
                             $sale_price = $product->get_sale_price();
@@ -135,7 +143,7 @@ echo do_shortcode('[block id="banner"]');
                                         <div class="room-change"><img src="/wp-content/uploads/2022/11/huy.svg" width="20px" height="20px">Không hủy và thay đổi</div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="room-user"><img src="/wp-content/uploads/2022/11/nguoi.svg" width="20px" height="20px"><?php echo $adult; ?> người lớn - <?php echo $child; ?> trẻ em</div>
+                                        <div class="room-user"><img src="/wp-content/uploads/2022/11/nguoi.svg" width="20px" height="20px">Tiêu chuẩn: <?php echo $standard; ?></div>
                                         <div class="room-deposit"><img src="/wp-content/uploads/2022/11/coc.svg" width="20px" height="20px">Đặt cọc và đảm bảo</div>
                                     </div>
                                     <div class="col-md-4 price-col <?php echo ($regular_price) ? 'has-sale-price' : ''; ?>">
@@ -254,6 +262,10 @@ echo do_shortcode('[block id="banner"]');
                                         <div class="info info-date-checkout"><?php echo date_format(date_create($cart_item['customData']['custom_date_checkout']),"d/m/Y"); ?></div>
                                         <div class="info info-custom-adult"><?php echo $cart_item['customData']['custom_adult']; ?></div>
                                         <div class="info info-custom-child"><?php echo $cart_item['customData']['custom_child']; ?></div>
+                                        <div class="info info-custom-child5" style="display:none"><?php echo $cart_item['customData']['child_under5']; ?></div>
+                                        <div class="info info-custom-child10" style="display:none"><?php echo $cart_item['customData']['child_under10']; ?></div>
+                                        <div class="info info-custom-child11" style="display:none"><?php echo $cart_item['customData']['child_over10']; ?></div>
+                                        <div class="info info-standard" style="display:none"><?php echo get_field('tieu_chuan_phong',$_product->id); ?></div>
                                         <div class="gr-edit">
                                             <div>
                                             <div class="info quantity"><?php echo $cart_item['quantity']; ?></div>
@@ -278,6 +290,7 @@ echo do_shortcode('[block id="banner"]');
                             }
                         endif; ?>
                             </div>
+                            <div class="selected-filters"></div>
                             <div class="service-gr">
                         <?php if (!WC()->cart->is_empty()) : 
                             foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
