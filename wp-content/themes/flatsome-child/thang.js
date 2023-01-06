@@ -502,6 +502,38 @@
         var count_room_empty = $('.room-empty').length;
         var count_cur_filter = $('.filter-gr').length;
         var count_cur_room = $('.detail-room').length;
+
+        var stop = false;
+            
+        if(count_cur_room == count_cur_filter) {
+            stop = true;
+        }
+        $('.filter-gr').each(function() {
+            count5 = 0;
+            count10 = 0;
+            count11 = 0;
+            var cur_adult = $(this).find('.numberAdult').val();
+            $(this).find('.select-child-num').each(function() {
+                var child_age = parseInt($(this).val());
+                if(child_age <= 5) {
+                    count5++;
+                } else if(child_age > 5 && child_age <=10) {
+                    count10++;
+                } else {
+                    count11++;
+                }
+            });
+            var total_customer = parseInt(cur_adult) + parseInt(count5) + parseInt(count10) + parseInt(count11);
+            if(total_customer > 4 || (cur_adult == 2 && count11 == 2)) {
+                $(this).find('.numberAdult').css('border','1px solid red');
+                $(this).find('.numberChild').css('border','1px solid red');
+                stop = true;
+            }
+        });
+        if(stop) {
+            return ;
+        }
+
         if((count_cur_room + count_room_empty ) > count_cur_filter) {
             if((count_cur_room + count_room_empty - count_cur_filter) <= count_room_empty ) {
                 var count_remove = count_cur_room + count_room_empty - count_cur_filter;
@@ -586,37 +618,6 @@
         } else {
             number_adult = $('.numberAdult').first().val();
             number_child = $('.numberChild').first().val();
-            
-            var stop = false;
-            
-            if(count_cur_room == count_cur_filter) {
-                stop = true;
-            }
-            $('.filter-gr').each(function() {
-                count5 = 0;
-                count10 = 0;
-                count11 = 0;
-                var cur_adult = $(this).find('.numberAdult').val();
-                $(this).find('.select-child-num').each(function() {
-                    var child_age = parseInt($(this).val());
-                    if(child_age <= 5) {
-                        count5++;
-                    } else if(child_age > 5 && child_age <=10) {
-                        count10++;
-                    } else {
-                        count11++;
-                    }
-                });
-                var total_customer = parseInt(cur_adult) + parseInt(count5) + parseInt(count10) + parseInt(count11);
-                if(total_customer > 4 || (cur_adult == 2 && count11 == 2)) {
-                    $(this).find('.numberAdult').css('border','1px solid red');
-                    $(this).find('.numberChild').css('border','1px solid red');
-                    stop = true;
-                }
-            });
-            if(stop) {
-                return ;
-            }
             
             count5 = 0;
             count10 = 0;
