@@ -671,6 +671,9 @@
         var count_room_empty = $('.room-empty').length;
         if(count_room_empty > 0) {
 
+            var count5 = 0;
+            var count10 = 0;
+            var count11 = 0;
             number_adult = $('.numberAdult').eq(selectedRoom - 1).val();
             number_child = $('.numberChild').eq(selectedRoom - 1).val();
 
@@ -1640,6 +1643,7 @@
                 data['cur_adult'] = cur_adult;
                 save_filter.push(data)
                 setBBCookie('saveFilter',JSON.stringify(save_filter),864000);
+                setBBCookie('step',1,864000);
             }
 
             var count_room = $('.detail-room').length;
