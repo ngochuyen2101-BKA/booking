@@ -497,10 +497,6 @@
     });
 
     $(document).on('click','.add-btn', function() {
-        if(!isloading) {
-            isloading = true;
-            $('.loading-wait').css('display','block');
-        }
         $('.popup-add').removeClass('active');
         var number_adult = '';
         var number_child = '';
@@ -788,8 +784,6 @@
             },
 
         });
-        $('.loading-wait').css('display','none');
-        isloading = false;
     });
 
     $(document).on('click','.btn-booking', function() {
