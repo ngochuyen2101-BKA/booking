@@ -62,6 +62,7 @@
         }
         
         $.ajax({
+            async: false,
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
@@ -264,6 +265,7 @@
 
         setTimeout(function() { 
             $.ajax({
+                async: false,
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
                 data: {
@@ -338,7 +340,7 @@
                 html +=     '</div>'
                 html +=     '<div class="text-filter" style="display: '+($(this)[0].cur_child != 0 ? 'block' : 'none')+';">Tuổi của trẻ</div>'
                 html +=     '<div class="filter-child">'
-                if($(this)[0].cur_child != 0) {
+                if($(this)[0].cur_child) {
                     if($(this)[0].count5.count5 != 0) {
                         for(var i = 1; i <= $(this)[0].count5.count5; i++) {
                             html += '<select class="select-child-num">'
@@ -447,6 +449,7 @@
 
         if(diff > 0) {
             $.ajax({
+                async: false,
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
                 data: {
@@ -490,24 +493,27 @@
         checkBtnRemove();
         countRoomAndCustomer();
         $('.loading-wait').css('display','none');
+        isloading = false;
     });
 
     $(document).on('click','.add-btn', function() {
+        if(!isloading) {
+            isloading = true;
+            $('.loading-wait').css('display','block');
+        }
+        $('.popup-add').removeClass('active');
         var number_adult = '';
+        var number_child = '';
         var count5 = 0;
         var count10 = 0;
         var count11 = 0;
 
-        var has_filter = false;
         var count_room_empty = $('.room-empty').length;
         var count_cur_filter = $('.filter-gr').length;
         var count_cur_room = $('.detail-room').length;
 
         var stop = false;
             
-        if(count_cur_room == count_cur_filter) {
-            stop = true;
-        }
         $('.filter-gr').each(function() {
             count5 = 0;
             count10 = 0;
@@ -524,8 +530,12 @@
                 }
             });
             var total_customer = parseInt(cur_adult) + parseInt(count5) + parseInt(count10) + parseInt(count11);
-            if(total_customer > 4 || (cur_adult == 2 && count11 == 2)) {
+            if(total_customer > 4) {
                 $(this).find('.numberAdult').css('border','1px solid red');
+                $(this).find('.numberChild').css('border','1px solid red');
+                stop = true;
+            }
+            if(count5  > 2) {
                 $(this).find('.numberChild').css('border','1px solid red');
                 stop = true;
             }
@@ -533,7 +543,7 @@
         if(stop) {
             return ;
         }
-
+        
         if((count_cur_room + count_room_empty ) > count_cur_filter) {
             if((count_cur_room + count_room_empty - count_cur_filter) <= count_room_empty ) {
                 var count_remove = count_cur_room + count_room_empty - count_cur_filter;
@@ -545,61 +555,90 @@
                 var count_remove_room = count_cur_room - count_cur_filter;
                 for( var i = 1; i <= count_remove_room; i++) {
                     $('.detail-room').last().find('.remove_from_cart_button').click();
-                    $('.detail-room').last().remove();
                 }
             }
             return ;
-        } else if(count_room_empty > 0) {
-            has_filter = true;
+        }
 
-            var has_change = false;
-            $('.detail-room').each(function(index) {
-                var item_adult = $(this).find('.info-custom-adult').text();
-                var item_child = $(this).find('.info-custom-child').text();
-                var item_child5 = $(this).find('.info-custom-child5').text();
-                var item_child10 = $(this).find('.info-custom-child10').text();
-                var item_child11 = $(this).find('.info-custom-child11').text();
-
-                var filter_child5 = 0;
-                var filter_child10 = 0;
-                var filter_child11 = 0;
-
-                var filter = $('.filter-gr').eq(index);
-                var filter_adult = filter.find('.numberAdult').val();
-                var filter_child = filter.find('.numberChild').val();
-                
-                filter.find('.select-child-num').each(function() {
-                    var child_age = parseInt($(this).val());
-                    if(child_age <= 5) {
-                        filter_child5++;
-                    } else if(child_age > 5 && child_age <=10) {
-                        filter_child10++;
-                    } else {
-                        filter_child11++;
-                    }
-                });
-
-                if(item_adult != filter_adult || item_child != filter_child || item_child5 != filter_child5 || item_child10 != filter_child10 || item_child11 != filter_child11) {
-                    has_change = true;
+        if(count_cur_room == count_cur_filter) {
+            stop = true;
+        }
+        if(count_cur_filter > (count_cur_room + count_room_empty)) {
+            var select = '';
+            $('.filter-gr').each(function(index) {
+                if(index < (count_cur_room + count_room_empty)) {
+                    return true;
+                } else {
+                    var number = index + 1;
+                    select += '<div class="room-empty" data-room-number="'+number+'"><span class="text-select">Select accommodation </span><span>'+number+'</span></div>';
                 }
             })
+            $('.selected-filters').html(select);
+        }
+        var has_change = false;
+        $('.detail-room').each(function(index) {
+            var item_adult = $(this).find('.info-custom-adult').text();
+            var item_child = $(this).find('.info-custom-child').text();
+            var item_child5 = $(this).find('.info-custom-child5').text();
+            var item_child10 = $(this).find('.info-custom-child10').text();
+            var item_child11 = $(this).find('.info-custom-child11').text();
 
-            if(has_change) {
-                $.ajax({
-                    url: '/wp-admin/admin-ajax.php',
-                    method: 'POST',
-                    data: {
-                        action: 'remove_cart'
-                    }
-                });
-                $('.room-gr').empty();
-                $('.selected-filters').empty();
-                $('.service-gr').empty();
-                has_filter = false;
-                setBBCookie('selectedRoom',1,864000);
+            var filter_child5 = 0;
+            var filter_child10 = 0;
+            var filter_child11 = 0;
+
+            var filter = $('.filter-gr').eq(index);
+            var filter_adult = filter.find('.numberAdult').val();
+            var filter_child = filter.find('.numberChild').val();
+            
+            filter.find('.select-child-num').each(function() {
+                var child_age = parseInt($(this).val());
+                if(child_age <= 5) {
+                    filter_child5++;
+                } else if(child_age > 5 && child_age <=10) {
+                    filter_child10++;
+                } else {
+                    filter_child11++;
+                }
+            });
+
+            if(item_adult != filter_adult || item_child != filter_child || item_child5 != filter_child5 || item_child10 != filter_child10 || item_child11 != filter_child11) {
+                has_change = true;
             }
+        })
 
-            var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+        if(has_change) {
+            $.ajax({
+                async: false,
+                url: '/wp-admin/admin-ajax.php',
+                method: 'POST',
+                data: {
+                    action: 'remove_cart'
+                }
+            });
+            $('.room-gr').empty();
+            $('.selected-filters').empty();
+            $('.service-gr').empty();
+            setBBCookie('selectedRoom',1,864000);
+            stop = false;
+
+            var select = '';
+            $('.filter-gr').each(function(index) {
+                var number = index + 1;
+                select += '<div class="room-empty" data-room-number="'+number+'"><span class="text-select">Select accommodation </span><span>'+number+'</span></div>';
+                
+            })
+            $('.selected-filters').html(select);
+        }
+
+        
+        if(stop) {
+            return ;
+        }
+
+        var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+        var count_room_empty = $('.room-empty').length;
+        if(count_room_empty > 0) {
 
             number_adult = $('.numberAdult').eq(selectedRoom - 1).val();
             number_child = $('.numberChild').eq(selectedRoom - 1).val();
@@ -615,48 +654,47 @@
                 }
             });
 
-        } else {
-            number_adult = $('.numberAdult').first().val();
-            number_child = $('.numberChild').first().val();
+        } 
+        //     number_adult = $('.numberAdult').first().val();
+        //     number_child = $('.numberChild').first().val();
             
-            count5 = 0;
-            count10 = 0;
-            count11 = 0;
+        //     count5 = 0;
+        //     count10 = 0;
+        //     count11 = 0;
             
-            var show_room = false;
-            if(count_cur_room > 0) {
-                var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+        //     var show_room = false;
+        //     if(count_cur_room > 0) {
                 
-                number_adult = $('.numberAdult').eq(selectedRoom - 1).val();
-                number_child = $('.numberChild').eq(selectedRoom - 1).val();
+        //         number_adult = $('.numberAdult').eq(selectedRoom - 1).val();
+        //         number_child = $('.numberChild').eq(selectedRoom - 1).val();
 
-                $('.filter-gr').eq(selectedRoom - 1).find('.select-child-num').each(function() {
-                    var child_age = parseInt($(this).val());
-                    if(child_age <= 5) {
-                        count5++;
-                    } else if(child_age > 5 && child_age <=10) {
-                        count10++;
-                    } else {
-                        count11++;
-                    }
-                });
-                show_room = true;
-            } else {
-                var first_filter = $('.filter-gr').first();
-                first_filter.find('.select-child-num').each(function() {
-                    var child_age = parseInt($(this).val());
-                    if(child_age <= 5) {
-                        count5++;
-                    } else if(child_age > 5 && child_age <=10) {
-                        count10++;
-                    } else {
-                        count11++;
-                    }
-                });
-                setBBCookie('selectedRoom',1,864000);
+        //         $('.filter-gr').eq(selectedRoom - 1).find('.select-child-num').each(function() {
+        //             var child_age = parseInt($(this).val());
+        //             if(child_age <= 5) {
+        //                 count5++;
+        //             } else if(child_age > 5 && child_age <=10) {
+        //                 count10++;
+        //             } else {
+        //                 count11++;
+        //             }
+        //         });
+        //         show_room = true;
+        //     } else {
+        //         var first_filter = $('.filter-gr').first();
+        //         first_filter.find('.select-child-num').each(function() {
+        //             var child_age = parseInt($(this).val());
+        //             if(child_age <= 5) {
+        //                 count5++;
+        //             } else if(child_age > 5 && child_age <=10) {
+        //                 count10++;
+        //             } else {
+        //                 count11++;
+        //             }
+        //         });
+        //         setBBCookie('selectedRoom',1,864000);
                 
-            }
-        }
+        //     }
+        // }
 
         var save_filter = [];
         $('.filter-gr').each(function() {
@@ -697,6 +735,7 @@
             $('.loading-wait').css('display','block');
         }
         $.ajax({
+            async: false,
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
@@ -713,7 +752,7 @@
                 $('.number-adults').html(number_adult);
                 $('.number-childs').html(number_child);
                 $('.popup-add').removeClass('active');
-                if(show_room) {
+                // if(show_room) {
                     $('.choose-room').css('display','block');
                     $('.choose-service').css('display','none');
                     setBBCookie('step',1,864000);
@@ -721,7 +760,7 @@
                     $('.step-1').find('.text-step').addClass('active');
                     $('.step-2').find('.number-step').removeClass('active');
                     $('.step-2').find('.text-step').removeClass('active');
-                }
+                // }
                 
                 $('.choose-room').html(res);
                 
@@ -732,23 +771,25 @@
                 // $('.numberAdult').val(1);
                 // $('.numberChild').val(0);
 
-                if(!has_filter) {
-                    var select = '';
-                    var selectedRoom = parseInt(getBBCookie('selectedRoom'));
-                    $('.filter-gr').each(function(index) {
-                        if(selectedRoom - 1 > index) {
-                            return true;
-                        } else {
-                            var number = index + 1;
-                            select += '<div class="room-empty" data-room-number="'+number+'"><span class="text-select">Select accommodation </span><span>'+number+'</span></div>';
-                        }
-                    })
-                    $('.selected-filters').html(select);
-                }
+                // if(!has_filter) {
+                //     var select = '';
+                //     var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+                //     $('.filter-gr').each(function(index) {
+                //         if(selectedRoom - 1 > index) {
+                //             return true;
+                //         } else {
+                //             var number = index + 1;
+                //             select += '<div class="room-empty" data-room-number="'+number+'"><span class="text-select">Select accommodation </span><span>'+number+'</span></div>';
+                //         }
+                //     })
+                //     $('.selected-filters').html(select);
+                // }
                 changePriceRoom(number_adult, count5, count10, count11);
             },
 
         });
+        $('.loading-wait').css('display','none');
+        isloading = false;
     });
 
     $(document).on('click','.btn-booking', function() {
@@ -784,6 +825,7 @@
                 $('.loading-wait').css('display','block');
             }
             $.ajax({
+                async: false,
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
                 data: {
@@ -1122,6 +1164,7 @@
             diff = diff > 0 ? diff : 0;
         }
         $.ajax({
+            async: false,
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
@@ -1247,6 +1290,7 @@
      $(document).on('change','.date-checkin, .date-checkout', function() {
         
         $.ajax({
+            async: false,
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
@@ -1526,6 +1570,10 @@
             changePriceCartCheckout();
         }
         if(current_url.indexOf("booking-page") > -1) {
+            if(!isloading) {
+                isloading = true;
+                $('.loading-wait').css('display','block');
+            }
             generateFIlter();
             $('.popup-add').removeClass('active');
             var vars = [], hash;
@@ -1546,6 +1594,7 @@
                 var departure = vars['departure'];
                 if(arrival != format_checkin || departure != format_checkout) {
                     $.ajax({
+                        async: false,
                         url: '/wp-admin/admin-ajax.php',
                         method: 'POST',
                         data: {
@@ -1578,19 +1627,24 @@
                     $.each(saveFilter, function(index) {
                         var filter_title = $(this)[0].room;
                         if(title == filter_title) {
-                            console.log(title)
                             if(index == 0) {
                                 html = $('.detail-room').eq(index).clone();
-                                console.log(html)
                             } else {
                                 $('.detail-room').eq(index - 1).after(html);
-                                console.log(html)
-                                console.log($('.detail-room').eq(index))
                             }
                         }
                     });
                 }
             });
+
+            if(!saveFilter) {
+                var save_filter = [];
+                var data = {};
+                var cur_adult = vars['adults1'];
+                data['cur_adult'] = cur_adult;
+                save_filter.push(data)
+                setBBCookie('saveFilter',JSON.stringify(save_filter),864000);
+            }
 
             var count_room = $('.detail-room').length;
             var count_cur_filter = $('.filter-gr').length;
@@ -1624,6 +1678,7 @@
                 })
                 $('.selected-filters').html(select);
                 $.ajax({
+                    async: false,
                     url: '/wp-admin/admin-ajax.php',
                     method: 'POST',
                     data: {
@@ -1663,9 +1718,12 @@
                 var next_room = count_room + 1;
                 setBBCookie('selectedRoom',next_room,864000);
             }
+            isloading = false;
+            $('.loading-wait').css('display','none');
         }
         if( !( (current_url.indexOf("thanh-toan") > -1) || (current_url.indexOf("booking-page") > -1) ) ) {
             $.ajax({
+                async: false,
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
                 data: {
