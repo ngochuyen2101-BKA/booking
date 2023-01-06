@@ -424,7 +424,7 @@
         var count5 = parseInt(parent.find('.info-custom-child5').html());
         var count10 = parseInt(parent.find('.info-custom-child10').html());
         var count11 = parseInt(parent.find('.info-custom-child11').html());
-        var standard = parseInt(parent.find('.info-custom-child').html());
+        var standard = parseInt(parent.find('.info-standard').html());
 
         $.ajax({
             async: false,
@@ -539,6 +539,40 @@
         if(stop) {
             return ;
         }
+
+        var save_filter = [];
+        $('.filter-gr').each(function() {
+            var data = {};
+            count5 = 0;
+            count10 = 0;
+            count11 = 0;
+            data['count5'] = {};
+            data['count10'] = {};
+            data['count11'] = {};
+            var cur_adult = $(this).find('.numberAdult').val();
+            var cur_child = $(this).find('.numberChild').val();
+            $(this).find('.select-child-num').each(function() {
+                var child_age = parseInt($(this).val());
+                if(child_age <= 5) {
+                    count5++;
+                    data['count5']['count5'+count5] = child_age;
+                } else if(child_age > 5 && child_age <=10) {
+                    count10++;
+                    data['count10']['count10'+count10] = child_age;
+                } else {
+                    count11++;
+                    data['count11']['count11'+count11] = child_age;
+                }
+            });
+            data['cur_adult'] = cur_adult;
+            data['cur_child'] = cur_child;
+            data['count5']['count5'] = count5;
+            data['count10']['count10'] = count10;
+            data['count11']['count11'] = count11;
+            
+            save_filter.push(data)
+        });
+        setBBCookie('saveFilter',JSON.stringify(save_filter),864000);
         
         if((count_cur_room + count_room_empty ) > count_cur_filter) {
             if((count_cur_room + count_room_empty - count_cur_filter) <= count_room_empty ) {
@@ -569,7 +603,7 @@
                     select += '<div class="room-empty" data-room-number="'+number+'"><span class="text-select">Select accommodation </span><span>'+number+'</span></div>';
                 }
             })
-            $('.selected-filters').html(select);
+            $('.selected-filters').append(select);
         }
         var has_change = false;
         $('.detail-room').each(function(index) {
@@ -625,6 +659,7 @@
                 
             })
             $('.selected-filters').html(select);
+            $('.total-price').html('0');
         }
 
         
@@ -691,40 +726,6 @@
                 
         //     }
         // }
-
-        var save_filter = [];
-        $('.filter-gr').each(function() {
-            var data = {};
-            count5 = 0;
-            count10 = 0;
-            count11 = 0;
-            data['count5'] = {};
-            data['count10'] = {};
-            data['count11'] = {};
-            var cur_adult = $(this).find('.numberAdult').val();
-            var cur_child = $(this).find('.numberChild').val();
-            $(this).find('.select-child-num').each(function() {
-                var child_age = parseInt($(this).val());
-                if(child_age <= 5) {
-                    count5++;
-                    data['count5']['count5'+count5] = child_age;
-                } else if(child_age > 5 && child_age <=10) {
-                    count10++;
-                    data['count10']['count10'+count10] = child_age;
-                } else {
-                    count11++;
-                    data['count11']['count11'+count11] = child_age;
-                }
-            });
-            data['cur_adult'] = cur_adult;
-            data['cur_child'] = cur_child;
-            data['count5']['count5'] = count5;
-            data['count10']['count10'] = count10;
-            data['count11']['count11'] = count11;
-            
-            save_filter.push(data)
-        });
-        setBBCookie('saveFilter',JSON.stringify(save_filter),864000);
 
         if(!isloading) {
             isloading = true;
@@ -1323,6 +1324,7 @@
                 }
             })
             changePriceRoom(adult, count5, count10, count11);
+            $('.add-btn').click();
         }
      });
 
@@ -1643,11 +1645,10 @@
             var count_room = $('.detail-room').length;
             var count_cur_filter = $('.filter-gr').length;
             var selectedRoom = parseInt(getBBCookie('selectedRoom'));
-
             if(count_room != count_cur_filter) {
                 var filter = $('.filter-gr').eq(selectedRoom - 1);
-                var adult = filter.filter('.numberAdult').val();
-                var child = filter.filter('.numberChild').val();
+                var adult = filter.find('.numberAdult').val();
+                var child = filter.find('.numberChild').val();
                 var count5 = 0;
                 var count10 = 0;
                 var count11 = 0;
@@ -1671,6 +1672,8 @@
                     }
                 })
                 $('.selected-filters').html(select);
+                console.log(adult)
+                console.log(count11)
                 $.ajax({
                     async: false,
                     url: '/wp-admin/admin-ajax.php',
