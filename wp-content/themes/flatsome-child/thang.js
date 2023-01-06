@@ -1652,6 +1652,9 @@
             if(count_room != count_cur_filter) {
                 var filter = $('.filter-gr').eq(selectedRoom - 1);
                 var adult = filter.find('.numberAdult').val();
+                if(parseInt(vars['adults1']) > 4) {
+                    adult = parseInt(vars['adults1']);
+                }
                 var child = filter.find('.numberChild').val();
                 var count5 = 0;
                 var count10 = 0;
