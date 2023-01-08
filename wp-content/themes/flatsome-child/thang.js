@@ -316,8 +316,10 @@
         var saveFilter = JSON.parse(getBBCookie('saveFilter'));
         if(saveFilter) {
             var html = '';
-            $.each(saveFilter, function(index) {
-                
+            $.each(saveFilter, function(index, value) {
+                if($(this)[0] == 'r') {
+                    return true;
+                }
                 html += '<div class="filter-gr">'
                 html +=     '<div class="number-room" data-number-room="'+(index+1)+'">Phòng '+(index+1)+'</div>'
                 html +=     '<div class="adults">'
@@ -408,17 +410,24 @@
 
     $(document).on('click','.remove_from_cart_button', function(e) {
         e.preventDefault();
-        if(!isloading) {
-            isloading = true;
-            $('.loading-wait').css('display','block');
-        }
+        var remove_service = false;
         var product_id = $(this).closest('.detail-selected').data('product_id');
         $('.add-service').each(function() {
             var cur_id = $(this).data('product_id');
             if(cur_id == product_id) {
                 $(this).prop('checked', false);
+                remove_service = true;
             }
         });
+        if(remove_service) {
+            $(this).closest('.detail-selected').remove();
+            updateTotalPrice();
+            return ;
+        }
+        if(!isloading) {
+            isloading = true;
+            $('.loading-wait').css('display','block');
+        }
         var parent = $(this).closest('.cart-item-info');
         var adult = parseInt(parent.find('.info-custom-adult').html());
         var count5 = parseInt(parent.find('.info-custom-child5').html());
@@ -492,12 +501,13 @@
         updateTotalPrice();
         checkBtnRemove();
         countRoomAndCustomer();
+        changePriceRoom(adult, count5, count10, count11);
         $('.loading-wait').css('display','none');
         isloading = false;
     });
 
     $(document).on('click','.add-btn', function() {
-        $('.popup-add').removeClass('active');
+        
         var number_adult = '';
         var number_child = '';
         var count5 = 0;
@@ -539,7 +549,11 @@
         if(stop) {
             return ;
         }
-
+        if($(this).closest('.col-md-8').length > 0) {
+            jQuery(".add-room").appendTo(jQuery(".info-booking .container"));
+            jQuery(".popup-add").removeAttr("style");
+        }
+        $('.popup-add').removeClass('active');
         var save_filter = [];
         $('.filter-gr').each(function() {
             var data = {};
@@ -877,7 +891,7 @@
     $(document).on('click','.btn-add-more', function() {
         var count_room = $('.filter-gr').length;
         if(count_room == 4 ) {
-            $('.btn-add-more').remove();
+            $('.btn-add-more').css('display','none');
         }
         var new_room = parseInt(count_room) + 1;
         var html = '';
@@ -920,6 +934,7 @@
 
     $(document).on('click','.remove-filter', function() {
         $('.filter-gr').last().remove();
+        $('.btn-add-more').css('display','block');
         addRemoveBtn()
     });
 
@@ -1143,7 +1158,7 @@
             childs = isNaN(childs) ? 0 : childs;
             var product_id = $(this).data('product_id');
 
-            var standard = parseInt($('.tieu-chuan').data('nguoi-lon'));
+            var standard = parseInt($('.tieu-chuan').data('tieu-chuan'));
             var count5 = 0;
             var count10 = 0;
             var count11 = 0;
@@ -1178,7 +1193,11 @@
                 action: 'custom_data_product'
             },
             success: function(res) { 
-                setBBCookie('step',2,864000);
+                if(res == "empty") {
+                    setBBCookie('step',1,864000);
+                } else {
+                    setBBCookie('step',2,864000);
+                }
                 $('.loading-wait').css('display', 'none');
                 var hasextrabed = diff > 0 ? true : false;
                 
@@ -1353,6 +1372,7 @@
             var sale_price = parseInt($(this).closest('.sale-price-gr').find('.sale-price-cal').text().replace(/,/g, ''));
             var standard = parseInt($(this).closest('.row').find('.room-user').data('standard'));
             var additional_price = 0;
+            adult = parseInt(adult);
             if(standard >= (adult + count10 + count11)) {
                 additional_price = 0;
             } else if(standard >= (adult + count11) && standard < (adult + count10 + count11)) {
@@ -1384,8 +1404,24 @@
 
         $('.detail-room .price').each(function() {
             var regular_price = parseInt($(this).text().replace(/,/g, ''));
+
+            var standard = parseInt($(this).closest('.cart-item-info').find('.info-standard').text());
+            var adult = parseInt($(this).closest('.cart-item-info').find('.info-custom-adult').text());
+            var count5 = parseInt($(this).closest('.cart-item-info').find('.info-custom-child5').text());
+            var count10 = parseInt($(this).closest('.cart-item-info').find('.info-custom-child10').text());
+            var count11 = parseInt($(this).closest('.cart-item-info').find('.info-custom-child11').text());
+
+            var additional_price = 0;
+            if(standard >= (adult + count10 + count11)) {
+                additional_price = 0;
+            } else if(standard >= (adult + count11) && standard < (adult + count10 + count11)) {
+                additional_price = 300000 * (adult + count10 + count11 - standard);
+            } else if(standard < (adult + count11)) {
+                additional_price = 300000 * count10;
+            }
+
             if(regular_price) {
-                $(this).html((regular_price*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
+                $(this).html(((regular_price+additional_price)*total_day).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"))
             }
         });
 
@@ -1418,7 +1454,7 @@
             var qty = parseInt($(this).closest('.cart-item-info').find('.quantity').text());
 
             var standard = parseInt($(this).closest('.cart-item-info').find('.info-standard').text());
-            var adult = parseInt($(this).closest('.cart-item-info').find('.info-standard').text());
+            var adult = parseInt($(this).closest('.cart-item-info').find('.info-adult').text());
             var count5 = parseInt($(this).closest('.cart-item-info').find('.info-child5').text());
             var count10 = parseInt($(this).closest('.cart-item-info').find('.info-child10').text());
             var count11 = parseInt($(this).closest('.cart-item-info').find('.info-child11').text());
@@ -1481,7 +1517,7 @@
                 hash = hashes[i].split('=');
                 vars[hash[0]] = hash[1];
             }
-            if(vars['hasextrabed'] == true) {
+            if(vars['hasextrabed'] == 'true') {
                 $('.message-notice').css('display','block');
                 setTimeout(function() { 
                     $(".message-notice").hide();
@@ -1635,8 +1671,8 @@
                     });
                 }
             });
-
-            if(!saveFilter) {
+            
+            if(!saveFilter || saveFilter.includes('reload')) {
                 var save_filter = [];
                 var data = {};
                 var cur_adult = vars['adults1'];
@@ -1644,17 +1680,23 @@
                 save_filter.push(data)
                 setBBCookie('saveFilter',JSON.stringify(save_filter),864000);
                 setBBCookie('step',1,864000);
+                generateFIlter();
             }
 
             var count_room = $('.detail-room').length;
             var count_cur_filter = $('.filter-gr').length;
             var selectedRoom = parseInt(getBBCookie('selectedRoom'));
+            if(vars['hasextrabed']) {
+                changePriceRoom(adult,0,0,0);
+            }
             if(count_room != count_cur_filter) {
                 var filter = $('.filter-gr').eq(selectedRoom - 1);
                 var adult = filter.find('.numberAdult').val();
+                console.log(adult)
                 if(parseInt(vars['adults1']) > 4) {
                     adult = parseInt(vars['adults1']);
                 }
+                console.log(adult)
                 var child = filter.find('.numberChild').val();
                 var count5 = 0;
                 var count10 = 0;
@@ -1679,8 +1721,6 @@
                     }
                 })
                 $('.selected-filters').html(select);
-                console.log(adult)
-                console.log(count11)
                 $.ajax({
                     async: false,
                     url: '/wp-admin/admin-ajax.php',
@@ -1734,6 +1774,15 @@
                     action: 'remove_cart'
                 }
             });
+
+            var save_filter = [];
+            var data = {};
+            var cur_adult = 1;
+            data['cur_adult'] = cur_adult;
+            save_filter.push(data)
+            save_filter.push('reload');
+            setBBCookie('saveFilter',JSON.stringify(save_filter),864000);
+            setBBCookie('step',1,864000);
         }
         
         $(window).on('beforeunload', function() {

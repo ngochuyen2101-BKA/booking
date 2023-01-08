@@ -38,7 +38,7 @@ echo do_shortcode('[block id="banner"]');
                 <img src="/wp-content/uploads/2022/11/icon-room.svg"></i> <span class="room-number" style="display: none;">1</span><span class="room-number-cal">0</span> phòng
             </div>
             <div class="number-of-customer info">
-                <img src="/wp-content/uploads/2022/11/outline-user-2.svg"> <span class="number-adults" style="display: none;">1</span><span class="number-adults-cal"">1</span> người lớn - <span class="number-childs" style="display: none;">0</span><span class="number-childs-cal"">0</span> trẻ em
+                <img src="/wp-content/uploads/2022/11/outline-user-2.svg"> <span class="number-adults" style="display: none;">1</span><span class="number-adults-cal">1</span> người lớn - <span class="number-childs" style="display: none;">0</span><span class="number-childs-cal"">0</span> trẻ em
             </div>
             <div class="add-room">
                 <p class="btn-show">Thêm phòng</p>

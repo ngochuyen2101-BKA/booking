@@ -57,6 +57,10 @@ function saveCustomData() {
 	if($standard <  ($adult + $count11)) {
 		$diff = $adult + $count11 - $standard;
 	}
+	if(($adult + $count11 + $count10 + $count5) > 4 || ($adult == 2 && $count11 == 2 && $standard == 2) || ($adult == 4 && $standard == 2)) {
+		echo "empty";
+		die();
+	}
 
 	$custom_data = array( 'customData'=> array( 
 		'custom_adult' => $adult,
@@ -156,7 +160,7 @@ function getDataRoom() {
 			$has_sale_price = "has-sale-price";
 		}
 
-		if( ( (int)$standard ) >= ( (int)$adult + (int)$count11 - 1 )  ) {
+		if( ( (int)$standard ) >= ( (int)$adult + (int)$count11 - 1 ) && ( ( (int)$adult  + (int)$count5 + (int)$count10 + (int)$count11 ) <= 4 ) ) {
 			$has_product = true;
 			$html .= '<div class="cart" data-product_id="'.$product->id.'">';
 			$html .= 	'<div class="product-booking">';
@@ -207,7 +211,7 @@ function getDataRoom() {
 	if(!$has_product) {
 		$html .= '<p>Rất tiếc, không có phòng nghỉ phù hợp với tiêu chí tìm kiếm của Quý khách.</p><p>Quý khách vui lòng thay đổi lựa chọn!</p>';
 		$html .='<script>';
-		$html .='jQuery("document").ready(function(){jQuery(".add-room").appendTo(jQuery(".booking-content .col-md-8")); jQuery(".booking-content .col-md-8 .add-room .btn-show").click(function(){jQuery(".booking-content .col-md-8 .add-room .popup-add").toggle()}); jQuery(".booking-content .col-md-8 .add-room .popup-add .add-btn").click(function(){jQuery(".add-room").appendTo(jQuery(".info-booking .container")); jQuery(".popup-add").removeAttr("style");});});';
+		$html .='jQuery("document").ready(function(){jQuery(".add-room").appendTo(jQuery(".booking-content .col-md-8")); jQuery(".booking-content .col-md-8 .add-room .btn-show").click(function(){jQuery(".booking-content .col-md-8 .add-room .popup-add").toggle()});});';
 		$html .='</script>';
 		echo $html;
 	} else {
