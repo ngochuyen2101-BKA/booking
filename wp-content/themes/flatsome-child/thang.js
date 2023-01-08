@@ -317,7 +317,7 @@
         if(saveFilter) {
             var html = '';
             $.each(saveFilter, function(index, value) {
-                if($(this)[0] == 'r') {
+                if($(this)[0] == 'r' || $(this)[0] == 's') {
                     return true;
                 }
                 html += '<div class="filter-gr">'
@@ -1229,8 +1229,15 @@
                 data['count11']['count11'] = count11;
                 
                 save_filter.push(data)
+                if( ((count11 + adults ) == 4) && standard == 2) {
+                    save_filter.push('standard2');
+                }
             
                 setBBCookie('saveFilter',JSON.stringify(save_filter),864000);
+
+                if((standard == 2 && ( (count11 + adults ) == 4) ) ) {
+                    hasextrabed = false;
+                }
 
                 window.location.href = 'https://'+window.location.host+'/booking-page/?arrival='+checkin+'&departure='+checkout+'&adults1='+adults+'&children1='+childs+'&fromdetail=true&hasextrabed='+hasextrabed;
             }
@@ -1692,11 +1699,9 @@
             if(count_room != count_cur_filter) {
                 var filter = $('.filter-gr').eq(selectedRoom - 1);
                 var adult = filter.find('.numberAdult').val();
-                console.log(adult)
                 if(parseInt(vars['adults1']) > 4) {
                     adult = parseInt(vars['adults1']);
                 }
-                console.log(adult)
                 var child = filter.find('.numberChild').val();
                 var count5 = 0;
                 var count10 = 0;
