@@ -62,7 +62,6 @@
         }
         
         $.ajax({
-            async: false,
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
@@ -265,7 +264,6 @@
 
         setTimeout(function() { 
             $.ajax({
-                async: false,
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
                 data: {
@@ -458,7 +456,6 @@
 
         if(diff > 0) {
             $.ajax({
-                async: false,
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
                 data: {
@@ -653,7 +650,6 @@
 
         if(has_change) {
             $.ajax({
-                async: false,
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
                 data: {
@@ -749,7 +745,6 @@
             $('.loading-wait').css('display','block');
         }
         $.ajax({
-            async: false,
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
@@ -837,7 +832,6 @@
                 $('.loading-wait').css('display','block');
             }
             $.ajax({
-                async: false,
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
                 data: {
@@ -1177,7 +1171,6 @@
             diff = diff > 0 ? diff : 0;
         }
         $.ajax({
-            async: false,
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
@@ -1314,7 +1307,6 @@
      $(document).on('change','.date-checkin, .date-checkout', function() {
         
         $.ajax({
-            async: false,
             url: '/wp-admin/admin-ajax.php',
             method: 'POST',
             data: {
@@ -1636,7 +1628,6 @@
                 var departure = vars['departure'];
                 if(arrival != format_checkin || departure != format_checkout) {
                     $.ajax({
-                        async: false,
                         url: '/wp-admin/admin-ajax.php',
                         method: 'POST',
                         data: {
@@ -1687,6 +1678,7 @@
                 save_filter.push(data)
                 setBBCookie('saveFilter',JSON.stringify(save_filter),864000);
                 setBBCookie('step',1,864000);
+                setBBCookie('selectedRoom',1,864000);
                 generateFIlter();
             }
 
@@ -1696,6 +1688,9 @@
             if(vars['hasextrabed']) {
                 changePriceRoom(adult,0,0,0);
             }
+            console.log(count_room)
+            console.log(count_cur_filter)
+            console.log(selectedRoom)
             if(count_room != count_cur_filter) {
                 var filter = $('.filter-gr').eq(selectedRoom - 1);
                 var adult = filter.find('.numberAdult').val();
@@ -1727,7 +1722,6 @@
                 })
                 $('.selected-filters').html(select);
                 $.ajax({
-                    async: false,
                     url: '/wp-admin/admin-ajax.php',
                     method: 'POST',
                     data: {
@@ -1772,7 +1766,6 @@
         }
         if( !( (current_url.indexOf("thanh-toan") > -1) || (current_url.indexOf("booking-page") > -1) ) ) {
             $.ajax({
-                async: false,
                 url: '/wp-admin/admin-ajax.php',
                 method: 'POST',
                 data: {
