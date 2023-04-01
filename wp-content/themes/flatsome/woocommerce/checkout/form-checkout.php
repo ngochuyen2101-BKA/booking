@@ -223,7 +223,7 @@ if ( flatsome_option( 'facebook_login_checkout' ) && get_option( 'woocommerce_en
     							<input type="email" class="input-text " name="billing_email" id="billing_email" value="" autocomplete="email username">
     							<div class="error-email error-notice" style="display:none;">Vui lòng điền thông tin</div>
     							<div class="error-format error-notice" style="display:none;">Vui lòng điền đúng email</div>
-    							<label for="fname">Số điện thoai<p class="icon-require">*</p></label>
+    							<label for="fname">Số điện thoại<p class="icon-require">*</p></label>
     							<input type="tel" class="input-text " name="billing_phone" id="billing_phone" value="" autocomplete="tel">
     							<div class="error-phone error-notice" style="display:none;">Vui lòng điền thông tin</div>
                                 <input type="hidden" id="billing_country" name="billing_country" value="VN">

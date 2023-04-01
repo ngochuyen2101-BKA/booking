@@ -342,6 +342,17 @@ function custom_empty_cart() {
 	$woocommerce->cart->empty_cart( true );
 	setcookie('step',1,864000, "/");
 }
+// add_action('wp_ajax_check_empty_cart', 'check_cart_empty');
+// add_action('wp_ajax_nopriv_check_empty_cart', 'check_cart_empty');
+// function check_cart_empty()
+// {
+// 	global $woocommerce;
+// 	if ($woocommerce->cart->cart_contents_count != 0) {
+// 		return true;
+// 	} else {
+// 		return false;
+// 	}
+// }
 function check_product_before_order () {
     global $woocommerce;
 	$price = 0;

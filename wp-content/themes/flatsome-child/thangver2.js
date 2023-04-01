@@ -261,4 +261,10 @@ jQuery("document").ready(function(){
 	}
 	jQuery(".related-post.home-sec-7.row-bvlq").attr("data-cate",cat_name);
 	// console.log(cat_name)
+	jQuery("body").click(function (e) {		
+		if (jQuery(e.target).closest(".add-room .popup-add").length == 0) {
+			jQuery('.add-room .popup-add').removeClass('active');
+		};
+	});
+	jQuery(".ds-phong-sec-2 .price-wrapper .price .woocommerce-Price-currencySymbol").text("VND / Đêm");
 });

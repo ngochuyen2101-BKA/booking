@@ -43,6 +43,19 @@
 	src: url(/wp-content/themes/flatsome/font/PlayfairDisplaySemiBold.ttf);
 	font-display: swap;
 }
+#header, #main, #footer{
+	visibility: hidden;
+}
+#t-loadingDiv{background:rgb(7, 130, 129);width:100%;height:100%;position:fixed;bottom:0;left:0;z-index:9999999999999}
+.t-loader{
+position: absolute;
+left: 50%;
+top: 50%;
+z-index: 1;
+width: 150px;
+height: 150px;
+transform: translate(-50%, -50%);
+}
 body{
 	font-family: ManropeRegular
 }
@@ -77,6 +90,9 @@ header.header::before {
     width: 100%;
     height: 170px;
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0) 100%);
+}
+.stuck .header_logo{
+	display: none
 }
 .header-wrapper.stuck, .header.transparent  .header-wrapper.stuck{
 	background-color: #078281;
@@ -646,6 +662,9 @@ input[type=number] {
 	background-color: #F9F5F1;
     padding: 1rem 1.5rem;
 }
+.home-sec-7 .row-uu-dai p{
+	color: white !important
+}
 .ft-sec{
 	padding-top: 70px !important;
 	padding-bottom: 0 !important
@@ -910,7 +929,7 @@ input[type=number] {
 .tt-lh{
 	border: 1px solid #eee;
 	border-radius: 5px;
-	padding: 26px 10px 26px 80px;
+	padding: 21px 10px 21px 80px;
 	margin-bottom: 15px;
 	position: relative;
 }
@@ -934,9 +953,13 @@ input[type=number] {
 .lh-email:before{
 	background-image: url(/wp-content/uploads/2022/10/email.png)
 }
+.lh-fb:before{
+	background-image: url(/wp-content/uploads/2023/02/facebook.png)
+}
 .lh-col-right .col-inner{
 	border: 1px solid #eee;
-	padding: 2rem
+	padding: 2rem;
+	border-radius: 5px
 }
 .sk-sec-1 .from_the_blog_excerpt, .ud-sec-2 .from_the_blog_excerpt{
 	overflow: hidden;
@@ -1417,7 +1440,7 @@ input[type=number] {
 	filter: brightness(0) invert(1);
 } */
 .ds-phong-sec-2 .product-title a{
-	font-size: 32px;
+	font-size: 28px;
 	text-transform: uppercase;
 	font-family: ManropeBold !important;
 	color: #286863
@@ -1425,8 +1448,8 @@ input[type=number] {
 .ds-phong-sec-2 .product-small.box .box-text:hover .product-title a{
 	color: #f9cf7d !important
 }
-.ds-phong-sec-2 .product-small.box .box-text:hover .short-des, .ds-phong-sec-2 .product-small.box .box-text:hover .number-dientich, .ds-phong-sec-2 .product-small.box .box-text:hover .so-nguoi{
-	color: white
+.ds-phong-sec-2 .product-small.box .box-text:hover .short-des, .ds-phong-sec-2 .product-small.box .box-text:hover .number-dientich, .ds-phong-sec-2 .product-small.box .box-text:hover .so-nguoi, .ds-phong-sec-2 .product-small.box .box-text:hover bdi{
+	color: white !important
 }
 .ds-phong-sec-2 .product-small.box .box-text .button{
 	margin-top: 20px
@@ -1667,11 +1690,12 @@ input.datePickerPlaceHolder:before {
 }
 .home-sec-2 form{
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	margin-bottom: 0
 }
 .home-sec-2 form > div{
-	width: 18%
+	width: 18%;
+	margin: 0 15px
 }
 .home-sec-2 .col{
 	padding-top: 25px;
@@ -2109,8 +2133,8 @@ input.datePickerPlaceHolder:before {
 	cursor: not-allowed;
 	width: max-content;
 }
-.btn-submit.het-phong button{
-	pointer-events: none
+.btn-submit.het-phong > *{
+	pointer-events: none;
 }
 .thong-tin .form input, .thong-tin .form select{
 	-webkit-appearance: none !important;
@@ -2252,6 +2276,77 @@ input.datePickerPlaceHolder:before {
 }
 .info-booking .number-childs-cal, .info-booking .number-childs{
 	margin-left: 5px
+}
+.tuoi-label-en{
+	display: none
+}
+.thong-tin .form .form-input.tuoi-tre-em{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap
+}
+.thong-tin .form .form-input.tuoi-tre-em > *{
+	width: 49%;
+	margin-bottom: 10px
+}
+.add-room .filters .filter-gr:last-child{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.add-room .filters .filter-gr:last-child > *{
+	width: 100%
+}
+.add-room .filters .filter-gr .number-room{
+	font-family: ManropeSemiBold !important;
+}
+.add-room .filters .filter-gr:last-child .number-room, .add-room .filters .filter-gr:last-child i{
+	width: max-content !important
+}
+.add-room span.btn-add-more{
+	max-width: max-content;
+}
+.add-room .filters .filter-gr:last-child i{
+	cursor: pointer
+}
+.add-room .filters .filter-gr:last-child i:hover{
+	color: red
+}
+.choose-room > p:first-child{
+	margin-bottom: 0
+}
+.ds-phong-sec-2 .price-wrapper{
+	display: flex;
+	flex-wrap: wrap
+}
+.ds-phong-sec-2 .price-wrapper > *{
+	width: 100%
+}
+.ds-phong-sec-2 .price-wrapper .number-detail{
+	order: 1;
+}
+.ds-phong-sec-2 .price-wrapper .price{
+	order: 2;
+	font-size: 20px;
+	margin-top: 10px
+}
+.ds-phong-sec-2 .price-wrapper .short-des{
+	order: 3;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 5;
+    height: 150px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.ds-phong-sec-2 .price-wrapper .button{
+	order: 4;
+}
+.ds-phong-sec-2 .price-wrapper .price span.amount{
+	color: #286863
 }
 @media(min-width:1100px){
 	.home-sec-3 .col-slide-phong{
@@ -2744,10 +2839,14 @@ input.datePickerPlaceHolder:before {
 		flex-wrap: wrap
 	}
 	.home-sec-2 form > div{
-		width: 32%
+		width: 45%;
+		margin: 0 5px;
+		min-height: 39px !important
+	}
+	.home-sec-2 form > div.nguoi-lon > select, .home-sec-2 form > div.btn-submit input{
+		min-height: 39px !important
 	}
 	.home-sec-2 form > div.ngay-den, .home-sec-2 form > div.ngay-di{
-		width: 49%;
 		margin-bottom: 10px;
 	}
 	.home-sec-2 form > .btn-submit input{
@@ -2874,6 +2973,12 @@ input.datePickerPlaceHolder:before {
 		background-size: 30%;
     	background-repeat: repeat-y;
 		background-position: 90%;
+	}
+	.banner-head{
+		padding-top: 300px !important
+	}
+	.booking-content .col-md-8 .add-room .popup-add{
+		width: 100% !important
 	}
 }
 .message-notice {
